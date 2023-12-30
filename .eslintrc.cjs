@@ -32,6 +32,16 @@ module.exports = {
     ],
     // 라이브러리 패키지 구문을 제외하고는 확장자 사용
     "import/extensions": ["error", "ignorePackages"],
+    // var 키워드 사용 금지
+    "no-var": "error",
+    // 사용하지 않은 변수 금지
+    "no-unused-vars": "warn",
+    // 여러 줄 공백 금지
+    "no-multiple-empty-lines": "error",
+    // 동등 연산자 금지 -> 일치 연산자 사용
+    eqeqeq: "error",
+    // 콘솔 로그 경고
+    "no-console": ["warn", { allow: ["warn", "error", "info"] }],
   },
   settings: {
     // "import/parsers": {
