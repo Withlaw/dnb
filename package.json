@@ -1,8 +1,17 @@
 {
-  "name": "frontend",
+  "name": "dnb-v2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "우리 동네 직거래 도서 대여 서비스",
+  "author": {
+    "name": "Withlaw",
+    "email": "sanxang@gmail.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/Withlaw/dnb"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -13,6 +22,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
     "@tanstack/react-query": "^5.15.5",
+    "clsx": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",

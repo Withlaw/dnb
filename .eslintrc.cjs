@@ -1,10 +1,4 @@
 module.exports = {
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
   root: true,
   env: { browser: true, es2020: true },
   extends: [
@@ -17,6 +11,11 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs", "*.config.*"],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: ["./tsconfig.json"],
+  },
   plugins: ["react-refresh", "import"],
   rules: {
     // // 상대 경로 사용 제한
