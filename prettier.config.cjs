@@ -1,5 +1,9 @@
 /** @type {import('prettier').Config} */
 module.exports = {
+	plugins: [
+		'@trivago/prettier-plugin-sort-imports',
+		'prettier-plugin-tailwindcss',
+	],
 	printWidth: 80,
 	tabWidth: 2,
 	useTabs: true,
@@ -10,12 +14,6 @@ module.exports = {
 	jsxBracketSameLine: true,
 	arrowParens: 'avoid',
 	endOfLine: 'auto',
-
-	plugins: [
-		'prettier-plugin-tailwindcss',
-		'@trivago/prettier-plugin-sort-imports',
-	],
-
 	importOrder: ['^@/(.*)$', '^[./]'],
 	importOrderSeparation: true,
 };

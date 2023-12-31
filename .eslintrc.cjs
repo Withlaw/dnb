@@ -35,7 +35,8 @@ module.exports = {
 		'no-multiple-empty-lines': 'error',
 		eqeqeq: 'error',
 		'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
-		'prefer-const': ['warn'],
+		'prefer-const': 'warn',
+		'@typescript-eslint/no-unused-vars': 'warn',
 	},
 	settings: {
 		// "import/parsers": {
