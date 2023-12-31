@@ -17,19 +17,19 @@ const routes: RouteObject[] = [
     children: [
       { index: true, element: null },
       {
-        path: ROUTE_PATHS.BOOKS,
+        path: "books",
         element: null,
       },
     ],
   },
-  { path: ROUTE_PATHS.SIGN, element: null },
+  { path: "/sign", element: null },
   {
     id: "auth",
     element: null,
     children: [
-      { path: ROUTE_PATHS.USERS, element: null },
+      { path: "/users", element: null },
       {
-        path: ROUTE_PATHS.DASHBOARD,
+        path: "/dashboard",
         element: null,
       },
     ],
