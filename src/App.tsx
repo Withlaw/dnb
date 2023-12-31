@@ -4,12 +4,14 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import { ROUTE_PATHS } from "@/constants/index.ts";
+import ErrorPage from "@/pages/error.tsx";
 
 const routes: RouteObject[] = [
   {
     path: "/",
     id: "root",
     element: null,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: null },
       {
