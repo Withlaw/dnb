@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
+import MainNav from '@/ui/nav-main.tsx';
+
 const RootLayout = () => {
 	return (
-		<div className="container mx-auto bg-green-100 h-dvh flex flex-col">
+		<div className="max-w-screen-sm container mx-auto bg-green-100 h-dvh flex flex-col">
 			<header className="bg-green-600 border-b border-grey-100 border-solid px-6 py-2 w-full h-[50px] flex-initial flex justify-between items-center">
 				<div className="flex">동네북</div>
 				<div className="flex">
@@ -16,7 +18,7 @@ const RootLayout = () => {
 				<Outlet />
 			</main>
 			{/* <footer>app footer</footer> */}
-			<nav className="px-4 bg-green-800 h-[50px] flex-initial">app nav</nav>
+			<MainNav />
 		</div>
 	);
 };
