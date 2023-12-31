@@ -1,11 +1,11 @@
+import ErrorPage from "@/pages/error.tsx";
+import RootLayout from "@/ui/layout-root.tsx";
+
 import {
   RouteObject,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import { ROUTE_PATHS } from "@/constants/index.ts";
-import ErrorPage from "@/pages/error.tsx";
-import RootLayout from "@/ui/layout-root.tsx";
 
 // 나중에 래퍼 레이아웃 다르게 적용하기 위해 로그인페이지, 유저 페이지는 sibling 라우트 관계로 둠.
 const routes: RouteObject[] = [
