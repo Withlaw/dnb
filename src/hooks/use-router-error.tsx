@@ -11,13 +11,13 @@ export default function useRouterError() {
   if (isRouteErrorResponse(error)) {
     status = error.status;
     statusText = error.statusText;
-    console.error("router error: ", error.data);
+    console.error("Router error: ", error.data);
   }
 
   if (error instanceof Error) {
     title = error.name;
     message = error.message;
-    console.error("router error: ", error.stack);
+    console.error("Something went wrong by router: ", error.stack);
   }
 
   if (typeof error === "string") {
