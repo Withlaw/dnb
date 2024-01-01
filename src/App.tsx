@@ -5,6 +5,7 @@ import {
 	createBrowserRouter,
 } from 'react-router-dom';
 
+import BookDetailPage from '@/pages/book-detail.tsx';
 import BooksPage from '@/pages/books.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import RootLayout from '@/ui/layout-root.tsx';
@@ -21,6 +22,10 @@ const routes: RouteObject[] = [
 			{
 				path: 'books',
 				element: <BooksPage />,
+			},
+			{
+				path: 'books/:bookId',
+				element: <BookDetailPage />,
 			},
 		],
 	},
