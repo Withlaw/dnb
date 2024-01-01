@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
+import ReactTextareaAutosize from 'react-textarea-autosize';
 
 const styleCard = 'border border-solid border-stone-300 rounded-md my-3 p-3';
 
@@ -10,14 +10,6 @@ const styleInput = 'bg-inherit px-1 pb-1 text-lg outline-none';
 const styleInputContainer = 'flex items-center justify-between';
 
 const BookWritePage = () => {
-	const textareaRef = useRef(null);
-	const [textAreaHeight, setTextAreaHeight] = useState(0);
-
-	const autoGrow = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-		const target = e.currentTarget;
-		console.log(target.rows, target.style.height);
-	};
-
 	return (
 		<form className="flex flex-col">
 			<fieldset className={styleCard + ' '}>
@@ -51,12 +43,15 @@ const BookWritePage = () => {
 
 			<fieldset className={styleCard + ' flex-auto'}>
 				<legend className={styleLegend}>설명</legend>
-				<textarea
-					ref={textareaRef}
-					onKeyUp={autoGrow}
-					rows={10}
+				{/* <textarea
+					rows={5}
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
-					className={styleInput + ' h-auto w-full resize-none'}></textarea>
+					className={styleInput + ' h-auto w-full resize-none'}></textarea> */}
+				<ReactTextareaAutosize
+					minRows={5}
+					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
+					className={styleInput + ' h-auto w-full resize-none'}
+				/>
 			</fieldset>
 
 			<fieldset className={styleCard}>
