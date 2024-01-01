@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import HeaderTitle from '@/ui/header-title.tsx';
-
 type BooksPreview = {
 	id: string;
 	title: string;
@@ -99,7 +97,7 @@ const BooksPage = () => {
 							<li
 								key={book.id}
 								className="group my-1 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-2xl">
-								<Link to="test1" className=" flex justify-between">
+								<Link to="est1" className=" flex justify-between">
 									<figure className="flex-none">
 										<img
 											className="h-44 w-32 group-hover:scale-110 sm:h-32 sm:w-24"

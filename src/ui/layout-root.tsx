@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import MainHeader from '@/ui/header-main.tsx';
 import MainNav from '@/ui/nav-main.tsx';
@@ -13,6 +13,7 @@ const RootLayout = () => {
 			</main>
 			{/* <footer>app footer</footer> */}
 			<MainNav />
+			<ScrollRestoration />
 		</div>
 	);
 };

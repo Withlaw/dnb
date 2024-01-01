@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-	HiHome,
 	HiOutlineBookOpen,
 	HiOutlineChat,
 	HiOutlineMap,
@@ -49,7 +48,7 @@ const navItems: NavItem[] = [
 	},
 ];
 
-const MainNav = () => {
+const NavMain = () => {
 	return (
 		<nav className=" fixed bottom-0 h-[50px] w-full max-w-screen-sm flex-initial  rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black">
 			<ul className="flex h-full items-center justify-around text-xs">
@@ -75,4 +74,4 @@ const MainNav = () => {
 	);
 };
 
-export default MainNav;
+export default NavMain;
