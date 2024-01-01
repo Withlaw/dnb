@@ -8,7 +8,7 @@ import {
 } from 'react-icons/hi';
 import { NavLink } from 'react-router-dom';
 
-type Nav = {
+type NavItem = {
 	id: number;
 	name: string;
 	path: string;
@@ -17,7 +17,7 @@ type Nav = {
 };
 
 const MainNav = () => {
-	const navList: Nav[] = [
+	const navItems: NavItem[] = [
 		{ id: 0, name: '지도', path: '/books', icon: <HiOutlineMap size="24" /> },
 		{
 			id: 1,
@@ -38,19 +38,19 @@ const MainNav = () => {
 	return (
 		<nav className=" h-[50px] flex-initial rounded-t-2xl border border-solid shadow-lg shadow-black">
 			<ul className="flex h-full items-center justify-around text-xs">
-				{navList.map(nav => {
+				{navItems.map(item => {
 					return (
-						<li key={nav.id} className="flex items-center">
+						<li key={item.id} className="flex items-center">
 							<NavLink
-								to={nav.path}
+								to={item.path}
 								className={({ isActive }) =>
 									isActive
 										? 'flex flex-col items-center text-green-900'
 										: 'flex flex-col items-center'
 								}
-								end={nav.end}>
-								<span>{nav.icon}</span>
-								<span>{nav.name}</span>
+								end={item.end}>
+								<span>{item.icon}</span>
+								<span>{item.name}</span>
 							</NavLink>
 						</li>
 					);
