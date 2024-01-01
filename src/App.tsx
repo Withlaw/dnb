@@ -17,7 +17,7 @@ const routes: RouteObject[] = [
 		element: <RootLayout />,
 		errorElement: <ErrorPage />,
 		children: [
-			{ index: true, element: <Navigate to={'books'} replace /> },
+			// { index: true, element: <Navigate to={'books'} replace /> },
 			{
 				path: 'books',
 				element: <BooksPage />,

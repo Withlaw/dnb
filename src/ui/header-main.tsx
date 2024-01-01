@@ -1,7 +1,5 @@
 import { HiMenu, HiOutlineSearch } from 'react-icons/hi';
 
-import icons from '@/assets/icons.svg';
-
 type HeaderItem = {
 	id: number;
 	name: string;
@@ -18,11 +16,6 @@ const MainHeader = () => {
 			<div className="flex min-w-4">
 				<div>
 					<span className="text-xl tracking-widest">동네북</span>
-				</div>
-				<div>
-					<svg className="h-6 w-6 fill-none">
-						<use href={`${icons}#logo-header`}></use>
-					</svg>
 				</div>
 			</div>
 			<div className="flex items-center justify-end ">
