@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import HeaderTitle from '@/ui/header-title.tsx';
+
 type BooksPreview = {
 	id: string;
 	title: string;
@@ -94,7 +96,9 @@ const BooksPage = () => {
 				<ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3">
 					{dummy.map(book => {
 						return (
-							<li className="group my-1 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-2xl">
+							<li
+								key={book.id}
+								className="group my-1 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-2xl">
 								<Link to="test1" className=" flex justify-between">
 									<figure className="flex-none">
 										<img
