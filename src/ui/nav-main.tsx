@@ -18,38 +18,38 @@ type NavItem = {
 	end?: boolean;
 };
 
-const MainNav = () => {
-	const navItems: NavItem[] = [
-		{ id: 0, name: '지도', path: '/books', icon: <HiOutlineMap size="24" /> },
-		{
-			id: 1,
-			name: '대여 목록',
-			path: '/books',
-			icon: <HiOutlineBookOpen size="24" />,
-		},
-		// { id: 2, name: '홈', path: '/', icon: <HiHome size="24" />, end: true },
-		{
-			id: 2,
-			name: '홈',
-			path: '/',
-			icon: (
-				<div>
-					<svg className="size-6 fill-none ">
-						<use href={`${icons}#logo-header`}></use>
-					</svg>
-				</div>
-			),
-			end: true,
-		},
-		{ id: 3, name: '채팅', path: '/books', icon: <HiOutlineChat size="24" /> },
-		{
-			id: 4,
-			name: '내 정보',
-			path: '/books',
-			icon: <HiOutlineUser size="24" />,
-		},
-	];
+const navItems: NavItem[] = [
+	{ id: 0, name: '지도', path: '/books', icon: <HiOutlineMap size="24" /> },
+	{
+		id: 1,
+		name: '대여 목록',
+		path: '/books',
+		icon: <HiOutlineBookOpen size="24" />,
+	},
+	// { id: 2, name: '홈', path: '/', icon: <HiHome size="24" />, end: true },
+	{
+		id: 2,
+		name: '홈',
+		path: '/',
+		icon: (
+			<div>
+				<svg className="size-6 fill-none ">
+					<use href={`${icons}#logo-header`}></use>
+				</svg>
+			</div>
+		),
+		end: true,
+	},
+	{ id: 3, name: '채팅', path: '/books', icon: <HiOutlineChat size="24" /> },
+	{
+		id: 4,
+		name: '내 정보',
+		path: '/books',
+		icon: <HiOutlineUser size="24" />,
+	},
+];
 
+const MainNav = () => {
 	return (
 		<nav className=" fixed bottom-0 h-[50px] w-full max-w-screen-sm flex-initial  rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black">
 			<ul className="flex h-full items-center justify-around text-xs">

@@ -6,11 +6,12 @@ type HeaderItem = {
 	icon?: React.ReactNode;
 };
 
+const headerItems: HeaderItem[] = [
+	{ id: 0, name: 'search', icon: <HiOutlineSearch size="24" /> },
+	{ id: 1, name: 'menu', icon: <HiMenu size="24" /> },
+];
+
 const MainHeader = () => {
-	const headerItems: HeaderItem[] = [
-		{ id: 0, name: 'search', icon: <HiOutlineSearch size="24" /> },
-		{ id: 1, name: 'menu', icon: <HiMenu size="24" /> },
-	];
 	return (
 		<header className="fixed flex h-[50px] w-full max-w-screen-sm flex-initial items-center justify-between border-b border-solid border-stone-200 bg-[#fff] px-6 py-2">
 			<div className="flex min-w-4">
