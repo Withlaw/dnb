@@ -1,4 +1,4 @@
-import { HiOutlineSearch, HiMenu } from 'react-icons/hi';
+import { HiMenu, HiOutlineSearch } from 'react-icons/hi';
 
 import icons from '@/assets/icons.svg';
 
@@ -14,8 +14,8 @@ const MainHeader = () => {
 		{ id: 1, name: 'menu', icon: <HiMenu size="24" /> },
 	];
 	return (
-		<header className="flex h-[50px] w-full flex-initial items-center justify-between border-b border-solid border-stone-200 px-6 py-2">
-			<div className="flex">
+		<header className="fixed flex h-[50px] w-full max-w-screen-sm flex-initial items-center justify-between border-b border-solid border-stone-200 bg-[#fff] px-6 py-2">
+			<div className="flex min-w-4">
 				<div>
 					<span className="text-xl tracking-widest">동네북</span>
 				</div>

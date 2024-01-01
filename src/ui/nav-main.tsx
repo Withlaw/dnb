@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-	HiOutlineMap,
+	HiHome,
 	HiOutlineBookOpen,
 	HiOutlineChat,
+	HiOutlineMap,
 	HiOutlineUser,
-	HiHome,
 } from 'react-icons/hi';
 import { NavLink } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ const MainNav = () => {
 	];
 
 	return (
-		<nav className=" h-[50px] flex-initial rounded-t-2xl border border-solid shadow-lg shadow-black">
+		<nav className=" fixed bottom-0 h-[50px] w-full max-w-screen-sm flex-initial  rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black">
 			<ul className="flex h-full items-center justify-around text-xs">
 				{navItems.map(item => {
 					return (
