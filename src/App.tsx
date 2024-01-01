@@ -1,9 +1,11 @@
 import {
+	Navigate,
 	RouteObject,
 	RouterProvider,
 	createBrowserRouter,
 } from 'react-router-dom';
 
+import BooksPage from '@/pages/books.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import RootLayout from '@/ui/layout-root.tsx';
 
@@ -15,10 +17,10 @@ const routes: RouteObject[] = [
 		element: <RootLayout />,
 		errorElement: <ErrorPage />,
 		children: [
-			{ index: true, element: null },
+			{ index: true, element: <Navigate to={'books'} replace /> },
 			{
 				path: 'books',
-				element: null,
+				element: <BooksPage />,
 			},
 		],
 	},
