@@ -88,7 +88,10 @@ const BooksPage = () => {
 	return (
 		<div className="flex flex-col py-2">
 			<div className="flex-initial">
-				<button className="h-8 w-full bg-green-600">책 등록하기</button>
+				<Link to="write">
+					{/* 당근처럼 아이콘으로? */}
+					<button className="h-8 w-full bg-green-600">글쓰기</button>
+				</Link>
 			</div>
 			<div className="flex-auto py-2">
 				<ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3">

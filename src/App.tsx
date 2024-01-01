@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import BookDetailPage from '@/pages/book-detail.tsx';
+import BookWritePage from '@/pages/book-write.tsx';
 import BooksPage from '@/pages/books.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import RootLayout from '@/ui/layout-root.tsx';
@@ -27,6 +28,7 @@ const routes: RouteObject[] = [
 				path: 'books/:bookId',
 				element: <BookDetailPage />,
 			},
+			{ path: '/books/write', element: <BookWritePage /> },
 		],
 	},
 	{ path: '/sign', element: null },

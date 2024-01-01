@@ -28,12 +28,12 @@ const dummy: BookDetail = {
 	merchantName: '몽키디루피',
 };
 
-const BookDetailPage = () => {
-	const styleDiv = 'border-1 flex justify-between border-b border-solid py-3';
-	const styleText = 'mx-1';
+const styleDiv = 'border-1 flex justify-between border-b border-solid py-3';
+const styleText = 'mx-1';
 
+const BookDetailPage = () => {
 	return (
-		<div className="my-3 flex flex-col rounded-md ">
+		<div className="my-3 flex flex-col">
 			<div className="flex justify-center rounded-md bg-stone-200">
 				<figure>
 					{/* <div className="h-72 w-64 bg-green-900 ">이미지</div> */}
@@ -42,7 +42,7 @@ const BookDetailPage = () => {
 			</div>
 
 			<div className="flex flex-col p-2">
-				<div className="border-1 border-b border-solid py-2">
+				<div className="border-b border-solid py-2">
 					<h1 className="text-xl font-semibold">{dummy.title}</h1>
 					<div className="ml-1 text-sm">
 						<span>{dummy.author}</span>
@@ -78,7 +78,7 @@ const BookDetailPage = () => {
 			</div>
 
 			<div className="p-4">
-				<button className="h-8 w-full bg-green-600">책 예약하기</button>
+				<button className="h-8 w-full bg-green-600">예약하기</button>
 			</div>
 		</div>
 	);
