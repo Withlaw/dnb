@@ -20,7 +20,7 @@ const HeaderMain = () => {
 	const isBooksPage = currentPath !== null;
 
 	return (
-		<header className="fixed flex h-[50px] w-full max-w-screen-sm flex-initial items-center justify-between border-b border-solid border-stone-200 bg-[#fff] px-6 py-2">
+		<header className="fixed z-[999] flex h-[50px] w-full max-w-screen-sm flex-initial items-center justify-between border-b border-solid border-stone-200 bg-[#fff] px-6 py-2">
 			<div className="flex min-w-4">
 				<HeaderNav isBooksPage={isBooksPage} />
 			</div>

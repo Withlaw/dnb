@@ -61,7 +61,7 @@ const BookDetailPage = () => {
 						</figure>
 					</Link>
 					<div>
-						<span>채팅</span>
+						<span>채팅하기</span>
 					</div>
 				</div>
 

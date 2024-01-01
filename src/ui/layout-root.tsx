@@ -13,6 +13,8 @@ const RootLayout = () => {
 			</main>
 			{/* <footer>app footer</footer> */}
 			<MainNav />
+
+			{/* 페이지 전환시 스크롤 초기화 */}
 			<ScrollRestoration />
 		</div>
 	);
