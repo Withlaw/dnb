@@ -27,7 +27,7 @@ export default function Modal({ children }: Props) {
 
 	return createPortal(
 		// <dialog ref={dialog}>
-		<dialog ref={dialog} autoFocus={false}>
+		<dialog ref={dialog} autoFocus={false} className="bg-green-100">
 			{children}
 		</dialog>,
 		document.getElementById('root')!,

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import PostForm from '@/features/books/post-form.component.tsx';
 import Button from '@/ui/button.tsx';
 import Modal from '@/ui/modal.tsx';
 
@@ -92,17 +93,14 @@ const BookDetailPage = () => {
 
 			{isModalOpen && (
 				<Modal>
-					<form
-						onSubmit={() => {
-							console.log('form submitted');
-						}}>
-						<p>모달창</p>
-						<button>그냥버튼</button>
-						<br />
-						<Modal.BtnSubmit>제출</Modal.BtnSubmit>
-						<br />
-						<Modal.BtnClose onClose={modalBtnHandler}>닫기</Modal.BtnClose>
-					</form>
+					<div className="container mx-auto flex h-dvh max-w-screen-sm flex-col">
+						<PostForm>
+							<div>
+								<Modal.BtnSubmit>제출</Modal.BtnSubmit>
+								<Modal.BtnClose onClose={modalBtnHandler}>닫기</Modal.BtnClose>
+							</div>
+						</PostForm>
+					</div>
 				</Modal>
 			)}
 		</div>
@@ -110,3 +108,17 @@ const BookDetailPage = () => {
 };
 
 export default BookDetailPage;
+
+/*
+						<form
+							onSubmit={() => {
+								console.log('form submitted');
+							}}>
+							<p>모달창</p>
+							<button>그냥버튼</button>
+							<br />
+							<Modal.BtnSubmit>제출</Modal.BtnSubmit>
+							<br />
+							<Modal.BtnClose onClose={modalBtnHandler}>닫기</Modal.BtnClose>
+						</form>
+*/
