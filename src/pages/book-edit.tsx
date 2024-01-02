@@ -1,9 +1,12 @@
 import PostForm from '@/features/books/post-form.component.tsx';
-import HeaderMain from '@/ui/header-main.tsx';
-import NavHeader from '@/ui/nav-header.tsx';
+import Button from '@/ui/button.tsx';
 
 const BookEditPage = () => {
-	return <PostForm />;
+	return (
+		<PostForm>
+			<Button>수정 완료</Button>
+		</PostForm>
+	);
 };
 
 export default BookEditPage;
