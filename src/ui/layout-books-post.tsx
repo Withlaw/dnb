@@ -1,13 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import HeaderMain from '@/ui/header-main.tsx';
 import NavHeader from '@/ui/nav-header.tsx';
 
 const BooksPostLayout = () => {
+	const navigate = useNavigate();
+	const goBack = () => {
+		navigate(-1);
+	};
 	return (
 		<div className="container mx-auto flex h-dvh max-w-screen-sm flex-col">
 			<HeaderMain>
-				<div className="flex min-w-4">
+				<div className="flex min-w-4" onClick={goBack}>
 					<NavHeader />
 				</div>
 			</HeaderMain>

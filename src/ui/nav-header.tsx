@@ -1,5 +1,4 @@
 import { HiChevronLeft } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
 
 type Props = {
 	isBooksPage?: boolean;
@@ -18,11 +17,9 @@ const NavHeader = ({ isBooksPage = false, title = '동네북' }: Props) => {
 		return (
 			<div>
 				{/* 홈페이지가 아닐 경우 뒤로가기 버튼 */}
-				<Link to=".." relative="path">
-					<span className="text-2xl">
-						<HiChevronLeft />
-					</span>
-				</Link>
+				<span className="text-2xl hover:cursor-pointer">
+					<HiChevronLeft />
+				</span>
 			</div>
 		);
 };

@@ -1,5 +1,5 @@
 import { HiMenu, HiOutlineSearch } from 'react-icons/hi';
-import { Outlet, ScrollRestoration } from 'react-router-dom';
+import { Outlet, ScrollRestoration, useNavigate } from 'react-router-dom';
 import { useMatch } from 'react-router-dom';
 
 import HeaderMain from '@/ui/header-main.tsx';
@@ -22,10 +22,16 @@ const RootLayout = () => {
 	const currentPath = useMatch('/books');
 	const isBooksPage = currentPath !== null;
 
+	const navigate = useNavigate();
+	const goBack = () => {
+		if (isBooksPage) return;
+		navigate(-1);
+	};
+
 	return (
 		<div className="container mx-auto flex h-dvh max-w-screen-sm flex-col">
 			<HeaderMain>
-				<div className="flex min-w-4">
+				<div className="flex min-w-4" onClick={goBack}>
 					<NavHeader isBooksPage={isBooksPage} />
 				</div>
 
