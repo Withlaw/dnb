@@ -35,7 +35,18 @@ export default function Modal({ children }: Props) {
 }
 
 const BtnSubmit = ({ children }: Props) => {
-	return <button formMethod="dialog">{children}</button>;
+	const btnClickHandler = (
+		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+	) => {
+		const isConfirmed = window.confirm('수정하시겠습니까?');
+		if (!isConfirmed) e.preventDefault(); // 취소 응답시 form submit event 미발생
+	};
+
+	return (
+		<button formMethod="dialog" onClick={btnClickHandler}>
+			{children}
+		</button>
+	);
 };
 
 const BtnClose = ({ children, onClose }: Props) => {

@@ -101,7 +101,7 @@ const BookDetailPage = () => {
 						<br />
 						<Modal.BtnSubmit>제출</Modal.BtnSubmit>
 						<br />
-						<Modal.BtnClose onClose={modalBtnHandler}>취소</Modal.BtnClose>
+						<Modal.BtnClose onClose={modalBtnHandler}>닫기</Modal.BtnClose>
 					</form>
 				</Modal>
 			)}
