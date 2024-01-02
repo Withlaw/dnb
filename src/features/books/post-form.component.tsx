@@ -12,6 +12,8 @@ enum FormStyle {
 
 type Props = {
 	children?: React.ReactNode;
+	inputData?: any;
+	onSubmit?: () => void;
 };
 
 const PostForm = ({ children }: Props) => {

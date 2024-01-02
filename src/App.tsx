@@ -10,6 +10,7 @@ import BookEditPage from '@/pages/book-edit.tsx';
 import BookWritePage from '@/pages/book-write.tsx';
 import BooksPage from '@/pages/books.tsx';
 import ErrorPage from '@/pages/error.tsx';
+import BooksPostLayout from '@/ui/layout-books-post.tsx';
 import RootLayout from '@/ui/layout-root.tsx';
 
 // 나중에 래퍼 레이아웃 다르게 적용하기 위해 로그인페이지, 유저 페이지는 sibling 라우트 관계로 둠.
@@ -41,10 +42,15 @@ const routes: RouteObject[] = [
 				path: '/dashboard',
 				element: null,
 			},
-			{ path: '/books/write', element: <BookWritePage /> },
 			{
-				path: '/books/:bookId/edit',
-				element: <BookEditPage />,
+				element: <BooksPostLayout />,
+				children: [
+					{ path: '/books/write', element: <BookWritePage /> },
+					{
+						path: '/books/:bookId/edit',
+						element: <BookEditPage />,
+					},
+				],
 			},
 		],
 	},
