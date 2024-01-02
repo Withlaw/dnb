@@ -6,7 +6,7 @@ type Props = {
 	onClose?: () => void;
 };
 
-export default function Modal({ children, onClose }: Props) {
+export default function Modal({ children }: Props) {
 	const dialog = useRef<HTMLDialogElement>(null);
 
 	useEffect(() => {
@@ -26,29 +26,26 @@ export default function Modal({ children, onClose }: Props) {
 	}, []);
 
 	return createPortal(
-		// <dialog className="modal" ref={dialog} onClose={onClose}>
-		<dialog
-			ref={dialog}
-			onClose={() => {
-				console.log('modal closed');
-			}}
-			onClick={() => {
-				console.log('modal click');
-			}}>
+		// <dialog ref={dialog}>
+		<dialog ref={dialog} autoFocus={false}>
 			{children}
 		</dialog>,
 		document.getElementById('root')!,
 	);
 }
 
-const SubmitButton = ({ children }: Props) => {
+const BtnSubmit = ({ children }: Props) => {
 	return <button formMethod="dialog">{children}</button>;
 };
 
-const CloseButton = ({ children }: Props) => {
+const BtnClose = ({ children, onClose }: Props) => {
 	// 컨텍스트 만들어서 dialog 노드 공유해야할듯
-	return <button>{children}</button>;
+	const btnClickHandler = () => {
+		if (!onClose) return;
+		onClose();
+	};
+	return <button onClick={btnClickHandler}>{children}</button>;
 };
 
-Modal.SubmitButton = SubmitButton;
-Modal.CloseButton = CloseButton;
+Modal.BtnSubmit = BtnSubmit;
+Modal.BtnClose = BtnClose;

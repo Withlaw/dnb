@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '@/ui/button.tsx';
+import Modal from '@/ui/modal.tsx';
 
 type BookDetail = {
 	description: string;
@@ -34,6 +36,10 @@ const styleDiv = 'border-1 flex justify-between border-b border-solid py-3';
 const styleText = 'mx-1';
 
 const BookDetailPage = () => {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const modalBtnHandler = () => {
+		setIsModalOpen(prevValue => !prevValue);
+	};
 	return (
 		<div className="my-3 flex flex-col">
 			<div className="flex justify-center rounded-md bg-stone-200">
@@ -81,8 +87,24 @@ const BookDetailPage = () => {
 
 			<div className="p-4">
 				<Button>예약하기</Button>
-				<Button>수정하기</Button>
+				<button onClick={modalBtnHandler}>수정하기</button>
 			</div>
+
+			{isModalOpen && (
+				<Modal>
+					<form
+						onSubmit={() => {
+							console.log('form submitted');
+						}}>
+						<p>모달창</p>
+						<button>그냥버튼</button>
+						<br />
+						<Modal.BtnSubmit>제출</Modal.BtnSubmit>
+						<br />
+						<Modal.BtnClose onClose={modalBtnHandler}>취소</Modal.BtnClose>
+					</form>
+				</Modal>
+			)}
 		</div>
 	);
 };
