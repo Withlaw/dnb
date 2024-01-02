@@ -19,7 +19,9 @@ const BookWritePage = () => {
 				<div className={styleInputContainer + ' border-b'}>
 					<input
 						type="text"
+						name="title"
 						placeholder="책 제목을 입력해주세요."
+						required
 						className={styleInput}></input>
 					<span className="text-xl">
 						<HiOutlineSearch />
@@ -36,7 +38,9 @@ const BookWritePage = () => {
 				<div className={styleInputContainer}>
 					<input
 						type="number"
+						name="fee"
 						placeholder="대여료를 입력해주세요."
+						required
 						className={styleInput + ' flex-auto appearance-none'}></input>
 					{/* 타이핑시 ₩ 색상 까맣게 효과 */}
 					<span className="text-xl text-gray-400">₩</span>
@@ -51,6 +55,7 @@ const BookWritePage = () => {
 					className={styleInput + ' h-auto w-full resize-none'}></textarea> */}
 				<ReactTextareaAutosize
 					minRows={5}
+					name="description"
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
 					className={styleInput + ' h-auto w-full resize-none'}
 				/>
