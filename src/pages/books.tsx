@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import Button from '@/ui/button.tsx';
+
 type BooksPreview = {
 	id: string;
 	title: string;
@@ -90,7 +92,7 @@ const BooksPage = () => {
 			<div className="flex-initial">
 				<Link to="write">
 					{/* 당근처럼 아이콘으로? */}
-					<button className="h-8 w-full bg-green-600">글쓰기</button>
+					<Button>글쓰기</Button>
 				</Link>
 			</div>
 			<div className="flex-auto py-2">

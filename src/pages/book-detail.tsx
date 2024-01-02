@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import Button from '@/ui/button.tsx';
+
 type BookDetail = {
 	description: string;
 	publisher: string;
@@ -78,7 +80,7 @@ const BookDetailPage = () => {
 			</div>
 
 			<div className="p-4">
-				<button className="h-8 w-full bg-green-600">예약하기</button>
+				<Button>예약하기</Button>
 			</div>
 		</div>
 	);

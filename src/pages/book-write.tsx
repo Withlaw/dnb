@@ -1,6 +1,8 @@
 import { HiOutlineSearch } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
+import Button from '@/ui/button.tsx';
+
 const styleCard = 'border border-solid border-stone-300 rounded-md my-3 p-3';
 
 const styleLegend = 'px-1 text-sm';
@@ -66,7 +68,7 @@ const BookWritePage = () => {
 
 			{/* 하단 네비 바 자리에 예약하기버튼 두기 */}
 			<div className="my-3">
-				<button className="h-8 w-full bg-green-600">작성 완료</button>
+				<Button>작성 완료</Button>
 			</div>
 		</form>
 	);
