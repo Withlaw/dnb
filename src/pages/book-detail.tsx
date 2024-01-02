@@ -89,6 +89,10 @@ const BookDetailPage = () => {
 			<div className="p-4">
 				<Button>예약하기</Button>
 				<button onClick={modalBtnHandler}>수정하기</button>
+				<span>{'   '}</span>
+				<Link to={'edit'} onClick={modalBtnHandler}>
+					수정페이지가기
+				</Link>
 			</div>
 
 			{isModalOpen && (
