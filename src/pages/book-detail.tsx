@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import icons from '@/assets/icons.svg';
 import PostForm from '@/features/books/post-form.component.tsx';
 import Button from '@/ui/button.tsx';
 import Modal from '@/ui/modal.tsx';
@@ -13,6 +14,7 @@ type BookDetail = {
 	title: string;
 	imageUrl: string;
 	merchantName: string;
+	merchantAvatar: string | null;
 };
 
 const dummy: BookDetail = {
@@ -31,6 +33,7 @@ const dummy: BookDetail = {
 		'https://images.unsplash.com/photo-1703593693062-16aab101121a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8fA%3D%3D',
 
 	merchantName: '몽키디루피',
+	merchantAvatar: null,
 };
 
 const styleDiv = 'border-1 flex justify-between border-b border-solid py-3';
@@ -62,21 +65,27 @@ const BookDetailPage = () => {
 
 				<div className={styleDiv}>
 					<Link to="">
-						<figure>
-							<span className={styleText}>@@</span>
-							<span className={styleText + ' font-semibold'}>
+						<figure className="mx-1 flex items-center">
+							{dummy.merchantAvatar ? (
+								<img src={dummy.merchantAvatar} />
+							) : (
+								<svg className="size-6">
+									<use href={`${icons}#default-avatar`}></use>
+								</svg>
+							)}
+							<span className={styleText + ' mx-2 font-semibold'}>
 								{dummy.merchantName}
 							</span>
 						</figure>
 					</Link>
 					<div>
-						<span>채팅하기</span>
+						<span className={styleText}>채팅하기</span>
 					</div>
 				</div>
 
 				<div className={styleDiv}>
 					<span className={styleText}>대여기간: 10일</span>
-					<span className={styleText}>{`대여료: ${dummy.fee}원`}</span>
+					<span className={styleText}>{`대여료: ${dummy.fee} 원`}</span>
 				</div>
 
 				<div className={styleDiv}>
@@ -86,7 +95,7 @@ const BookDetailPage = () => {
 				</div>
 			</div>
 
-			<div className="p-4">
+			<div className="w-full p-2">
 				<Button>예약하기</Button>
 				<button onClick={modalBtnHandler}>수정하기</button>
 				<span>{'   '}</span>
