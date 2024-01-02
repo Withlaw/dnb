@@ -16,7 +16,7 @@ type Props = {
 	onSubmit?: () => void;
 };
 
-const PostForm = ({ children }: Props) => {
+const PostForm = ({ children, inputData, onSubmit }: Props) => {
 	return (
 		<form className="flex flex-col">
 			<fieldset className={FormStyle.CARD}>
@@ -26,6 +26,7 @@ const PostForm = ({ children }: Props) => {
 						type="text"
 						name="title"
 						placeholder="책 제목을 입력해주세요."
+						defaultValue={(inputData as string) ?? ''}
 						required
 						className={FormStyle.INPUT}></input>
 					<span className="text-xl">
@@ -33,8 +34,10 @@ const PostForm = ({ children }: Props) => {
 					</span>
 				</div>
 				<div className="flex justify-between px-1 pt-2">
-					<span className="flex-auto">저자:</span>
-					<span className="flex-auto">출판사:</span>
+					<span className="flex-auto">저자: {(inputData as string) ?? ''}</span>
+					<span className="flex-auto">
+						출판사: {(inputData as string) ?? ''}
+					</span>
 				</div>
 			</fieldset>
 
@@ -45,6 +48,7 @@ const PostForm = ({ children }: Props) => {
 						type="number"
 						name="fee"
 						placeholder="대여료를 입력해주세요."
+						defaultValue={(inputData as string) ?? ''}
 						required
 						className={FormStyle.INPUT + ' flex-auto appearance-none'}></input>
 					{/* 타이핑시 ₩ 색상 까맣게 효과 */}
@@ -62,6 +66,7 @@ const PostForm = ({ children }: Props) => {
 					minRows={5}
 					name="description"
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
+					defaultValue={(inputData as string) ?? ''}
 					className={FormStyle.INPUT + ' h-auto w-full resize-none'}
 				/>
 			</fieldset>
