@@ -81,6 +81,7 @@ const BookDetailPage = () => {
 
 			<div className="p-4">
 				<Button>예약하기</Button>
+				<Button>수정하기</Button>
 			</div>
 		</div>
 	);
