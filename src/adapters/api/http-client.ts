@@ -1,4 +1,9 @@
+import { SupabaseClient } from '@supabase/supabase-js';
+
 export interface HttpClient {
+	readonly baseURL: string;
+	readonly apiKey?: string;
+
 	get<T = any>(endpoint: string): Promise<T>;
 	// post<T = any>(endpoint: string, payload?: BodyInit | null): Promise<T>;
 	// delete(endpoint: string): Promise<Response>;
@@ -10,25 +15,3 @@ export interface HttpClient {
 // use axios
 
 // use supabase
-
-/*
-export class SupabaseClient implements HttpClient {
-	private readonly fetcher: SupabaseClient;
-
-	constructor(fetcher: SupabaseClient) {
-		this.fetcher = fetcher;
-	}
-
-	async get<T = any>(endpoint: string): Promise<T | Response> {
-		try {
-			const res = await this.fetcher.get<T>(this.baseURL + endpoint);
-			// if (res.status !== 200) throw new Error("http response failed");
-
-			const { data } = res;
-			return data;
-		} catch (error) {
-			throw error;
-		}
-	}
-}
-*/
