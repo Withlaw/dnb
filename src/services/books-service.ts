@@ -25,10 +25,11 @@ export class BooksServiceByHttpClient {
 
 // use supabase client
 class BooksService {
+  readonly endpoint = 'books';
 
-	async getBooks(): Promise<any> {
+  async getBooks () {
 		try {
-			const { data, error } = await supabase.from('books').select('*');
+			const { data, error } = await supabase.from(this.endpoint).select('*');
 
 			if (error) {
 				console.error('Books could not be loaded');

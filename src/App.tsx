@@ -10,7 +10,7 @@ import {
 import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
 import BookWritePage from '@/pages/book-write.tsx';
-import BooksPage from '@/pages/books.tsx';
+import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import BooksPostLayout from '@/ui/layout-books-post.tsx';
 import RootLayout from '@/ui/layout-root.tsx';
@@ -26,7 +26,7 @@ const routes: RouteObject[] = [
 			{ index: true, element: <Navigate to={'books'} replace /> },
 			{
 				path: 'books',
-				element: <BooksPage />,
+				element: <BooksPreviewPage />,
 			},
 			{
 				path: 'books/:bookId',

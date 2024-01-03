@@ -50,7 +50,6 @@ export default class FetchClient extends Fetch implements HttpClient {
     // statusText: res.statusText,
     // });
 
-
 		const data = (await res.json()) as T;
 
 		// 이 계층에서 하는 일
