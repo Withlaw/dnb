@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
@@ -56,6 +56,11 @@ const BookDetailPage = () => {
 		mutationFn: booksService.deleteBook.bind(booksService),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['books'] });
+			window.alert('Book successfully deleted!');
+			navigate('/books');
+		},
+		onError: error => {
+			window.alert(error.message);
 		},
 	});
 
@@ -122,8 +127,7 @@ const BookDetailPage = () => {
 			<div>
 				<button
 					onClick={() => {
-						mutate('6');
-						navigate('/books');
+						mutate('7');
 					}}
 					disabled={isDeleting}>
 					삭제하기

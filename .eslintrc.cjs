@@ -36,6 +36,9 @@ module.exports = {
 		eqeqeq: 'error',
 		'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
 		'prefer-const': 'warn',
+
+		'@typescript-eslint/no-unused-vars': 'warn',
+		'@typescript-eslint/no-explicit-any': 'warn',
 	},
 	settings: {
 		// "import/parsers": {

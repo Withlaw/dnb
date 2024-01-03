@@ -32,8 +32,8 @@ class BooksService {
 			const { data, error } = await supabase.from(this.endpoint).select('*');
 
 			if (error) {
-				console.error('Books could not be loaded');
-				throw new Error(error.message);
+				console.error(error);
+				throw new Error('Books could not be loaded');
 			}
 
 			return data;
@@ -47,11 +47,11 @@ class BooksService {
 	}
 
   async deleteBook(id:string) {
-      const { error } = await supabase.from(this.endpoint).delete().eq('id', id);
+      const { error } = await supabase.from(this.endpoint+'1').delete().eq('id', id);
 
       if (error) {
-				console.error('Book could not be deleted');
-				throw new Error(error.message);
+				console.error(error);
+				throw new Error('Book could not be deleted');
 			}
   }
 }
