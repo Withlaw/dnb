@@ -24,7 +24,7 @@ export type BooksData = {
 }
 */
 
-export type Book = {
+export type BookFromServer = {
 	author: string | null;
 	created_at: string;
 	description: string | null;
@@ -48,7 +48,7 @@ export class BooksPreviewModel {
   readonly merchantName = 'merchantname'
   readonly status = '대여 가능'
 
-	constructor(data: Book) {
+	constructor(data: BookFromServer) {
 		this.author = data.author!;
 		this.createdAt = data.created_at!;
 		this.description = data.description!;
