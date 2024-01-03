@@ -38,6 +38,8 @@ module.exports = {
 		'prefer-const': 'warn',
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'@typescript-eslint/no-explicit-any': 'warn',
+		'@typescript-eslint/no-unsafe-return': 'warn',
+		'@typescript-eslint/no-unsafe-assignment': 'warn',
 	},
 	settings: {
 		// "import/parsers": {

@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { booksService } from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 
 type BooksPreview = {
@@ -87,6 +89,18 @@ const dummy: BooksPreview[] = [
 ];
 
 const BooksPage = () => {
+	useEffect(() => {
+		const fetch = async function () {
+			const data = await booksService.getBooks();
+			console.log('books data: ', data);
+			await new Promise((resolve, _) => {
+				resolve('ff');
+			});
+		};
+
+		fetch().catch(console.log);
+	}, []);
+
 	return (
 		<div className="flex flex-col py-2">
 			<div className="flex-initial">
