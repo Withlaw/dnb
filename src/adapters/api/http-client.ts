@@ -1,5 +1,3 @@
-import { SupabaseClient } from '@supabase/supabase-js';
-
 export interface HttpClient {
 	readonly baseURL: string;
 	readonly apiKey?: string;

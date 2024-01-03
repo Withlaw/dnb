@@ -1,12 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import FetchClient from '@/adapters/api/fetch.ts';
-import { API_SUPABASE } from '@/constants/index.ts';
-import {
-	BooksServiceByHttpClient,
-	booksService,
-} from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 
 type BooksPreview = {
@@ -17,9 +11,6 @@ type BooksPreview = {
 	status: string;
 	merchantName: string;
 };
-
-const fetchClient = new FetchClient(API_SUPABASE.BASE_URL, API_SUPABASE.KEY);
-const bookServicebyFetch = new BooksServiceByHttpClient(fetchClient);
 
 const dummy: BooksPreview[] = [
 	{
@@ -97,24 +88,6 @@ const dummy: BooksPreview[] = [
 ];
 
 const BooksPage = () => {
-	useEffect(() => {
-		const fetch = async function () {
-			const data3 = await bookServicebyFetch.getBooks();
-			const data2 = await booksService.getBooks();
-			// const res = await window.fetch(API_SUPABASE.BASE_URL + '/rest/v1/books');
-			const res = await window.fetch(
-				API_SUPABASE.BASE_URL +
-					'/rest/v1/books' +
-					'?apikey=' +
-					API_SUPABASE.KEY,
-			);
-			const data = await res.json();
-			console.log('books data: ', res, data, data2, data3);
-		};
-
-		fetch().catch(console.log);
-	}, []);
-
 	return (
 		<div className="flex flex-col py-2">
 			<div className="flex-initial">

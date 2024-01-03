@@ -1,54 +1,60 @@
 import { HttpClient } from '@/adapters/api/http-client.ts';
 
-export default class FetchClient implements HttpClient {
+class Fetch  {
 	readonly baseURL: string;
-	readonly apiKey?: string;
+	readonly apiKey: string;
+  readonly time:number;
 
-	constructor(baseURL: string, apiKey?: string) {
+	constructor(baseURL: string, apiKey: string, time=5000) {
 		this.baseURL = baseURL;
 		this.apiKey = apiKey;
+    this.time = time;
 	}
 
-	private _timeout(sec: number): Promise<Response> {
+	protected _timeout(sec: number): Promise<Response> {
 		return new Promise(function (_, reject) {
 			setTimeout(function () {
 				reject(new Error(`Request took too long! Timeout after ${sec} second`));
-			}, sec * 1000);
+			}, sec);
 		});
 	}
 
-	private _fetch(
+	protected _fetch(
 		endpoint: RequestInfo | URL,
 		configs?: RequestInit,
 	): Promise<Response> {
-		// fetch 횡단 관심사 설정
-
+		// <fetch 횡단 관심사 설정>
+    // 네트워크 요청 제한시간 설정
 		return Promise.race([
-			window.fetch(this.baseURL + (endpoint as string), {
-				...configs,
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			}),
-			this._timeout(5),
+			window.fetch(this.baseURL + (endpoint as string), configs),
+			this._timeout(this.time),
 		]);
-		// return  window.fetch(this.baseURL + endpoint, {
-		//   ...configs,
-		//   headers: {
-		//     "Content-Type": "application/json",
-		//   },
-		// });
+	}
+}
+
+export default class FetchClient extends Fetch implements HttpClient {
+	constructor(baseURL: string, apiKey: string) {
+    super(baseURL, apiKey, 10000);
 	}
 
-	async get<T = any>(endpoint: string): Promise<T> {
-		const res = await this._fetch(endpoint);
-		// if(!res.ok) throw~
+	async get<T=any>(endpoint: string): Promise<T> {
+		const res = await this._fetch(endpoint, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!res.ok) throw ({ status: res.status, statusText: res.statusText, message: "FetchClient Could not get data."});
+    // throw new Error("FetchClient fetching Error");
+    // throw new Response("Could not find resouce.", {
+    // status: res.status,
+    // statusText: res.statusText,
+    // });
 
-		// console.log("fetch client get res: ", res);
+
 		const data = (await res.json()) as T;
 
 		// 이 계층에서 하는 일
-		// 1. http request 전역 설정.
+		// 1. http request 전역 설정 (네트워크 시간제한, res data type 등 설정)
 		// 2. fetch api나 axios api나 모든 요청으로부터 일관된 response data를 반환.
 		// 에러는 ?
 		// - 잘못된 url
@@ -58,3 +64,4 @@ export default class FetchClient implements HttpClient {
 		return data;
 	}
 }
+

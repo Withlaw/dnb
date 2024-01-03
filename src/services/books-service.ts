@@ -1,4 +1,3 @@
-import { HttpClient } from '@/adapters/api/http-client.ts';
 import { supabase } from '@/adapters/api/supabase.ts';
 
 // interface BookServiceInterface {
@@ -6,6 +5,7 @@ import { supabase } from '@/adapters/api/supabase.ts';
 // }
 
 // use my http client
+/*
 export class BooksServiceByHttpClient {
 	constructor(private readonly httpClient: HttpClient) {}
 
@@ -14,7 +14,6 @@ export class BooksServiceByHttpClient {
 			const data = await this.httpClient.get(
 				`/rest/v1/books?apikey=${this.httpClient.apiKey}`,
 			);
-
 			return data;
 		} catch (error) {
 			console.error(error);
@@ -22,10 +21,10 @@ export class BooksServiceByHttpClient {
 		}
 	}
 }
+*/
 
 // use supabase client
 class BooksService {
-	// constructor(private readonly httpClient: HttpClient) {}
 
 	async getBooks(): Promise<any> {
 		try {
