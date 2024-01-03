@@ -118,15 +118,15 @@ const BookDetailPage = () => {
 			<div className="w-full p-2">
 				<Button>예약하기</Button>
 				<button onClick={modalBtnHandler}>수정하기</button>
-				<span>{'   '}</span>
+				<span> </span>
 				<Link to={'edit'} onClick={modalBtnHandler}>
 					수정페이지가기
 				</Link>
-			</div>
-
-			<div>
+				<span> </span>
 				<button
 					onClick={() => {
+						const isConfirmed = window.confirm('정말 삭제하시겠습니까?');
+						if (!isConfirmed) return;
 						mutate('7');
 					}}
 					disabled={isDeleting}>
