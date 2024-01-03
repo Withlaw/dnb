@@ -98,12 +98,13 @@ const BooksPreviewItems = () => {
 	});
 
 	const books = data?.map(data => new BooksPreviewModel(data));
+
 	return (
 		<ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3">
 			{isLoading ?? <h1>Loading...</h1>}
 			{books &&
 				books.map(book => {
-					return <BooksPreviewItem book={book} />;
+					return <BooksPreviewItem book={book} key={book.id} />;
 				})}
 		</ul>
 	);

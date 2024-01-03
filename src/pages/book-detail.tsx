@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
 import PostForm from '@/features/books/post-form.component.tsx';
+import { booksService } from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 import Modal from '@/ui/modal.tsx';
 
@@ -46,6 +48,17 @@ const BookDetailPage = () => {
 	const modalBtnHandler = () => {
 		setIsModalOpen(prevValue => !prevValue);
 	};
+
+	const navigate = useNavigate();
+	const queryClient = useQueryClient();
+
+	const { isPending: isDeleting, mutate } = useMutation({
+		mutationFn: booksService.deleteBook.bind(booksService),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['books'] });
+		},
+	});
+
 	return (
 		<div className="my-3 flex flex-col">
 			<div className="flex justify-center rounded-md bg-stone-200">
@@ -104,6 +117,17 @@ const BookDetailPage = () => {
 				<Link to={'edit'} onClick={modalBtnHandler}>
 					수정페이지가기
 				</Link>
+			</div>
+
+			<div>
+				<button
+					onClick={() => {
+						mutate('6');
+						navigate('/books');
+					}}
+					disabled={isDeleting}>
+					삭제하기
+				</button>
 			</div>
 
 			{isModalOpen && (

@@ -28,7 +28,7 @@ class BooksService {
   readonly endpoint = 'books';
 
   async getBooks () {
-		try {
+		// try {
 			const { data, error } = await supabase.from(this.endpoint).select('*');
 
 			if (error) {
@@ -37,11 +37,23 @@ class BooksService {
 			}
 
 			return data;
-		} catch (error) {
-			console.error(error);
-			return [];
-		}
+    // 에러를 처리한다는게, catch 해서 적절하게 뷰로 피드백 제공하는거니까 
+    // 뷰 레이어에서 try catch로 처리하는게 나을려나?
+
+		// } catch (error) {
+		// 	console.error(error);
+		// 	return [];
+		// }
 	}
+
+  async deleteBook(id:string) {
+      const { error } = await supabase.from(this.endpoint).delete().eq('id', id);
+
+      if (error) {
+				console.error('Book could not be deleted');
+				throw new Error(error.message);
+			}
+  }
 }
 
 export const booksService = new BooksService();
