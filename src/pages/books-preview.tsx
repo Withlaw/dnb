@@ -7,7 +7,7 @@ const BooksPreviewPage = () => {
 	return (
 		<div className="flex flex-col py-2">
 			<div className="flex-initial">
-				<Link to="write">
+				<Link to="create">
 					{/* 당근처럼 아이콘으로? */}
 					<Button>글쓰기</Button>
 				</Link>

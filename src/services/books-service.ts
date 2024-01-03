@@ -46,6 +46,27 @@ class BooksService {
 		// }
 	}
 
+  async createBook(newBook?:any) {
+    const { data, error } = await supabase.from('books').insert([{
+      author: 'createTest',
+      description: 'createTest',
+      fee: 1000,
+      image_url: '',
+      merchant_id: 1,
+      publisher: 'createTest',
+      title: 'createTest',
+      id:11,
+      created_at:'10',
+    },]).select();
+    // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
+
+  if (error) {
+    console.error(error);
+    throw new Error('Book could not be created');
+  }
+
+  }
+
   async deleteBook(id:string) {
       const { error } = await supabase.from(this.endpoint+'1').delete().eq('id', id);
 

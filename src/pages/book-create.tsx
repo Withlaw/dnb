@@ -1,12 +1,7 @@
-import PostForm from '@/features/books/post-form.component.tsx';
-import Button from '@/ui/button.tsx';
+import BookPostCreateForm from '@/features/books/post-create.component.tsx';
 
-const BookWritePage = () => {
-	return (
-		<PostForm>
-			<Button>작성 완료</Button>
-		</PostForm>
-	);
+const BookCreatePage = () => {
+	return <BookPostCreateForm />;
 };
 // const BookWritePage = () => {
 // 	return (
@@ -76,4 +71,4 @@ const BookWritePage = () => {
 // 	);
 // };
 
-export default BookWritePage;
+export default BookCreatePage;
