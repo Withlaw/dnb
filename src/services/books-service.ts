@@ -30,6 +30,7 @@ class BooksService {
 	async getBooks(): Promise<any> {
 		try {
 			const { data, error } = await supabase.from('books').select('*');
+
 			if (error) {
 				console.error('Books could not be loaded');
 				throw new Error(error.message);
