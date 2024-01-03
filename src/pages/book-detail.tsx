@@ -36,8 +36,10 @@ const dummy: BookDetail = {
 	merchantAvatar: null,
 };
 
-const styleDiv = 'border-1 flex justify-between border-b border-solid py-3';
-const styleText = 'mx-1';
+enum Style {
+	DIV = 'border-1 flex justify-between border-b border-solid py-3',
+	TEXT = 'mx-1',
+}
 
 const BookDetailPage = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +65,7 @@ const BookDetailPage = () => {
 					</div>
 				</div>
 
-				<div className={styleDiv}>
+				<div className={Style.DIV}>
 					<Link to="">
 						<figure className="mx-1 flex items-center">
 							{dummy.merchantAvatar ? (
@@ -73,23 +75,23 @@ const BookDetailPage = () => {
 									<use href={`${icons}#default-avatar`}></use>
 								</svg>
 							)}
-							<span className={styleText + ' mx-2 font-semibold'}>
+							<span className={Style.TEXT + ' mx-2 font-semibold'}>
 								{dummy.merchantName}
 							</span>
 						</figure>
 					</Link>
 					<div>
-						<span className={styleText}>채팅하기</span>
+						<span className={Style.TEXT}>채팅하기</span>
 					</div>
 				</div>
 
-				<div className={styleDiv}>
-					<span className={styleText}>대여기간: 10일</span>
-					<span className={styleText}>{`대여료: ${dummy.fee} 원`}</span>
+				<div className={Style.DIV}>
+					<span className={Style.TEXT}>대여기간: 10일</span>
+					<span className={Style.TEXT}>{`대여료: ${dummy.fee} 원`}</span>
 				</div>
 
-				<div className={styleDiv}>
-					<p className={styleText + ' min-h-10 w-full break-words'}>
+				<div className={Style.DIV}>
+					<p className={Style.TEXT + ' min-h-10 w-full break-words'}>
 						{dummy.description}
 					</p>
 				</div>

@@ -1,16 +1,5 @@
-import { HiOutlineSearch } from 'react-icons/hi';
-import ReactTextareaAutosize from 'react-textarea-autosize';
-
 import PostForm from '@/features/books/post-form.component.tsx';
 import Button from '@/ui/button.tsx';
-
-const styleCard = 'border border-solid border-stone-300 rounded-md my-3 p-3';
-
-const styleLegend = 'px-1 text-sm';
-
-const styleInput = 'bg-inherit px-1 pb-1 text-lg outline-none';
-
-const styleInputContainer = 'flex items-center justify-between';
 
 const BookWritePage = () => {
 	return (
