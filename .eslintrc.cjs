@@ -5,8 +5,8 @@ module.exports = {
 	extends: [
 		// "react-app",
 		'eslint:recommended',
-		// "plugin:@typescript-eslint/recommended",
-		'plugin:@typescript-eslint/recommended-type-checked',
+		'plugin:@typescript-eslint/recommended',
+		// 'plugin:@typescript-eslint/recommended-type-checked',
 		'plugin:react-hooks/recommended',
 		'prettier',
 	],
@@ -36,12 +36,6 @@ module.exports = {
 		eqeqeq: 'error',
 		'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
 		'prefer-const': 'warn',
-		'@typescript-eslint/no-unused-vars': 'warn',
-		'@typescript-eslint/no-explicit-any': 'warn',
-		'@typescript-eslint/no-unsafe-return': 'warn',
-		'@typescript-eslint/no-unsafe-assignment': 'warn',
-		'@typescript-eslint/no-unsafe-call': 'warn',
-		'@typescript-eslint/no-redundant-type-constituents': 'warn',
 	},
 	settings: {
 		// "import/parsers": {
