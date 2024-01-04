@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 
 import Modal from '@/ui/modal.tsx';
@@ -11,11 +11,18 @@ const styleLi = 'p-2 my-[2px] text-sm hover:bg-stone-200 hover:cursor-pointer';
 
 const BookPostSearch = ({ modalHandler }: Props) => {
 	const form = useRef<HTMLFormElement>(null);
+	const [inputValue, setInputValue] = useState('');
+
+	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		return;
+	};
 
 	return (
 		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
 			<form
 				ref={form}
+				onSubmit={submitHandler}
 				className="flex w-80 flex-initial flex-col justify-between rounded-xl border border-solid bg-stone-300 p-4">
 				<button onClick={modalHandler} className="z-10">
 					<span className="absolute left-[8px] top-[8px] text-stone-700">
@@ -46,8 +53,9 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 						</button> */}
 					</div>
 				</fieldset>
+
 				<ul className="mt-2 flex max-h-72 flex-auto flex-col overflow-y-auto rounded-md bg-[#fff]">
-					<li className={'my-[2px] p-2 text-sm'}>
+					<li className={'my-[2px] p-2 text-sm hover:cursor-default'}>
 						<span>검색어 없음 (기본)</span>
 					</li>
 					<li className={styleLi}>
