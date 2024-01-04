@@ -1,7 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 
-import useDebounceValue from '@/hooks/useDebounce.tsx';
+import useDebounceValue from '@/hooks/useDebounceValue.tsx';
 import Modal from '@/ui/modal.tsx';
 
 type Props = {
@@ -18,6 +19,26 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 	const debouncedInputValue = useDebounceValue(inputValue, 3000);
 
 	const isEmpty = inputValue.trim() === '';
+
+	const { data, isError, isLoading } = useQuery({
+		enabled: !!debouncedInputValue,
+		queryKey: ['bookSearch', debouncedInputValue],
+		queryFn: async () => {
+			const res = await window.fetch(
+				`/api/v1/search/book.json?query=${debouncedInputValue}&display=10&start=11`,
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						'X-Naver-Client-Id': 'PwRdiC58vvV7ceT9zpiz',
+						'X-Naver-Client-Secret': '6fgQOqYDoS',
+					},
+				},
+			);
+			const data = await res.json();
+			return data;
+		},
+		staleTime: 60 * 1000,
+	});
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
