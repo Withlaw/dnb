@@ -18,11 +18,7 @@ export default function Modal({ children, onClose, className = '' }: Props) {
 
 	return createPortal(
 		<div className="flex items-center justify-center">
-			<div
-				className={'fixed z-[101] bg-inherit ' + className}
-				autoFocus={false}>
-				{children}
-			</div>
+			<div className={'fixed z-[101] bg-inherit ' + className}>{children}</div>
 			<div
 				className="fixed left-0 top-0 z-[100] h-[100%] w-[100%] backdrop-blur-sm"
 				onClick={overlayClickHandler}></div>

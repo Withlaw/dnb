@@ -31,32 +31,6 @@ const BookPostCreateForm = () => {
 		setIsShowModal(prevVal => !prevVal);
 	};
 
-	/*
-	useEffect(() => {
-		const bookSearch = async () => {
-			const res = await window.fetch(
-				'/api/v1/search/book.json?query=자바&display=10&start=11',
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						'X-Naver-Client-Id': 'PwRdiC58vvV7ceT9zpiz',
-						'X-Naver-Client-Secret': '6fgQOqYDoS',
-					},
-				},
-			);
-
-			const data = await res.json();
-
-			console.log(data);
-		};
-
-		try {
-			bookSearch();
-		} catch (error) {
-			console.log(error);
-		}
-	}, []);
-*/
 	return (
 		<BookPostForm onSubmit={submitHandler}>
 			<Button>작성 완료</Button>
