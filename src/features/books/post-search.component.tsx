@@ -7,10 +7,10 @@ type Props = {
 	modalHandler: () => void;
 };
 
+const styleLi = 'p-2 text-sm hover:bg-stone-200 hover:cursor-pointer';
+
 const BookPostSearch = ({ modalHandler }: Props) => {
 	const form = useRef<HTMLFormElement>(null);
-
-	const styleLi = 'p-2 text-sm hover:bg-stone-200 hover:cursor-pointer';
 
 	return (
 		<Modal className="top-[-200px] flex flex-col" onClose={modalHandler}>
@@ -22,6 +22,7 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 						<HiOutlineX size="24" />
 					</span>
 				</button>
+
 				<fieldset>
 					<div className="mb-3 text-center text-lg font-semibold">
 						<label htmlFor="search">제목으로 책 검색하기</label>
@@ -41,6 +42,7 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 						</button> */}
 					</div>
 				</fieldset>
+
 				<ul className="mt-2 flex h-[30vh] flex-auto flex-col overflow-y-auto rounded-md bg-[#fff]">
 					<li className={styleLi}>
 						<span>
