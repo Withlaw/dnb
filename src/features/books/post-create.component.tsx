@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 import PostForm from '@/features/books/post-form.component.tsx';
 import { booksService } from '@/services/books-service.ts';
@@ -22,6 +23,30 @@ const BookPostCreateForm = () => {
 	const submitHandler = (data: any) => {
 		mutate(data);
 	};
+
+	useEffect(() => {
+		const bookSearch = async () => {
+			const res = await window.fetch(
+				'https://openapi.naver.com/v1/search/book.json?query=자바&display=10&start=1',
+				{
+					headers: {
+						'X-Naver-Client-Id': 'PwRdiC58vvV7ceT9zpiz',
+						'X-Naver-Client-Secret': '6fgQOqYDoS,',
+					},
+				},
+			);
+
+			const data = await res.json();
+
+			console.log(data);
+		};
+
+		try {
+			bookSearch();
+		} catch (error) {
+			console.log(error);
+		}
+	}, []);
 
 	return (
 		<PostForm onSubmit={submitHandler}>
