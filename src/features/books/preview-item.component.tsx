@@ -23,7 +23,7 @@ const BooksPreviewItem = ({ book }: Props) => {
 					/>
 					{/* 이미지 사이즈는 업로드시에 규격에 맞게 리사이징하므로 style 사이즈는 딱히 필요 없을 듯? */}
 				</figure>
-				<div className="flex flex-auto justify-between pl-3">
+				<div className="flex flex-auto justify-between py-2 pl-2">
 					<div className="flex w-20 flex-auto flex-col items-start ">
 						<h4 className="mb-1 w-full break-words text-xl font-bold sm:text-sm">
 							{book.title}

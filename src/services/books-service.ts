@@ -64,6 +64,7 @@ class BooksService {
     console.error(error);
     throw new Error('Book could not be created');
   }
+  return data;
 
   }
 

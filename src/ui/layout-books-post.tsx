@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, ScrollRestoration, useNavigate } from 'react-router-dom';
 
 import HeaderMain from '@/ui/header-main.tsx';
 import NavHeader from '@/ui/nav-header.tsx';
@@ -22,6 +22,8 @@ const BooksPostLayout = () => {
 			<main className="flex-auto bg-stone-50 px-4 py-[50px]">
 				<Outlet />
 			</main>
+
+			<ScrollRestoration />
 		</div>
 	);
 };

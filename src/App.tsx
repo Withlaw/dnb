@@ -4,6 +4,7 @@ import {
 	Navigate,
 	RouteObject,
 	RouterProvider,
+	ScrollRestoration,
 	createBrowserRouter,
 } from 'react-router-dom';
 
@@ -76,8 +77,8 @@ const queryClient = new QueryClient({
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ReactQueryDevtools initialIsOpen={false} />
 			<RouterProvider router={router} />
+			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);
 }
