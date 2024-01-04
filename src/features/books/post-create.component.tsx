@@ -27,7 +27,7 @@ const BookPostCreateForm = () => {
 		mutate(data);
 	};
 
-	const searchBtnHandler = () => {
+	const searchModalHandler = () => {
 		setIsShowModal(prevVal => !prevVal);
 	};
 
@@ -62,8 +62,8 @@ const BookPostCreateForm = () => {
 			<Button>작성 완료</Button>
 			{/* 혹시 모르니까 button type=reset 해주기 */}
 			{/* 리액트 폼 훅에는 reset 함수 제공 */}
-			<button onClick={searchBtnHandler}>책 검색</button>
-			{isShowModal && <BookPostSearch modalHandler={searchBtnHandler} />}
+			<button onClick={searchModalHandler}>책 검색</button>
+			{isShowModal && <BookPostSearch modalHandler={searchModalHandler} />}
 		</BookPostForm>
 	);
 };

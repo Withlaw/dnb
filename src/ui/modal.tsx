@@ -7,14 +7,14 @@ type Props = {
 	onClose?: () => void;
 };
 
-export default function Modal({ children, className = '' }: Props) {
+export default function Modal({ children, onClose, className = '' }: Props) {
 	const dialog = useRef<HTMLDialogElement>(null);
 
 	const dialogClickHandler = (
 		e: React.MouseEvent<HTMLDialogElement, MouseEvent>,
 	) => {
+		if (!onClose) return;
 		const dialogRect = e.currentTarget.getBoundingClientRect();
-
 		if (
 			dialogRect.left > e.clientX ||
 			dialogRect.right < e.clientX ||
@@ -22,7 +22,8 @@ export default function Modal({ children, className = '' }: Props) {
 			dialogRect.bottom < e.clientY
 		) {
 			// dialog 외부 요소 클릭시 닫힘
-			dialog.current?.close();
+			// dialog.current?.close();
+			onClose();
 		}
 	};
 
@@ -43,7 +44,7 @@ export default function Modal({ children, className = '' }: Props) {
 	}, []);
 
 	return createPortal(
-		// <dialog ref={dialog}>
+		//  <dialog ref={dialog}>
 		<dialog
 			ref={dialog}
 			className={'bg-inherit ' + className}
@@ -79,11 +80,16 @@ const BtnSubmit = ({ children }: Props) => {
 
 const BtnClose = ({ children, onClose }: Props) => {
 	// 컨텍스트 만들어서 dialog 노드 공유해야할듯
+	// 굳이 없어도 될 듯? close 로직을 외부에서 주입받는데, 그냥 외부에서 버튼 만들고 바로 state 렌더링 로직으로 close 구현할 수 있으니..
 	const btnClickHandler = () => {
 		if (!onClose) return;
 		onClose();
 	};
-	return <button onClick={btnClickHandler}>{children}</button>;
+	return (
+		<button onClick={btnClickHandler} className="bg-red-300">
+			{children}
+		</button>
+	);
 };
 
 Modal.BtnSubmit = BtnSubmit;

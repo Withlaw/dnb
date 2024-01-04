@@ -10,21 +10,20 @@ type Props = {
 const BookPostSearch = ({ modalHandler }: Props) => {
 	const form = useRef<HTMLFormElement>(null);
 
+	const styleLi = 'p-2 text-sm hover:bg-stone-200 hover:cursor-pointer';
+
 	return (
-		<Modal className="top-[-400px]">
+		<Modal className="top-[-200px] flex flex-col" onClose={modalHandler}>
 			<form
 				ref={form}
-				className="flex w-80 flex-col justify-between rounded-xl border border-solid bg-stone-100 p-4">
-				<Modal.BtnClose onClose={modalHandler}>
-					<span className="absolute left-[6px] top-[6px] text-2xl text-stone-700">
-						<HiOutlineX />
+				className="flex w-80 flex-initial flex-col justify-between rounded-xl border border-solid bg-stone-100 p-4">
+				<button onClick={modalHandler} className="z-10">
+					<span className="absolute left-[8px] top-[8px] text-stone-700">
+						<HiOutlineX size="24" />
 					</span>
-				</Modal.BtnClose>
-				<fieldset className="relative">
-					{/* <button >
-						
-					</button> */}
-					<div className="my-3 text-center text-lg font-semibold">
+				</button>
+				<fieldset>
+					<div className="mb-3 text-center text-lg font-semibold">
 						<label htmlFor="search">제목으로 책 검색하기</label>
 					</div>
 					<div className="flex justify-between ">
@@ -42,6 +41,36 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 						</button> */}
 					</div>
 				</fieldset>
+				<ul className="mt-2 flex h-[30vh] flex-auto flex-col overflow-y-auto rounded-md bg-[#fff]">
+					<li className={styleLi}>
+						<span>
+							검색어 없음 검색어 없음 검색어 없음 검색어 없음 검색어 없음 검색어
+							없음 검색어 없음 검색어 없음 검색어 없음 검색어 없음 검색어 없음
+						</span>
+					</li>
+					<li className={styleLi}>
+						<span>검색어 없음</span>
+					</li>
+					<li className={styleLi}>
+						<span>검색어 없음</span>
+					</li>
+					<li className={styleLi}>
+						<span>검색어 없음</span>
+					</li>
+					<li className={styleLi}>
+						<span>검색어 없음</span>
+					</li>
+					<li className={styleLi}>
+						<span>검색어 없음</span>
+					</li>
+					<li className={styleLi}>
+						<span>검색어 없음</span>
+					</li>
+					<li className={styleLi}>
+						<span>검색어 없음</span>
+					</li>
+					{/* 무한스크롤 */}
+				</ul>
 			</form>
 		</Modal>
 	);
