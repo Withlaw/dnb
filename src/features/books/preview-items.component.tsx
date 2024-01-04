@@ -4,7 +4,7 @@ import { BooksPreviewModel } from '@/features/books/books.model.ts';
 import BooksPreviewItem from '@/features/books/preview-item.component.tsx';
 import { booksService } from '@/services/books-service.ts';
 
-/* 
+/*
 // dummy data
 type BooksPreview = {
 	id: string;

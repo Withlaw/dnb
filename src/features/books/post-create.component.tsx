@@ -27,11 +27,12 @@ const BookPostCreateForm = () => {
 	useEffect(() => {
 		const bookSearch = async () => {
 			const res = await window.fetch(
-				'https://openapi.naver.com/v1/search/book.json?query=자바&display=10&start=1',
+				'/api/v1/search/book.json?query=자바&display=10&start=11',
 				{
 					headers: {
+						'Content-Type': 'application/json',
 						'X-Naver-Client-Id': 'PwRdiC58vvV7ceT9zpiz',
-						'X-Naver-Client-Secret': '6fgQOqYDoS,',
+						'X-Naver-Client-Secret': '6fgQOqYDoS',
 					},
 				},
 			);
