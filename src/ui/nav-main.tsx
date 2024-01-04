@@ -50,7 +50,7 @@ const navItems: NavItem[] = [
 
 const NavMain = () => {
 	return (
-		<nav className=" fixed bottom-0 z-[1000] h-[50px] w-full max-w-screen-sm  flex-initial rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black">
+		<nav className=" fixed bottom-0 z-[99] h-[50px] w-full max-w-screen-sm  flex-initial rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black">
 			<ul className="flex h-full items-center justify-around text-xs">
 				{navItems.map(item => {
 					return (
