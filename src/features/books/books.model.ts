@@ -1,4 +1,3 @@
-
 /*
 export type Data= {
   author: string ;
@@ -59,3 +58,4 @@ export class BooksPreviewModel {
 		this.imageUrl = data.image_url!;
 	}
 }
+
