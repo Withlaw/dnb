@@ -1,11 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
-import PostForm from '@/features/books/post-form.component.tsx';
+import BookPostForm from '@/features/books/post-form.component.tsx';
+import BookPostSearch from '@/features/books/post-search.component.tsx';
 import { booksService } from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 
 const BookPostCreateForm = () => {
+	const [isShowModal, setIsShowModal] = useState(false);
+
 	const queryClient = useQueryClient();
 
 	const { mutate, isPending } = useMutation({
@@ -24,6 +27,11 @@ const BookPostCreateForm = () => {
 		mutate(data);
 	};
 
+	const searchBtnHandler = () => {
+		setIsShowModal(prevVal => !prevVal);
+	};
+
+	/*
 	useEffect(() => {
 		const bookSearch = async () => {
 			const res = await window.fetch(
@@ -48,13 +56,15 @@ const BookPostCreateForm = () => {
 			console.log(error);
 		}
 	}, []);
-
+*/
 	return (
-		<PostForm onSubmit={submitHandler}>
+		<BookPostForm onSubmit={submitHandler}>
 			<Button>작성 완료</Button>
 			{/* 혹시 모르니까 button type=reset 해주기 */}
 			{/* 리액트 폼 훅에는 reset 함수 제공 */}
-		</PostForm>
+			<button onClick={searchBtnHandler}>책 검색</button>
+			{isShowModal && <BookPostSearch modalHandler={searchBtnHandler} />}
+		</BookPostForm>
 	);
 };
 

@@ -3,11 +3,28 @@ import { createPortal } from 'react-dom';
 
 type Props = {
 	children: React.ReactNode;
+	className?: string;
 	onClose?: () => void;
 };
 
-export default function Modal({ children }: Props) {
+export default function Modal({ children, className = '' }: Props) {
 	const dialog = useRef<HTMLDialogElement>(null);
+
+	const dialogClickHandler = (
+		e: React.MouseEvent<HTMLDialogElement, MouseEvent>,
+	) => {
+		const dialogRect = e.currentTarget.getBoundingClientRect();
+
+		if (
+			dialogRect.left > e.clientX ||
+			dialogRect.right < e.clientX ||
+			dialogRect.top > e.clientY ||
+			dialogRect.bottom < e.clientY
+		) {
+			// dialog 외부 요소 클릭시 닫힘
+			dialog.current?.close();
+		}
+	};
 
 	useEffect(() => {
 		// Using useEffect to sync the Modal component with the DOM Dialog API
@@ -21,13 +38,24 @@ export default function Modal({ children }: Props) {
 		modal.showModal();
 
 		return () => {
-			modal.close(); // needed to avoid error being thrown
+			modal.close(); // needed to avoid error being thrown.
 		};
 	}, []);
 
 	return createPortal(
 		// <dialog ref={dialog}>
-		<dialog ref={dialog} autoFocus={false} className="bg-green-100">
+		<dialog
+			ref={dialog}
+			className={'bg-inherit ' + className}
+			autoFocus={false}
+			onClick={dialogClickHandler}
+			// onClose={() => {
+			// 	console.log('closed');
+			// }}
+			// onCancel={() => {
+			// 	console.log('canceled');
+			// }}
+		>
 			{children}
 		</dialog>,
 		document.getElementById('root')!,

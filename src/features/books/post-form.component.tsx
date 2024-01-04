@@ -17,7 +17,7 @@ type Props = {
 	onSubmit?: (data: any) => void;
 };
 
-const PostForm = ({ children, inputData, onSubmit }: Props) => {
+const BookPostForm = ({ children, inputData, onSubmit }: Props) => {
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +34,7 @@ const PostForm = ({ children, inputData, onSubmit }: Props) => {
 						name="title"
 						placeholder="책 제목을 입력해주세요."
 						defaultValue={(inputData as string) ?? ''}
-						required
+						// required
 						className={FormStyle.INPUT}></input>
 					<span className="text-xl">
 						<HiOutlineSearch />
@@ -56,7 +56,7 @@ const PostForm = ({ children, inputData, onSubmit }: Props) => {
 						name="fee"
 						placeholder="대여료를 입력해주세요."
 						defaultValue={(inputData as string) ?? ''}
-						required
+						// required
 						className={FormStyle.INPUT + ' flex-auto appearance-none'}></input>
 					{/* 타이핑시 ₩ 색상 까맣게 효과 */}
 					<span className="text-xl text-gray-400">₩</span>
@@ -94,4 +94,4 @@ const PostForm = ({ children, inputData, onSubmit }: Props) => {
 	);
 };
 
-export default PostForm;
+export default BookPostForm;
