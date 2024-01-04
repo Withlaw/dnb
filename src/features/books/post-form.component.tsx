@@ -13,12 +13,19 @@ enum FormStyle {
 type Props = {
 	children?: React.ReactNode;
 	inputData?: any;
-	onSubmit?: () => void;
+	onSubmit?: (data: any) => void;
 };
 
 const PostForm = ({ children, inputData, onSubmit }: Props) => {
+	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const newBook = Object.fromEntries(formData);
+		console.log('form param: ', e, formData, newBook);
+	};
+
 	return (
-		<form className="flex flex-col">
+		<form className="flex flex-col" onSubmit={submitHandler}>
 			<fieldset className={FormStyle.CARD}>
 				<legend className={FormStyle.LEGEND}>제목</legend>
 				<div className={FormStyle.INPUTCONTAINER + ' border-b'}>

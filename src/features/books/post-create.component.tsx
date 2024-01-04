@@ -24,7 +24,7 @@ const BookPostCreateForm = () => {
 	};
 
 	return (
-		<PostForm>
+		<PostForm onSubmit={submitHandler}>
 			<Button>작성 완료</Button>
 			{/* 혹시 모르니까 button type=reset 해주기 */}
 			{/* 리액트 폼 훅에는 reset 함수 제공 */}
