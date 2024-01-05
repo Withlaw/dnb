@@ -5,6 +5,7 @@ import { HiOutlineX } from 'react-icons/hi';
 import icons from '@/assets/icons.svg';
 import { BookSearchDataItem, BookSearchData } from '@/features/books/types.ts';
 import useDebounceValue from '@/hooks/useDebounceValue.tsx';
+import { booksService } from '@/services/books-service.ts';
 import Modal from '@/ui/modal.tsx';
 
 enum Style {
@@ -26,20 +27,7 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const { data, isLoading, isError } = useQuery<BookSearchData>({
 		enabled: !!debouncedInputValue,
 		queryKey: ['bookSearch', debouncedInputValue],
-		queryFn: async () => {
-			const res = await window.fetch(
-				`/api/v1/search/book.json?query=${debouncedInputValue}&display=10&start=11`,
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						'X-Naver-Client-Id': 'PwRdiC58vvV7ceT9zpiz',
-						'X-Naver-Client-Secret': '6fgQOqYDoS',
-					},
-				},
-			);
-			const data = await res.json();
-			return data;
-		},
+		queryFn: () => booksService.searchBook(debouncedInputValue),
 		staleTime: 60 * 1000,
 	});
 
@@ -65,7 +53,6 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 		modalHandler();
 	};
 
-	console.log('isError: ', isError, data, isFalied);
 	return (
 		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
 			<form
@@ -119,13 +106,11 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 							</li>
 						)}
 
-						{/* 
-            // 로딩스피너로 대체함
-            {isLoading && (
+						{!isTyping && isLoading && (
 							<li className={Style.ITEM_OFF}>
 								<span>검색 중 ...</span>
 							</li>
-						)} */}
+						)}
 
 						{!isTyping &&
 							searchData &&
@@ -169,7 +154,8 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 								<span>찾으시는 책이 존재하지 않습니다.</span>
 							</li>
 						)}
-						{isFalied && (
+
+						{!isTyping && !isLoading && isFalied && (
 							<p className="text-center"> 서버에 연결할 수 없습니다.</p>
 						)}
 					</ul>

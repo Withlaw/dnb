@@ -20,19 +20,20 @@ class Fetch  {
 	}
 
 	protected _fetch(
-		endpoint: RequestInfo | URL,
+		// endpoint: RequestInfo | URL,
+    endpoint:string,
 		configs?: RequestInit,
 	): Promise<Response> {
 		// <fetch 횡단 관심사 설정>
     // 네트워크 요청 제한시간 설정
 		return Promise.race([
-			window.fetch(this.baseURL + (endpoint as string), configs),
+			window.fetch(this.baseURL+endpoint, configs),
 			this._timeout(this.time),
 		]);
 	}
 }
 
-export default class FetchClient extends Fetch implements HttpClient {
+export class FetchClient extends Fetch implements HttpClient {
 	constructor(baseURL: string, apiKey: string) {
     super(baseURL, apiKey, 10000);
 	}
@@ -64,3 +65,47 @@ export default class FetchClient extends Fetch implements HttpClient {
 	}
 }
 
+type NaverAPiClientOptions = {
+  id:string;
+  pw:string
+}
+
+export class NaverAPiClient extends Fetch implements HttpClient {
+  private readonly clientID :string;
+  private readonly clientPW :string;
+  private readonly resource :string;
+
+  constructor(resource:string, options:NaverAPiClientOptions) {
+    super('/api/v1', '', 5000);
+    // 빌드시 /api => https://openapi.naver.com로 수정
+    this.resource = resource;
+    this.clientID = options.id;
+    this.clientPW = options.pw
+	}
+
+  // async get<T=any>(endpoint: string): Promise<T> {
+	// 	const res = await this._fetch(this.resource+endpoint, {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'X-Naver-Client-Id': this.clientID,
+  //       'X-Naver-Client-Secret':this.clientPW,
+  //     },
+  //   });
+  //   if (!res.ok) throw ({ status: res.status, statusText: res.statusText, message: "NaverBookSearchAPiClient could not get data."});
+
+	// 	const data = (await res.json()) as T;
+
+	// 	return data;
+  // }
+
+  get<T=any>(endpoint: string):Promise<Response | T> {
+		return this._fetch(this.resource+endpoint, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Naver-Client-Id': this.clientID,
+        'X-Naver-Client-Secret':this.clientPW,
+      },
+    });
+
+  }
+}

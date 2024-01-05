@@ -1,4 +1,6 @@
+import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase.ts';
+import { API_NAVER } from '@/constants/index.ts';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;
@@ -23,9 +25,20 @@ export class BooksServiceByHttpClient {
 }
 */
 
-// use supabase client
+const naverBookSearchClient = new NaverAPiClient('/search/book.json', {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW})
+
 class BooksService {
   readonly endpoint = 'books';
+
+  async searchBook(query:string, start:number=1, display:number=10) {
+    const response = await naverBookSearchClient.get(`query=${query}&display=${display}&start=${start}`);
+
+    if (!response.ok) throw ({ status: response.status, statusText: response.statusText, message: "naverBookSearchClient could not search data."});
+    
+    const data = await response.json();
+
+    return data;
+  }
 
   async getBooks () {
 		// try {
