@@ -2,24 +2,27 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 
+import { BookSearchType } from '@/features/books/types.ts';
 import useDebounceValue from '@/hooks/useDebounceValue.tsx';
 import Modal from '@/ui/modal.tsx';
 
 type Props = {
 	modalHandler: () => void;
+	onSearch?: (book: BookSearchType) => void;
 };
 
 const styleLi = 'p-2 my-[2px] text-sm hover:bg-stone-200 hover:cursor-pointer';
 
 let timer: number;
 
-const BookPostSearch = ({ modalHandler }: Props) => {
+const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const form = useRef<HTMLFormElement>(null);
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInputValue = useDebounceValue(inputValue, 3000);
 
 	const isEmpty = inputValue.trim() === '';
 
+	const searchData: BookSearchType[] = [];
 	/*
 	const { data, isError, isLoading } = useQuery({
 		enabled: !!debouncedInputValue,
@@ -53,6 +56,7 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 		console.log('입력: ', value);
 		setInputValue(value);
 	};
+
 	/*
 	useEffect(() => {
 		const bookSearch = async () => {
@@ -132,9 +136,19 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 
 				{!isEmpty && (
 					<ul className="mt-2 flex max-h-72 min-h-16 flex-auto flex-col overflow-y-auto rounded-md bg-[#fff]">
-						<li className={'my-[2px] p-2 text-sm hover:cursor-default'}>
-							<span>검색중...</span>
-						</li>
+						{!searchData && (
+							<li className={'my-[2px] p-2 text-sm hover:cursor-default'}>
+								<span>검색중...</span>
+							</li>
+						)}
+						{searchData &&
+							searchData.map(data => {
+								return (
+									<li className={'my-[2px] p-2 text-sm hover:cursor-default'}>
+										<span>{data?.title}</span>
+									</li>
+								);
+							})}
 					</ul>
 				)}
 				{/* <ul className="mt-2 flex h-[30vh] flex-auto flex-col overflow-y-auto rounded-md bg-[#fff]">

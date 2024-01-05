@@ -2,8 +2,6 @@ import { useRef } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
-import Button from '@/ui/button.tsx';
-
 enum FormStyle {
 	CARD = 'border border-solid border-stone-300 rounded-md my-3 p-3',
 	INPUT = 'bg-inherit px-1 pb-1 text-lg outline-none',
@@ -13,7 +11,9 @@ enum FormStyle {
 
 type Props = {
 	children?: React.ReactNode;
-	inputData?: any;
+	inputData?: {
+		[k: string]: string;
+	};
 	onSubmit?: (data: any) => void;
 	onClick?: () => void;
 };
@@ -34,7 +34,8 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 						type="text"
 						name="title"
 						placeholder="책 제목을 입력해주세요."
-						defaultValue={(inputData as string) ?? ''}
+						defaultValue={inputData?.title}
+						disabled={!!inputData?.title}
 						required
 						onClick={onClick}
 						className={FormStyle.INPUT}></input>
@@ -43,10 +44,8 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 					</span>
 				</div>
 				<div className="flex justify-between px-1 pt-2">
-					<span className="flex-auto">저자: {(inputData as string) ?? ''}</span>
-					<span className="flex-auto">
-						출판사: {(inputData as string) ?? ''}
-					</span>
+					<span className="flex-auto">저자: {inputData?.author}</span>
+					<span className="flex-auto">출판사: {inputData?.publisher}</span>
 				</div>
 			</fieldset>
 
@@ -57,7 +56,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 						type="number"
 						name="fee"
 						placeholder="대여료를 입력해주세요."
-						defaultValue={(inputData as string) ?? ''}
+						defaultValue={inputData?.fee}
 						required
 						className={FormStyle.INPUT + ' flex-auto appearance-none'}></input>
 					{/* 타이핑시 ₩ 색상 까맣게 효과 */}
@@ -75,7 +74,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 					minRows={5}
 					name="description"
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
-					defaultValue={(inputData as string) ?? ''}
+					defaultValue={inputData?.description}
 					className={FormStyle.INPUT + ' h-auto w-full resize-none'}
 				/>
 			</fieldset>

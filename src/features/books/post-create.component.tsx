@@ -3,11 +3,14 @@ import { useState } from 'react';
 
 import BookPostForm from '@/features/books/post-form.component.tsx';
 import BookPostSearch from '@/features/books/post-search.component.tsx';
+import { BookSearchType } from '@/features/books/types.ts';
 import { booksService } from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 
 const BookPostCreateForm = () => {
 	const [isShowModal, setIsShowModal] = useState(false);
+
+	const [bookSearch, setBookSearch] = useState<BookSearchType>([]);
 
 	const queryClient = useQueryClient();
 
@@ -31,12 +34,24 @@ const BookPostCreateForm = () => {
 		setIsShowModal(prevVal => !prevVal);
 	};
 
+	const searchBookHandler = (book: BookSearchType) => {
+		setBookSearch(book);
+	};
+
 	return (
-		<BookPostForm onSubmit={submitHandler} onClick={searchModalHandler}>
+		<BookPostForm
+			onSubmit={submitHandler}
+			onClick={searchModalHandler}
+			inputData={bookSearch}>
 			<Button>작성 완료</Button>
 			{/* 혹시 모르니까 button type=reset 해주기 */}
 			{/* 리액트 폼 훅에는 reset 함수 제공 */}
-			{isShowModal && <BookPostSearch modalHandler={searchModalHandler} />}
+			{isShowModal && (
+				<BookPostSearch
+					modalHandler={searchModalHandler}
+					onSearch={searchBookHandler}
+				/>
+			)}
 		</BookPostForm>
 	);
 };
