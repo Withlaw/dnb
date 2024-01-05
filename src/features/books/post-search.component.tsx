@@ -23,7 +23,7 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInputValue = useDebounceValue(inputValue, 1000);
 
-	const { data, isLoading, isSuccess } = useQuery<BookSearchData>({
+	const { data, isLoading, isError } = useQuery<BookSearchData>({
 		enabled: !!debouncedInputValue,
 		queryKey: ['bookSearch', debouncedInputValue],
 		queryFn: async () => {
@@ -47,6 +47,7 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 
 	const isEmptySearchInput = inputValue.trim() === '';
 	const isTyping = inputValue !== debouncedInputValue;
+	const isFalied = !searchData;
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -64,6 +65,7 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 		modalHandler();
 	};
 
+	console.log('isError: ', isError, data, isFalied);
 	return (
 		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
 			<form
@@ -166,6 +168,9 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 							<li className={Style.ITEM_OFF}>
 								<span>찾으시는 책이 존재하지 않습니다.</span>
 							</li>
+						)}
+						{isFalied && (
+							<p className="text-center"> 서버에 연결할 수 없습니다.</p>
 						)}
 					</ul>
 				)}
