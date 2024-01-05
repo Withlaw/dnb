@@ -11,6 +11,7 @@ export const API_SUPABASE = {
 };
 
 export const API_NAVER = {
-  BOOK_SEARCH_ID:import.meta.env.VITE_API__NAVER_BOOK_SEARCH_ID,
-  BOOK_SEARCH_PW:import.meta.env.VITE_API__NAVER_BOOK_SEARCH_PW
+  BASE_URL : import.meta.env.VITE_API__NAVER_BOOK_SEARCH_BASE_URL,
+  BOOK_SEARCH_ID : import.meta.env.VITE_API__NAVER_BOOK_SEARCH_ID,
+  BOOK_SEARCH_PW : import.meta.env.VITE_API__NAVER_BOOK_SEARCH_PW
 }

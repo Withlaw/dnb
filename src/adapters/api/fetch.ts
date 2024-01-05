@@ -83,7 +83,16 @@ export class NaverAPiClient extends Fetch implements HttpClient {
     this.clientPW = options.pw
 	}
 
-  // async get<T=any>(endpoint: string): Promise<T> {
+  get(endpoint: string):Promise<Response> {
+		return this._fetch(this.resource+endpoint, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Naver-Client-Id': this.clientID,
+        'X-Naver-Client-Secret':this.clientPW,
+      },
+    });
+  }
+    // async get<T=any>(endpoint: string): Promise<T> {
 	// 	const res = await this._fetch(this.resource+endpoint, {
   //     headers: {
   //       'Content-Type': 'application/json',
@@ -97,15 +106,4 @@ export class NaverAPiClient extends Fetch implements HttpClient {
 
 	// 	return data;
   // }
-
-  get<T=any>(endpoint: string):Promise<Response | T> {
-		return this._fetch(this.resource+endpoint, {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Naver-Client-Id': this.clientID,
-        'X-Naver-Client-Secret':this.clientPW,
-      },
-    });
-
-  }
 }

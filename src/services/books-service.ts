@@ -30,12 +30,12 @@ const naverBookSearchClient = new NaverAPiClient('/search/book.json', {id:API_NA
 class BooksService {
   readonly endpoint = 'books';
 
-  async searchBook(query:string, start:number=1, display:number=10) {
+  async searchBook<T>(query:string, start:number=1, display:number=10) {
     const response = await naverBookSearchClient.get(`query=${query}&display=${display}&start=${start}`);
 
     if (!response.ok) throw ({ status: response.status, statusText: response.statusText, message: "naverBookSearchClient could not search data."});
     
-    const data = await response.json();
+    const data = await response.json() as T;
 
     return data;
   }

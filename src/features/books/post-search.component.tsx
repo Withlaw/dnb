@@ -24,10 +24,10 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInputValue = useDebounceValue(inputValue, 1000);
 
-	const { data, isLoading, isError } = useQuery<BookSearchData>({
+	const { data, isLoading } = useQuery({
 		enabled: !!debouncedInputValue,
 		queryKey: ['bookSearch', debouncedInputValue],
-		queryFn: () => booksService.searchBook(debouncedInputValue),
+		queryFn: () => booksService.searchBook<BookSearchData>(debouncedInputValue),
 		staleTime: 60 * 1000,
 	});
 
