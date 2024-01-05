@@ -1,30 +1,29 @@
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 
-import { BookSearchType } from '@/features/books/types.ts';
+import icons from '@/assets/icons.svg';
+import { BookSearchDataItem, BookSearchData } from '@/features/books/types.ts';
 import useDebounceValue from '@/hooks/useDebounceValue.tsx';
 import Modal from '@/ui/modal.tsx';
 
+enum Style {
+	ITME = 'px-2 py-1 my-1 text-sm',
+	ITEM_ON = Style.ITME + ' hover:bg-stone-200 hover:cursor-pointer',
+	ITEM_OFF = Style.ITME + ' hover:cursor-default text-stone-500',
+}
+
 type Props = {
 	modalHandler: () => void;
-	onSearch?: (book: BookSearchType) => void;
+	onSearch?: (book: BookSearchDataItem) => void;
 };
-
-const styleLi = 'p-2 my-[2px] text-sm hover:bg-stone-200 hover:cursor-pointer';
-
-let timer: number;
 
 const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const form = useRef<HTMLFormElement>(null);
 	const [inputValue, setInputValue] = useState('');
-	const debouncedInputValue = useDebounceValue(inputValue, 3000);
+	const debouncedInputValue = useDebounceValue(inputValue, 1000);
 
-	const isEmpty = inputValue.trim() === '';
-
-	const searchData: BookSearchType[] = [];
-	/*
-	const { data, isError, isLoading } = useQuery({
+	const { data, isLoading, isSuccess } = useQuery<BookSearchData>({
 		enabled: !!debouncedInputValue,
 		queryKey: ['bookSearch', debouncedInputValue],
 		queryFn: async () => {
@@ -43,7 +42,11 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 		},
 		staleTime: 60 * 1000,
 	});
-  */
+
+	const searchData: BookSearchDataItem[] | undefined = data?.items;
+
+	const isEmptySearchInput = inputValue.trim() === '';
+	const isTyping = inputValue !== debouncedInputValue;
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -53,50 +56,14 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.currentTarget;
 		if (value.trim() === inputValue.trim()) return; // 띄어쓰기만 할 경우 싹 무시.
-		console.log('입력: ', value);
 		setInputValue(value);
 	};
 
-	/*
-	useEffect(() => {
-		const bookSearch = async () => {
-			const res = await window.fetch(
-				'/api/v1/search/book.json?query=자바&display=10&start=11',
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						'X-Naver-Client-Id': 'PwRdiC58vvV7ceT9zpiz',
-						'X-Naver-Client-Secret': '6fgQOqYDoS',
-					},
-				},
-			);
+	const searchItemClickHandler = (data: BookSearchDataItem) => {
+		if (onSearch) onSearch(data);
+		modalHandler();
+	};
 
-			const data = await res.json();
-
-			console.log(data);
-		};
-
-		try {
-			bookSearch();
-		} catch (error) {
-			console.log(error);
-		}
-	}, []);
-
-
-  useEffect(() => {
-    const debounceTimeout = setTimeout(async () => {
-      try {
-        const data = await getSearchData(searchKeyword);
-        setSearchData(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Fetch error! ', error);
-      }
-    }, DEBOUNCE_TIMEOUT_SEC * 1000);
-    return () => clearTimeout(debounceTimeout);
-  }, [searchKeyword]);
-*/
 	return (
 		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
 			<form
@@ -114,10 +81,10 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 						<label
 							htmlFor="search"
 							className="text-lg font-semibold text-stone-700">
-							제목으로 책 검색하기
+							도서 검색
 						</label>
 					</div>
-					<div className="flex justify-between ">
+					<div className="relative flex items-center justify-between">
 						<input
 							type="text"
 							id="search"
@@ -128,40 +95,81 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 							className="h-10 flex-auto rounded-md px-3 text-sm outline-none autofill:bg-[#fff] focus:border focus:border-solid focus:border-stone-800"
 						/>
 
+						{isLoading && (
+							<div className="absolute right-2">
+								<svg className="size-6 animate-spin fill-stone-500">
+									<use href={`${icons}#icon-loader`}></use>
+								</svg>
+							</div>
+						)}
+
 						{/* <button className="ml-2 flex-initial rounded-md border border-solid bg-green-700 px-3 py-2 text-sm text-stone-50">
 							검색
 						</button> */}
 					</div>
 				</div>
-
-				{!isEmpty && (
-					<ul className="mt-2 flex max-h-72 min-h-16 flex-auto flex-col overflow-y-auto rounded-md bg-[#fff]">
-						{!searchData && (
-							<li className={'my-[2px] p-2 text-sm hover:cursor-default'}>
-								<span>검색중...</span>
+				{!isEmptySearchInput && (
+					<ul className="mt-2 max-h-72 min-h-16 flex-auto divide-y overflow-y-auto rounded-md bg-[#fff]">
+						{isTyping && (
+							<li className={Style.ITEM_OFF}>
+								{/* <span>입력 중 ...</span> */}
+								<span>{inputValue}</span>
 							</li>
 						)}
-						{searchData &&
+
+						{/* 
+            // 로딩스피너로 대체함
+            {isLoading && (
+							<li className={Style.ITEM_OFF}>
+								<span>검색 중 ...</span>
+							</li>
+						)} */}
+
+						{!isTyping &&
+							searchData &&
 							searchData.map(data => {
+								let author = data.author;
+								if (author.split('^').length > 1)
+									author = `${author.split('^')[0]} 등 ${
+										author.split('^').length
+									}인`;
 								return (
-									<li className={'my-[2px] p-2 text-sm hover:cursor-default'}>
-										<span>{data?.title}</span>
+									<li
+										key={data.isbn}
+										className={Style.ITEM_ON + ' flex'}
+										onClick={() => searchItemClickHandler(data)}>
+										<figure className="flex-none">
+											<img
+												className="h-12 w-10"
+												src={data.image}
+												alt={data.title}
+											/>
+										</figure>
+
+										<div className=" flex flex-col px-2">
+											<div className="w-[200px] truncate">
+												<span className=" text-xs font-semibold">
+													{data.title}
+												</span>
+											</div>
+											<div className="w-[200px] truncate text-xs text-stone-700">
+												<span>{author}</span>
+												<span> | </span>
+												<span>{data.publisher}</span>
+											</div>
+										</div>
 									</li>
 								);
 							})}
+
+						{!isTyping && searchData && searchData.length === 0 && (
+							<li className={Style.ITEM_OFF}>
+								<span>찾으시는 책이 존재하지 않습니다.</span>
+							</li>
+						)}
 					</ul>
 				)}
-				{/* <ul className="mt-2 flex h-[30vh] flex-auto flex-col overflow-y-auto rounded-md bg-[#fff]">
-					<li className={styleLi}>
-						<span>
-							검색어 없음 검색어 없음 검색어 없음 검색어 없음 검색어 없음 검색어
-							없음 검색어 없음 검색어 없음 검색어 없음 검색어 없음 검색어 없음
-						</span>
-					</li>
-					<li className={styleLi}>
-						<span>검색어 없음</span>
-					</li>
-				</ul> */}
+
 				{/* 무한스크롤 */}
 			</form>
 		</Modal>

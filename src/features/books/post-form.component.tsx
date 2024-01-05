@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
-enum FormStyle {
+enum Style {
 	CARD = 'border border-solid border-stone-300 rounded-md my-3 p-3',
 	INPUT = 'bg-inherit px-1 pb-1 text-lg outline-none',
 	INPUTCONTAINER = 'flex items-center justify-between',
@@ -27,9 +27,9 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 
 	return (
 		<form className="flex flex-col" onSubmit={submitHandler} ref={formRef}>
-			<fieldset className={FormStyle.CARD}>
-				<legend className={FormStyle.LEGEND}>제목</legend>
-				<div className={FormStyle.INPUTCONTAINER + ' border-b'}>
+			<fieldset className={Style.CARD}>
+				<legend className={Style.LEGEND}>제목</legend>
+				<div className={Style.INPUTCONTAINER + ' border-b'}>
 					<input
 						type="text"
 						name="title"
@@ -38,7 +38,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 						disabled={!!inputData?.title}
 						required
 						onClick={onClick}
-						className={FormStyle.INPUT}></input>
+						className={Style.INPUT}></input>
 					<span className="text-xl">
 						<HiOutlineSearch />
 					</span>
@@ -49,41 +49,41 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 				</div>
 			</fieldset>
 
-			<fieldset className={FormStyle.CARD}>
-				<legend className={FormStyle.LEGEND}>가격</legend>
-				<div className={FormStyle.INPUTCONTAINER}>
+			<fieldset className={Style.CARD}>
+				<legend className={Style.LEGEND}>가격</legend>
+				<div className={Style.INPUTCONTAINER}>
 					<input
 						type="number"
 						name="fee"
 						placeholder="대여료를 입력해주세요."
 						defaultValue={inputData?.fee}
 						required
-						className={FormStyle.INPUT + ' flex-auto appearance-none'}></input>
+						className={Style.INPUT + ' flex-auto appearance-none'}></input>
 					{/* 타이핑시 ₩ 색상 까맣게 효과 */}
 					<span className="text-xl text-gray-400">₩</span>
 				</div>
 			</fieldset>
 
-			<fieldset className={FormStyle.CARD + ' flex-auto'}>
-				<legend className={FormStyle.LEGEND}>설명</legend>
+			<fieldset className={Style.CARD + ' flex-auto'}>
+				<legend className={Style.LEGEND}>설명</legend>
 				{/* <textarea
 					rows={5}
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
-					className={FormStyle.INPUT + ' h-auto w-full resize-none'}></textarea> */}
+					className={Style.INPUT + ' h-auto w-full resize-none'}></textarea> */}
 				<ReactTextareaAutosize
 					minRows={5}
 					name="description"
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
 					defaultValue={inputData?.description}
-					className={FormStyle.INPUT + ' h-auto w-full resize-none'}
+					className={Style.INPUT + ' h-auto w-full resize-none'}
 				/>
 			</fieldset>
 
-			<fieldset className={FormStyle.CARD}>
+			<fieldset className={Style.CARD}>
 				<span>거래 위치</span>
 			</fieldset>
 
-			<fieldset className={FormStyle.CARD}>
+			<fieldset className={Style.CARD}>
 				<div>
 					<span>이미지 등록</span>
 				</div>

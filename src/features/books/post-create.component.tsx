@@ -3,14 +3,14 @@ import { useState } from 'react';
 
 import BookPostForm from '@/features/books/post-form.component.tsx';
 import BookPostSearch from '@/features/books/post-search.component.tsx';
-import { BookSearchType } from '@/features/books/types.ts';
+import { BookSearch, BookSearchDataItem } from '@/features/books/types.ts';
 import { booksService } from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 
 const BookPostCreateForm = () => {
 	const [isShowModal, setIsShowModal] = useState(false);
 
-	const [bookSearch, setBookSearch] = useState<BookSearchType>([]);
+	const [bookSearch, setBookSearch] = useState<BookSearchDataItem>();
 
 	const queryClient = useQueryClient();
 
@@ -34,8 +34,9 @@ const BookPostCreateForm = () => {
 		setIsShowModal(prevVal => !prevVal);
 	};
 
-	const searchBookHandler = (book: BookSearchType) => {
-		setBookSearch(book);
+	const searchBookHandler = (book: BookSearchDataItem) => {
+		console.log('클릭한 아이템: ', book);
+		// setBookSearch(book);
 	};
 
 	return (
