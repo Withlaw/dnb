@@ -4,6 +4,7 @@ import { HiOutlineX } from 'react-icons/hi';
 
 import icons from '@/assets/icons.svg';
 import { BookSearchDataItem, BookSearchData } from '@/features/books/types.ts';
+import { abbreviateAuthor } from '@/features/books/utils.ts';
 import useDebounceValue from '@/hooks/use-debounce-value.tsx';
 import { booksService } from '@/services/books-service.ts';
 import Modal from '@/ui/modal.tsx';
@@ -32,7 +33,6 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	});
 
 	const searchData: BookSearchDataItem[] | undefined = data?.items;
-
 	const isEmptySearchInput = inputValue.trim() === '';
 	const isTyping = inputValue !== debouncedInputValue;
 	const isFalied = !searchData;
@@ -115,11 +115,12 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 						{!isTyping &&
 							searchData &&
 							searchData.map(data => {
-								let author = data.author;
-								if (author.split('^').length > 1)
-									author = `${author.split('^')[0]} 등 ${
-										author.split('^').length
-									}인`;
+								const author = abbreviateAuthor(data.author);
+								// let author = data.author;
+								// if (author.split('^').length > 1)
+								// 	author = `${author.split('^')[0]} 등 ${
+								// 		author.split('^').length
+								// 	}인`;
 								return (
 									<li
 										key={data.isbn}

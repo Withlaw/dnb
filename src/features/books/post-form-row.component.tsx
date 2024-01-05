@@ -1,23 +1,34 @@
-// enum Style {
-// 	CARD = 'border border-solid border-stone-300 rounded-md my-3 p-3',
-// 	INPUT = 'bg-inherit px-1 pb-1 text-lg outline-none',
-// 	INPUTCONTAINER = 'flex items-center justify-between',
-// 	LEGEND = 'px-1 text-sm',
-// }
+import { HiExclamationCircle } from 'react-icons/hi';
 
 type Props = {
 	children: React.ReactNode;
 	name?: string;
 	className?: string;
+	isError?: boolean;
 };
 
-const FormRow = ({ children, name, className }: Props) => {
+const FormRow = ({ children, name, className, isError }: Props) => {
 	return (
 		<fieldset
 			className={
 				'my-2 rounded-md border border-solid border-stone-300 p-3 ' + className
 			}>
-			{name && <legend className="px-1 text-sm">{name}</legend>}
+			{name && (
+				<legend className="flex items-center px-1 text-sm">
+					{name}
+					{isError && (
+						<>
+							{' '}
+							<span className="ml-2 text-red-600">
+								<HiExclamationCircle />
+							</span>
+							<span className="text-red-600">
+								<span className="">작성해주세요</span>
+							</span>
+						</>
+					)}
+				</legend>
+			)}
 			{children}
 		</fieldset>
 	);

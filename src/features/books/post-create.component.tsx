@@ -4,13 +4,14 @@ import { useState } from 'react';
 import BookPostForm from '@/features/books/post-form.component.tsx';
 import BookPostSearch from '@/features/books/post-search.component.tsx';
 import { BookSearch, BookSearchDataItem } from '@/features/books/types.ts';
+import { abbreviateAuthor } from '@/features/books/utils.ts';
 import { booksService } from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 
 const BookPostCreateForm = () => {
 	const [isShowModal, setIsShowModal] = useState(false);
 
-	const [bookSearch, setBookSearch] = useState<BookSearchDataItem>();
+	const [bookSearch, setBookSearch] = useState<BookSearch>();
 
 	const queryClient = useQueryClient();
 
@@ -35,8 +36,14 @@ const BookPostCreateForm = () => {
 	};
 
 	const searchBookHandler = (book: BookSearchDataItem) => {
-		console.log('클릭한 아이템: ', book);
-		// setBookSearch(book);
+		setBookSearch({
+			title: book.title,
+			author: abbreviateAuthor(book.author),
+			publisher: book.publisher,
+			imageUrl: book.image,
+			// author: 'asdljfnalksdjfklasdjfklasdnjflks',
+			// publisher: 'asdfkljaskdnfjaslkdfmjkalsdmfjaklsdjfklasdf',
+		});
 	};
 
 	return (
