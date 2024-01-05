@@ -19,7 +19,7 @@ const BooksPostLayout = () => {
 			</HeaderMain>
 
 			{/* <aside className="bg-green-800">app aside</aside> */}
-			<main className="flex-auto bg-stone-50 px-4 py-[50px]">
+			<main className="flex-auto bg-stone-50 px-4 pt-[58px]">
 				<Outlet />
 			</main>
 

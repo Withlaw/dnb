@@ -2,11 +2,11 @@ import { useRef } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
+import FormRow from '@/features/books/post-form-row.component.tsx';
+
 enum Style {
-	CARD = 'border border-solid border-stone-300 rounded-md my-3 p-3',
 	INPUT = 'bg-inherit px-1 pb-1 text-lg outline-none',
 	INPUTCONTAINER = 'flex items-center justify-between',
-	LEGEND = 'px-1 text-sm',
 }
 
 type Props = {
@@ -27,8 +27,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 
 	return (
 		<form className="flex flex-col" onSubmit={submitHandler} ref={formRef}>
-			<fieldset className={Style.CARD}>
-				<legend className={Style.LEGEND}>제목</legend>
+			<FormRow name="제목">
 				<div className={Style.INPUTCONTAINER + ' border-b'}>
 					<input
 						type="text"
@@ -47,10 +46,9 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 					<span className="flex-auto">저자: {inputData?.author}</span>
 					<span className="flex-auto">출판사: {inputData?.publisher}</span>
 				</div>
-			</fieldset>
+			</FormRow>
 
-			<fieldset className={Style.CARD}>
-				<legend className={Style.LEGEND}>가격</legend>
+			<FormRow name="가격">
 				<div className={Style.INPUTCONTAINER}>
 					<input
 						type="number"
@@ -62,14 +60,9 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 					{/* 타이핑시 ₩ 색상 까맣게 효과 */}
 					<span className="text-xl text-gray-400">₩</span>
 				</div>
-			</fieldset>
+			</FormRow>
 
-			<fieldset className={Style.CARD + ' flex-auto'}>
-				<legend className={Style.LEGEND}>설명</legend>
-				{/* <textarea
-					rows={5}
-					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
-					className={Style.INPUT + ' h-auto w-full resize-none'}></textarea> */}
+			<FormRow name="설명">
 				<ReactTextareaAutosize
 					minRows={5}
 					name="description"
@@ -77,17 +70,19 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 					defaultValue={inputData?.description}
 					className={Style.INPUT + ' h-auto w-full resize-none'}
 				/>
-			</fieldset>
+			</FormRow>
 
-			<fieldset className={Style.CARD}>
-				<span>거래 위치</span>
-			</fieldset>
-
-			<fieldset className={Style.CARD}>
+			<FormRow name="거래 장소">
 				<div>
-					<span>이미지 등록</span>
+					<span>위치: </span>
 				</div>
-			</fieldset>
+			</FormRow>
+
+			<FormRow name="사진 등록">
+				<div>
+					<span>사진: </span>
+				</div>
+			</FormRow>
 
 			{/* 하단 네비 바 자리에 예약하기버튼 두기 */}
 			<div className="my-3">{children}</div>
