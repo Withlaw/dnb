@@ -4,7 +4,7 @@ import { HiOutlineX } from 'react-icons/hi';
 
 import icons from '@/assets/icons.svg';
 import { BookSearchDataItem, BookSearchData } from '@/features/books/types.ts';
-import useDebounceValue from '@/hooks/useDebounceValue.tsx';
+import useDebounceValue from '@/hooks/use-debounce-value.tsx';
 import { booksService } from '@/services/books-service.ts';
 import Modal from '@/ui/modal.tsx';
 
@@ -22,7 +22,7 @@ type Props = {
 const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const form = useRef<HTMLFormElement>(null);
 	const [inputValue, setInputValue] = useState('');
-	const debouncedInputValue = useDebounceValue(inputValue, 1000);
+	const debouncedInputValue = useDebounceValue(inputValue, 500);
 
 	const { data, isLoading } = useQuery({
 		enabled: !!debouncedInputValue,
@@ -156,7 +156,9 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 						)}
 
 						{!isTyping && !isLoading && isFalied && (
-							<p className="text-center"> 서버에 연결할 수 없습니다.</p>
+							<li className={Style.ITEM_OFF}>
+								<span>서버에 연결할 수 없습니다.</span>
+							</li>
 						)}
 					</ul>
 				)}

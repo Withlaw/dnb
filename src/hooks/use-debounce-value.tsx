@@ -7,7 +7,6 @@ function useDebounceValue<T>(value: T, delay: number): T {
 		if (typeof value === 'string' && value.trim() === '') return;
 
 		const timer = setTimeout(() => {
-			console.log('디바운스 밸류 도착~', value);
 			setDelayValue(value);
 		}, delay);
 
