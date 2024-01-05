@@ -8,11 +8,15 @@
 type Props = {
 	children: React.ReactNode;
 	name?: string;
+	className?: string;
 };
 
-const FormRow = ({ children, name }: Props) => {
+const FormRow = ({ children, name, className }: Props) => {
 	return (
-		<fieldset className="my-2 rounded-md border border-solid border-stone-300 p-3">
+		<fieldset
+			className={
+				'my-2 rounded-md border border-solid border-stone-300 p-3 ' + className
+			}>
 			{name && <legend className="px-1 text-sm">{name}</legend>}
 			{children}
 		</fieldset>

@@ -1,13 +1,8 @@
-import { useRef } from 'react';
+import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { HiOutlineSearch } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
 import FormRow from '@/features/books/post-form-row.component.tsx';
-
-enum Style {
-	INPUT = 'bg-inherit px-1 pb-1 text-lg outline-none',
-	INPUTCONTAINER = 'flex items-center justify-between',
-}
 
 type Props = {
 	children?: React.ReactNode;
@@ -18,25 +13,57 @@ type Props = {
 	onClick?: () => void;
 };
 
-const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
-	const formRef = useRef<HTMLFormElement>(null);
+type UseFormInput = {
+	title: string;
+	fee: string;
+	description: string;
+	location: string;
+};
 
-	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+enum Style {
+	INPUT = 'bg-inherit px-1 pb-1 text-lg outline-none',
+	INPUTCONTAINER = 'flex items-center justify-between',
+	ERROR = 'border-red-300 border-1',
+}
+
+const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	} = useForm<UseFormInput>({
+		defaultValues: {
+			title: inputData?.title,
+			fee: inputData?.fee,
+			description: inputData?.description,
+		},
+	});
+
+	const feeInputValue = watch('fee');
+
+	const submitHandler = (formData: FieldValues) => {
+		console.log(formData);
+	};
+	const submitErrorHandler = (errors: FieldErrors<FieldValues>) => {
+		console.log(errors);
 	};
 
 	return (
-		<form className="flex flex-col" onSubmit={submitHandler} ref={formRef}>
-			<FormRow name="제목">
-				<div className={Style.INPUTCONTAINER + ' border-b'}>
+		<form
+			className="flex flex-col"
+			onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
+			<FormRow name="제목" className={errors?.title?.message}>
+				<div className={Style.INPUTCONTAINER + ' border-b'} onClick={onClick}>
 					<input
+						{...register('title', {
+							required: Style.ERROR,
+							disabled: !!inputData?.title,
+							onChange: onClick,
+						})}
 						type="text"
-						name="title"
-						placeholder="책 제목을 입력해주세요."
-						defaultValue={inputData?.title}
-						disabled={!!inputData?.title}
-						required
-						onClick={onClick}
+						placeholder="책 제목을 작성해주세요."
+						autoFocus={false}
 						className={Style.INPUT}></input>
 					<span className="text-xl">
 						<HiOutlineSearch />
@@ -48,38 +75,47 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 				</div>
 			</FormRow>
 
-			<FormRow name="가격">
+			<FormRow name="가격" className={errors?.fee?.message}>
 				<div className={Style.INPUTCONTAINER}>
 					<input
+						{...register('fee', {
+							required: Style.ERROR,
+						})}
 						type="number"
-						name="fee"
 						placeholder="대여료를 입력해주세요."
-						defaultValue={inputData?.fee}
-						required
 						className={Style.INPUT + ' flex-auto appearance-none'}></input>
-					{/* 타이핑시 ₩ 색상 까맣게 효과 */}
-					<span className="text-xl text-gray-400">₩</span>
+					<span
+						className={
+							'text-xl text-gray-400 ' + (feeInputValue ? 'text-gray-800' : '')
+						}>
+						₩
+					</span>
 				</div>
 			</FormRow>
 
-			<FormRow name="설명">
+			<FormRow name="설명" className={errors?.description?.message}>
 				<ReactTextareaAutosize
+					{...register('description', {
+						required: Style.ERROR,
+					})}
 					minRows={5}
-					name="description"
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
-					defaultValue={inputData?.description}
 					className={Style.INPUT + ' h-auto w-full resize-none'}
 				/>
 			</FormRow>
 
-			<FormRow name="거래 장소">
-				<div>
-					<span>위치: </span>
-				</div>
+			<FormRow name="장소" className={errors?.location?.message}>
+				<input
+					type="text"
+					placeholder="거래할 장소를 입력해주세요."
+					{...register('location', {
+						required: Style.ERROR,
+					})}
+					className={Style.INPUT + ' w-full'}></input>
 			</FormRow>
 
-			<FormRow name="사진 등록">
-				<div>
+			<FormRow name="사진">
+				<div className={Style.INPUTCONTAINER}>
 					<span>사진: </span>
 				</div>
 			</FormRow>
