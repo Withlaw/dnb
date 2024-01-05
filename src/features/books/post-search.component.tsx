@@ -20,6 +20,7 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 
 	const isEmpty = inputValue.trim() === '';
 
+	/*
 	const { data, isError, isLoading } = useQuery({
 		enabled: !!debouncedInputValue,
 		queryKey: ['bookSearch', debouncedInputValue],
@@ -39,6 +40,7 @@ const BookPostSearch = ({ modalHandler }: Props) => {
 		},
 		staleTime: 60 * 1000,
 	});
+  */
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

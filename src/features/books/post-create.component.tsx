@@ -32,11 +32,10 @@ const BookPostCreateForm = () => {
 	};
 
 	return (
-		<BookPostForm onSubmit={submitHandler}>
+		<BookPostForm onSubmit={submitHandler} onClick={searchModalHandler}>
 			<Button>작성 완료</Button>
 			{/* 혹시 모르니까 button type=reset 해주기 */}
 			{/* 리액트 폼 훅에는 reset 함수 제공 */}
-			<button onClick={searchModalHandler}>책 검색</button>
 			{isShowModal && <BookPostSearch modalHandler={searchModalHandler} />}
 		</BookPostForm>
 	);
