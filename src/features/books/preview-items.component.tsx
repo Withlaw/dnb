@@ -125,25 +125,24 @@ const dummy: BooksPreviewModel[] = [
 ];
 
 const BooksPreviewItems = () => {
-	/*
 	const { data, isLoading } = useQuery({
 		queryKey: ['books'],
-		queryFn: booksService.getBooks.bind(booksService),
+		queryFn: async () => await booksService.getBooks(),
 	});
 
 	const books = data?.map(data => new BooksPreviewModel(data));
-*/
+
 	return (
 		<ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3">
 			{/* {isLoading ?? <h1>Loading...</h1>} */}
-			{/* {books &&
+			{books &&
 				books.map(book => {
 					return <BooksPreviewItem book={book} key={book.id} />;
-				})} */}
-			{dummy &&
+				})}
+			{/* {dummy &&
 				dummy.map(book => {
 					return <BooksPreviewItem book={book} key={book.id} />;
-				})}
+				})} */}
 		</ul>
 	);
 };
