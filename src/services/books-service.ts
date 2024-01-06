@@ -1,6 +1,7 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase.ts';
 import { API_NAVER } from '@/constants/index.ts';
+import { BookDataToServer } from '@/features/books/books.model.ts';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;
@@ -61,26 +62,16 @@ class BooksService {
 		// }
 	}
 
-  async createBook(newBook?:any) {
-    const { data, error } = await supabase.from('books').insert([{
-      author: 'createTest',
-      description: 'createTest',
-      fee: 1000,
-      image_url: '',
-      merchant_id: 1,
-      publisher: 'createTest',
-      title: 'createTest',
-      id:11,
-      created_at:'10',
-    },]).select();
+  async createBook(newBook:BookDataToServer) {
+    const { data, error } = await supabase.from(this.endpoint).insert([newBook]).select();
     // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
 
-  if (error) {
-    console.error(error);
-    throw new Error('Book could not be created');
-  }
-  return data;
+    if (error) {
+      console.error(error);
+      throw new Error('Book could not be created');
+    }
 
+    return data;
   }
 
   async deleteBook(id:string) {

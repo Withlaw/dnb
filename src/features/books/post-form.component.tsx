@@ -9,8 +9,8 @@ type Props = {
 	inputData?: {
 		[k: string]: string;
 	};
-	onSubmit?: (data: any) => void;
-	onClick?: () => void;
+	onSubmit?: (data: FieldValues) => void;
+	onTitle?: () => void;
 };
 
 type UseFormInput = {
@@ -21,13 +21,13 @@ type UseFormInput = {
 };
 
 enum Style {
-	INPUT = 'bg-inherit px-1 pb-1 text-lg outline-none ',
-	INPUTCONTAINER = 'flex items-center justify-between ',
-	ERROR = 'border-red-300 border-1 ',
-	IMAGE = 'mb-1 mr-1 h-24 w-20',
+	INPUT = ' bg-inherit px-1 pb-1 text-lg outline-none ',
+	INPUTCONTAINER = ' flex items-center justify-between ',
+	ERROR = ' border-red-300 border-1 ',
+	IMAGE = ' mb-1 mr-1 h-24 w-20',
 }
 
-const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
+const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -43,30 +43,28 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 	});
 
 	if (inputData?.title) setValue('title', inputData.title);
+	// default value 지우고 전부 setValue로 초깃값 지정하기!
 
 	const feeInputValue = watch('fee');
 
 	const submitHandler = (formData: FieldValues) => {
-		console.log('suc: ', formData, !!errors);
+		if (onSubmit) onSubmit(formData);
 	};
 	const submitErrorHandler = (errors: FieldErrors<FieldValues>) => {
 		// window.alert('양식을 모두 작성해주세요.');
-		console.log('err: ', errors);
+		// console.log('err: ', errors);
 	};
 
 	return (
 		<form
 			className="flex flex-col"
 			onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
-			<FormRow
-				name="제목"
-				className={errors?.title?.message}
-				isError={!!errors?.title?.message}>
-				<div className={Style.INPUTCONTAINER + ' border-b'} onClick={onClick}>
+			<FormRow name="제목" isError={!!errors?.title}>
+				<div className={Style.INPUTCONTAINER + ' border-b'} onClick={onTitle}>
 					<input
 						{...register('title', {
-							required: Style.ERROR,
-							onChange: onClick,
+							required: true,
+							onChange: onTitle,
 						})}
 						type="text"
 						placeholder="책 제목을 작성해주세요."
@@ -88,14 +86,11 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 				</div>
 			</FormRow>
 
-			<FormRow
-				name="가격"
-				className={errors?.fee?.message}
-				isError={!!errors?.fee?.message}>
+			<FormRow name="가격" isError={!!errors?.fee}>
 				<div className={Style.INPUTCONTAINER}>
 					<input
 						{...register('fee', {
-							required: Style.ERROR,
+							required: true,
 						})}
 						type="number"
 						placeholder="책 대여료를 작성해주세요."
@@ -111,13 +106,10 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 				</div>
 			</FormRow>
 
-			<FormRow
-				name="설명"
-				className={errors?.description?.message}
-				isError={!!errors?.description?.message}>
+			<FormRow name="설명" isError={!!errors?.description}>
 				<ReactTextareaAutosize
 					{...register('description', {
-						required: Style.ERROR,
+						required: true,
 					})}
 					minRows={5}
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
@@ -126,13 +118,10 @@ const BookPostForm = ({ children, inputData, onSubmit, onClick }: Props) => {
 				/>
 			</FormRow>
 
-			<FormRow
-				name="장소"
-				className={errors?.location?.message}
-				isError={!!errors?.location?.message}>
+			<FormRow name="장소" isError={!!errors?.location}>
 				<input
 					{...register('location', {
-						required: Style.ERROR,
+						required: true,
 					})}
 					type="text"
 					placeholder="거래할 장소를 입력해주세요."
