@@ -1,7 +1,7 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase.ts';
 import { API_NAVER } from '@/constants/index.ts';
-import { BookDataToServer } from '@/features/books/books.model.ts';
+import { BookDataFromServer, BookDataToServer } from '@/features/books/books.model.ts';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;
@@ -42,6 +42,21 @@ class BooksService {
 
     // 어떻게 추상화해야할까..
   }
+
+  async getBook(bookId:number) {
+    const { data, error } = await supabase
+    .from('books')
+    .select('*').eq('id', bookId);
+
+    if (error) {
+      console.error(error);
+      throw new Error('The book could not be loaded');
+    }
+
+    const book = new BookDataFromServer(data[0]);
+    return book
+  }
+
 
   async getBooks () {
 		// try {

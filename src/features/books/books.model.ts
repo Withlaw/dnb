@@ -1,44 +1,6 @@
-/*
-export type Data= {
-  author: string ;
-  created_at: string;
-  description: string ;
-  fee: number ;
-  id: number;
-  image_url: string ;
-  publisher: string ;
-  title: string ;
-}
-
-export type BooksData = {
-  author: string | null;
-  created_at: string;
-  description: string | null;
-  fee: number | null;
-  id: number;
-  image_url: string | null;
-  merchant_id: number | null;
-  publisher: string | null;
-  title: string | null;
-}
-*/
-
 type FormFieldValues = {
   [k:string]: any;
 }
-
-export type BookDataFromServer = {
-	author: string | null;
-	created_at: string;
-	description: string | null;
-	fee: number | null;
-	id: number;
-	image_url: string | null;
-	merchant_id: number | null;
-	publisher: string | null;
-	title: string | null;
-  location:string|null;
-};
 
 export class BooksPreviewModel {
 	readonly author: string;
@@ -65,6 +27,32 @@ export class BooksPreviewModel {
     this.location = data.location;
 	}
 }
+
+export class BookDataFromServer  {
+	id: number;
+	title: string;
+	author: string;
+	publisher: string;
+	description: string;
+	fee: number;
+	imageUrl: string;
+  location:string | null;
+	createdAt: number;
+	merchantId: number;
+
+  constructor(data:FormFieldValues) {
+    this.author = data.author;
+		this.description = data.description;
+		this.fee = +data.fee;
+		this.title = data.title;
+		this.publisher = data.publisher;
+		this.imageUrl = data.image_url;
+    this.location = data.location!;
+    this.merchantId = +data.merchant_id
+    this.createdAt=data.created_at
+    this.id = data.id;
+  }
+};
 
 
 export class BookDataToServer {

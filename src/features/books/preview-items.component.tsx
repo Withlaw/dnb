@@ -5,17 +5,6 @@ import BooksPreviewItem from '@/features/books/preview-item.component.tsx';
 import { booksService } from '@/services/books-service.ts';
 
 /*
-// dummy data
-type BooksPreview = {
-	id: string;
-	title: string;
-	imageUrl: string;
-	fee: number;
-	status: string;
-	merchantName: string;
-};
-*/
-
 const dummy: BooksPreviewModel[] = [
 	{
 		status: '대여 가능',
@@ -123,11 +112,13 @@ const dummy: BooksPreviewModel[] = [
 			'https://images.unsplash.com/photo-1682685794304-99d3d07c57d2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw0MXx8fGVufDB8fHx8fA%3D%3D',
 	},
 ];
+*/
 
 const BooksPreviewItems = () => {
 	const { data, isLoading } = useQuery({
 		queryKey: ['books'],
 		queryFn: async () => await booksService.getBooks(),
+		staleTime: 500 * 1000,
 	});
 
 	const books = data?.map(data => new BooksPreviewModel(data));
