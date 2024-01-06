@@ -1,10 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+import BookDelete from '@/features/books/delete.component.tsx';
 import BookDetail from '@/features/books/detail.component.tsx';
 import PostForm from '@/features/books/post-form.component.tsx';
-import { booksService } from '@/services/books-service.ts';
 import Button from '@/ui/button.tsx';
 import Modal from '@/ui/modal.tsx';
 
@@ -13,21 +12,6 @@ const BookDetailPage = () => {
 	const modalBtnHandler = () => {
 		setIsModalOpen(prevValue => !prevValue);
 	};
-
-	const navigate = useNavigate();
-	const queryClient = useQueryClient();
-
-	const { isPending: isDeleting, mutate } = useMutation({
-		mutationFn: booksService.deleteBook.bind(booksService),
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['books'] });
-			window.alert('Book successfully deleted!');
-			navigate('/books');
-		},
-		onError: error => {
-			window.alert(error.message);
-		},
-	});
 
 	return (
 		<div className="my-3 flex flex-col">
@@ -43,15 +27,7 @@ const BookDetailPage = () => {
 					수정페이지가기
 				</Link>
 				<span> </span>
-				<button
-					onClick={() => {
-						const isConfirmed = window.confirm('정말 삭제하시겠습니까?');
-						if (!isConfirmed) return;
-						mutate('7');
-					}}
-					disabled={isDeleting}>
-					삭제하기
-				</button>
+				<BookDelete />
 			</div>
 
 			{isModalOpen && (

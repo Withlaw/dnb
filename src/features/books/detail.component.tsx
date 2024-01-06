@@ -51,8 +51,6 @@ const BookDetail = () => {
 		staleTime: 600 * 1000,
 	});
 
-	console.log('book, ', book);
-
 	return (
 		<>
 			<div className="flex justify-center rounded-md bg-stone-200">

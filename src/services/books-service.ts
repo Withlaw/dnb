@@ -89,8 +89,8 @@ class BooksService {
     return data;
   }
 
-  async deleteBook(id:string) {
-      const { error } = await supabase.from(this.endpoint+'1').delete().eq('id', id);
+  async deleteBook(id:number) {
+      const { error } = await supabase.from(this.endpoint).delete().eq('id', id);
 
       if (error) {
 				console.error(error);
