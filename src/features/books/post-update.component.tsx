@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { FieldValues } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
@@ -8,14 +8,17 @@ import Button from '@/ui/button.tsx';
 
 const BookPostUpdateForm = () => {
 	const { bookId } = useParams();
-	console.log('paa : ', bookId);
 
+	// book detail data load
 	const { data: book } = useQuery({
 		enabled: !!bookId,
 		queryKey: [bookId, 'book'],
 		queryFn: async () => await booksService.getBook(+(bookId as string)),
 		staleTime: 600 * 1000,
 	});
+
+	// book detail update
+	// useMutation
 
 	const submitHandler = (data: FieldValues) => {
 		// const newBook = new BookDataToServer({
@@ -29,8 +32,6 @@ const BookPostUpdateForm = () => {
 		// mutate(newBook);
 		console.log('update submit: ', data);
 	};
-
-	console.log('book update dat: ', book);
 
 	return (
 		<>

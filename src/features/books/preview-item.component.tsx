@@ -13,7 +13,7 @@ type Props = {
 
 const BooksPreviewItem = ({ book }: Props) => {
 	return (
-		<li className="group my-1 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-2xl">
+		<li className="group relative my-1 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-2xl">
 			<Link to={`${book.id}`} className=" flex justify-between">
 				<figure className="flex-none">
 					<img
@@ -33,11 +33,12 @@ const BooksPreviewItem = ({ book }: Props) => {
 						</p>
 						<p className="mb-1 text-stone-700 sm:text-sm">{book.fee}원</p>
 					</div>
-					<div className="flex size-12 flex-none items-center rounded-full bg-red-100 p-2 text-center text-sm group-hover:font-semibold sm:size-10 sm:text-xs">
-						<h4>{book.status}</h4>
-					</div>
 				</div>
 			</Link>
+
+			<div className="absolute bottom-3 right-3 flex size-12 flex-none items-center rounded-full bg-red-100 p-2 text-center text-sm group-hover:font-semibold sm:size-10 sm:text-xs">
+				<span>{book.status}</span>
+			</div>
 		</li>
 	);
 };

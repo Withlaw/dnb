@@ -12,6 +12,7 @@ const BooksPreviewPage = () => {
 					<Button>글쓰기</Button>
 				</Link>
 			</div>
+
 			<div className="flex-auto py-2">
 				<BooksPreviewItems />
 			</div>
