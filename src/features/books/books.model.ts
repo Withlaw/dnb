@@ -36,21 +36,21 @@ export class BookDataFromServer  {
 	description: string;
 	fee: number;
 	imageUrl: string;
-  location:string | null;
 	createdAt: number;
 	merchantId: number;
+  location:string | undefined;
 
   constructor(data:FormFieldValues) {
+    this.id = data.id;
+		this.title = data.title;
     this.author = data.author;
+		this.publisher = data.publisher;
 		this.description = data.description;
 		this.fee = +data.fee;
-		this.title = data.title;
-		this.publisher = data.publisher;
 		this.imageUrl = data.image_url;
-    this.location = data.location!;
-    this.merchantId = +data.merchant_id
     this.createdAt=data.created_at
-    this.id = data.id;
+    this.merchantId = +data.merchant_id
+    this.location = data.location ?? undefined;
   }
 };
 

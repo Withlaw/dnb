@@ -2,13 +2,19 @@ import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { HiOutlineSearch, HiOutlinePlus } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
+import {
+	BookDataFromServer,
+	BookDataToServer,
+} from '@/features/books/books.model.ts';
 import FormRow from '@/features/books/post-form-row.component.tsx';
 
 type Props = {
 	children?: React.ReactNode;
-	inputData?: {
-		[k: string]: string;
-	};
+	inputData?:
+		| {
+				[k: string]: string;
+		  }
+		| BookDataFromServer;
 	onSubmit?: (data: FieldValues) => void;
 	onTitle?: () => void;
 };
@@ -33,22 +39,24 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 		handleSubmit,
 		formState: { errors },
 		watch,
-		setValue,
+		// } = useForm<UseFormInput>();
 	} = useForm<UseFormInput>({
 		defaultValues: {
 			title: inputData?.title,
-			fee: inputData?.fee,
+			fee: inputData?.fee + '',
 			description: inputData?.description,
+			location: inputData?.location,
 		},
 	});
-
-	if (inputData?.title) setValue('title', inputData.title);
-	// default value 지우고 전부 setValue로 초깃값 지정하기!
 
 	const feeInputValue = watch('fee');
 
 	const submitHandler = (formData: FieldValues) => {
-		if (onSubmit) onSubmit(formData);
+		if (onSubmit)
+			onSubmit({
+				...inputData,
+				...formData,
+			});
 	};
 	const submitErrorHandler = (errors: FieldErrors<FieldValues>) => {
 		// window.alert('양식을 모두 작성해주세요.');
@@ -68,7 +76,8 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 						})}
 						type="text"
 						placeholder="책 제목을 작성해주세요."
-						// defaultValue={inputData?.title}
+						defaultValue={inputData?.title}
+						disabled={!onTitle}
 						className={Style.INPUT + ' flex-auto truncate'}
 					/>
 					<span className="flex-none text-xl">
@@ -94,7 +103,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 						})}
 						type="number"
 						placeholder="책 대여료를 작성해주세요."
-						// defaultValue={inputData?.fee}
+						defaultValue={inputData?.fee}
 						className={Style.INPUT + ' flex-auto appearance-none'}
 					/>
 					<span
@@ -113,7 +122,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 					})}
 					minRows={5}
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
-					// defaultValue={inputData?.description}
+					defaultValue={inputData?.description}
 					className={Style.INPUT + ' h-auto w-full resize-none'}
 				/>
 			</FormRow>
@@ -125,7 +134,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 					})}
 					type="text"
 					placeholder="거래할 장소를 입력해주세요."
-					// defaultValue={inputData?.location}
+					defaultValue={inputData?.location}
 					className={Style.INPUT + ' w-full'}
 				/>
 			</FormRow>
