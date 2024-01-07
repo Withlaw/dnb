@@ -1,7 +1,7 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase.ts';
-import { API_NAVER } from '@/constants/index.ts';
-import { BookDataFromServer, BookDataToServer } from '@/features/books/books.model.ts';
+import { API_NAVER, API_SUPABASE } from '@/constants/index.ts';
+import { BookDataFromServer, BookDataToServer, BookFileToServer } from '@/features/books/books.model.ts';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;
@@ -77,17 +77,22 @@ class BooksService {
 		// }
 	}
 
-  async createBook(newBook:BookDataToServer) {
-    const { data, error } = await supabase.from(this.endpoint).insert([newBook]).select();
+  async createBook(newBook:BookDataToServer, imageFiles?:BookFileToServer) {
+    if(imageFiles) newBook.image_url += '&' + await this.uploadImage(imageFiles);
+
+    const { data, error } = await supabase.from(this.endpoint+'1').insert([{...newBook}]).select();
     // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
 
     if (error) {
       console.error(error);
+      
+      if(imageFiles) await this.deleteImage(imageFiles.getFileNames()[0]) // 버킷에 업로드된 이미지 파일 삭제
+    
       throw new Error('Book could not be created');
     }
 
     return data;
-  }
+  } 
 
   async deleteBook(id:number) {
       const { error } = await supabase.from(this.endpoint).delete().eq('id', id);
@@ -96,6 +101,35 @@ class BooksService {
 				console.error(error);
 				throw new Error('Book could not be deleted');
 			}
+  }
+
+  async uploadImage(imageFiles:BookFileToServer) {
+    const imageName = imageFiles.getFileNames()[0];  // 현재는 이미지 1개만 업로드 가능함.
+    const imagePath = `${API_SUPABASE.BASE_URL}/storage/v1/object/public/book-images/${imageName}`
+
+    const { error } = await supabase
+    .storage
+    .from('book-images')
+    .upload(imageName, imageFiles.files[0]) // 업로드할 이미지 없을 수도 있으니 나중에 분기처리하기.
+
+    if (error) {
+      console.error(error);
+      throw new Error('Book image could not be uploaded');
+    }
+
+    return imagePath;
+  }
+
+  async deleteImage(imageName:string){
+    const { data, error } = await supabase.storage.from('book-images').remove([imageName]);
+
+    if (error) {
+      console.error(error);
+      throw new Error('Book image could not be uploaded');
+    }
+
+    return data;
+
   }
 }
 

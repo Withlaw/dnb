@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { BookDataToServer } from '@/features/books/books.model.ts';
+import {
+	BookDataToServer,
+	BookFileToServer,
+} from '@/features/books/books.model.ts';
 import BookPostForm from '@/features/books/post-form.component.tsx';
 import BookPostSearch from '@/features/books/post-search.component.tsx';
 import { BookSearch, BookSearchDataItem } from '@/features/books/types.ts';
@@ -18,8 +21,13 @@ const BookPostCreateForm = () => {
 
 	const queryClient = useQueryClient();
 	const { mutate, isPending: isCreating } = useMutation({
-		mutationFn: async (newBook: BookDataToServer) =>
-			await booksService.createBook(newBook),
+		mutationFn: async ({
+			newBook,
+			imageFiles,
+		}: {
+			newBook: BookDataToServer;
+			imageFiles?: BookFileToServer;
+		}) => await booksService.createBook(newBook, imageFiles),
 		onSuccess: res => {
 			window.alert('New book successfully created.');
 			queryClient.invalidateQueries({ queryKey: ['books'] });
@@ -35,13 +43,15 @@ const BookPostCreateForm = () => {
 	const submitHandler = (data: FieldValues) => {
 		const newBook = new BookDataToServer({
 			...data,
-			author: bookSearch?.author,
-			publisher: bookSearch?.publisher,
-			imageUrl: bookSearch?.imageUrl,
+			...bookSearch,
 			merchantId: 1,
 		});
+		const imageFiles = data.image_files.length
+			? new BookFileToServer(data.image_files)
+			: undefined;
 
-		mutate(newBook);
+		// image -> 기본 이미지, 유저 업로드 이미지
+		mutate({ newBook, imageFiles });
 	};
 
 	const searchModalHandler = () => {

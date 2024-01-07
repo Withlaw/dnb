@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import BookDelete from '@/features/books/delete.component.tsx';
 import BookDetail from '@/features/books/detail.component.tsx';
+import BookPostDelete from '@/features/books/post-delete.component.tsx';
 import PostForm from '@/features/books/post-form.component.tsx';
 import Button from '@/ui/button.tsx';
 import Modal from '@/ui/modal.tsx';
@@ -27,7 +27,7 @@ const BookDetailPage = () => {
 					수정페이지가기
 				</Link>
 				<span> </span>
-				<BookDelete />
+				<BookPostDelete />
 			</div>
 
 			{isModalOpen && (

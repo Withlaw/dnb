@@ -1,20 +1,13 @@
+import clsx from 'clsx';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { HiOutlineSearch, HiOutlinePlus } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
-import {
-	BookDataFromServer,
-	BookDataToServer,
-} from '@/features/books/books.model.ts';
 import FormRow from '@/features/books/post-form-row.component.tsx';
 
 type Props = {
 	children?: React.ReactNode;
-	inputData?:
-		| {
-				[k: string]: string;
-		  }
-		| BookDataFromServer;
+	inputData?: FieldValues;
 	onSubmit?: (data: FieldValues) => void;
 	onTitle?: () => void;
 };
@@ -24,6 +17,7 @@ type UseFormInput = {
 	fee: string;
 	description: string;
 	location: string;
+	image_files: FileList;
 };
 
 enum Style {
@@ -43,7 +37,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 	} = useForm<UseFormInput>({
 		defaultValues: {
 			title: inputData?.title,
-			fee: inputData?.fee + '',
+			fee: inputData?.fee,
 			description: inputData?.description,
 			location: inputData?.location,
 		},
@@ -107,9 +101,10 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 						className={Style.INPUT + ' flex-auto appearance-none'}
 					/>
 					<span
-						className={
-							'text-xl text-gray-400 ' + (feeInputValue ? 'text-gray-800' : '')
-						}>
+						className={clsx(
+							'text-xl',
+							feeInputValue ? 'text-gray-800' : 'text-gray-400',
+						)}>
 						₩
 					</span>
 				</div>
@@ -146,13 +141,23 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 							<img src={inputData?.imageUrl} className={Style.IMAGE} />
 						)}
 
-						<span
+						<label
+							htmlFor="image-upload"
 							className={
 								Style.IMAGE +
 								' flex items-center justify-center text-2xl text-stone-600 hover:cursor-pointer'
 							}>
 							<HiOutlinePlus />
-						</span>
+						</label>
+						{/* 이미지 미리보기 제공을 위해 이미지 컴포넌트 만들어야 할 듯 */}
+						<input
+							id="image-upload"
+							type="file"
+							accept="image/*"
+							className="hidden"
+							// multiple 용량 안정화 이후에 사용할 것.
+							{...register('image_files')}
+						/>
 					</figure>
 				</div>
 			</FormRow>

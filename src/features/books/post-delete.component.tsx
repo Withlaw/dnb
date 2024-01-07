@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { booksService } from '@/services/books-service.ts';
 
-const BookDelete = () => {
+const BookPostDelete = () => {
 	const { bookId } = useParams();
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
@@ -33,4 +33,4 @@ const BookDelete = () => {
 	);
 };
 
-export default BookDelete;
+export default BookPostDelete;
