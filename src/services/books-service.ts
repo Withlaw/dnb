@@ -1,6 +1,6 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase.ts';
-import { API_NAVER, API_SUPABASE } from '@/constants/index.ts';
+import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
 import { BookDataFromServer, BookDataToServer, BookFileToServer } from '@/features/books/books.model.ts';
 
 // interface BookServiceInterface {
@@ -31,6 +31,9 @@ const naverBookSearchClient = new NaverAPiClient('/search/book.json', {id:API_NA
 class BooksService {
   readonly endpoint = 'books';
 
+  constructor(  private readonly baseURL : string, private readonly apiKey : string){}
+
+  
   async searchBook<T>(query:string, start:number=1, display:number=10) {
     const response = await naverBookSearchClient.get(`?query=${query}&display=${display}&start=${start}`);
 
@@ -177,10 +180,10 @@ class BooksService {
 
   private getImageNameAndPath(imageFiles?:BookFileToServer){
     const imageFileName = imageFiles?.getFileNames()[0];  
-    const imageFileUrl = `${API_SUPABASE.BASE_URL}/storage/v1/object/public/book-images/${imageFileName}`
+    const imageFileUrl = `${this.baseURL}/storage/v1/object/public/book-images/${imageFileName}`
 
     return [imageFileName, imageFileUrl];
   }
 }
 
-export const booksService = new BooksService();
+export const booksService = new BooksService(API_SUPABASE.BASE_URL, API_SUPABASE.KEY);
