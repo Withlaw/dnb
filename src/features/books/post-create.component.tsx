@@ -30,10 +30,12 @@ const BookPostCreateForm = () => {
 		}) => await booksService.createBook(newBook, imageFiles),
 		onSuccess: res => {
 			window.alert('New book successfully created.');
+			/*
 			queryClient.invalidateQueries({ queryKey: ['books'] });
 
 			const { id } = res[0];
 			navigate(`/books/${id}`, { replace: true });
+      */
 		},
 		onError: error => {
 			window.alert(error.message);

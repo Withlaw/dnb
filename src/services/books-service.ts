@@ -43,6 +43,7 @@ class BooksService {
     // 어떻게 추상화해야할까..
   }
 
+  // data api 
   async getBook(bookId:number) {
     const { data, error } = await supabase
     .from('books')
@@ -56,7 +57,6 @@ class BooksService {
     const book = new BookDataFromServer(data[0]);
     return book
   }
-
 
   async getBooks () {
 		// try {
@@ -78,20 +78,27 @@ class BooksService {
 	}
 
   async createBook(newBook:BookDataToServer, imageFiles?:BookFileToServer) {
-    if(imageFiles) newBook.image_url += '&' + await this.uploadImage(imageFiles);
-
-    const { data, error } = await supabase.from(this.endpoint+'1').insert([{...newBook}]).select();
-    // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
-
-    if (error) {
-      console.error(error);
-      
-      if(imageFiles) await this.deleteImage(imageFiles.getFileNames()[0]) // 버킷에 업로드된 이미지 파일 삭제
+    const [imageFileName, imageFileUrl] = this.getImageNameAndPath(imageFiles);
     
+    if (imageFileName) newBook.image_url += '&' + imageFileUrl; // 이미지 파일이 존재하면 기본 이미지와 파일 이미지 url 합침.
+
+    const insertNewBook = supabase.from(this.endpoint).insert([newBook]).select();  // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
+    const uploadImageFile = this.uploadImage(imageFiles);
+
+    const [insertNewBookResponse, uploadImageFileResponse] = await Promise.all([insertNewBook, uploadImageFile])
+
+    if (insertNewBookResponse.error || uploadImageFileResponse?.error) {
+      // createBook error handling
+
+      if(insertNewBookResponse.data) this.deleteBook(insertNewBookResponse.data[0].id) // table에 추가 된 책 정보 삭제 
+      if(uploadImageFileResponse && uploadImageFileResponse.data) this.deleteImage(uploadImageFileResponse.data.path) // 버킷에 업로드된 이미지 파일 삭제
+
+      console.error('creat book error: ', insertNewBookResponse.error, 'upload image error: ', uploadImageFileResponse?.error);
+      
       throw new Error('Book could not be created');
     }
 
-    return data;
+    return insertNewBookResponse.data;
   } 
 
   async deleteBook(id:number) {
@@ -103,21 +110,26 @@ class BooksService {
 			}
   }
 
-  async uploadImage(imageFiles:BookFileToServer) {
-    const imageName = imageFiles.getFileNames()[0];  // 현재는 이미지 1개만 업로드 가능함.
-    const imagePath = `${API_SUPABASE.BASE_URL}/storage/v1/object/public/book-images/${imageName}`
+  // file api
+  async uploadImage(imageFiles?:BookFileToServer) {
+    if(!imageFiles) return null;
 
-    const { error } = await supabase
+    // * 현재는 이미지 1개만 업로드 가능함.
+    const [imageFileName] = this.getImageNameAndPath(imageFiles);
+
+    // const { data, error } = await supabase
+    return await supabase
     .storage
     .from('book-images')
-    .upload(imageName, imageFiles.files[0]) // 업로드할 이미지 없을 수도 있으니 나중에 분기처리하기.
+    .upload(imageFileName!, imageFiles.files[0]) // 업로드할 이미지 없을 수도 있으니 나중에 분기처리하기.
 
-    if (error) {
-      console.error(error);
-      throw new Error('Book image could not be uploaded');
-    }
 
-    return imagePath;
+    // if (error) {
+    //   console.error(error);
+    //   throw new Error('Book image could not be uploaded');
+    // }
+
+    // return data;
   }
 
   async deleteImage(imageName:string){
@@ -125,11 +137,17 @@ class BooksService {
 
     if (error) {
       console.error(error);
-      throw new Error('Book image could not be uploaded');
+      throw new Error('Book image could not be deleted');
     }
 
     return data;
+  }
 
+  private getImageNameAndPath(imageFiles?:BookFileToServer){
+    const imageFileName = imageFiles?.getFileNames()[0];  
+    const imageFileUrl = `${API_SUPABASE.BASE_URL}/storage/v1/object/public/book-images/${imageFileName}`
+
+    return [imageFileName, imageFileUrl];
   }
 }
 
