@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useEffect } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { HiOutlineSearch, HiOutlinePlus } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
@@ -33,6 +34,7 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 		handleSubmit,
 		formState: { errors },
 		watch,
+		setValue,
 		// } = useForm<UseFormInput>();
 	} = useForm<UseFormInput>({
 		defaultValues: {
@@ -52,10 +54,15 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 				...formData,
 			});
 	};
+
 	const submitErrorHandler = (errors: FieldErrors<FieldValues>) => {
 		// window.alert('양식을 모두 작성해주세요.');
 		// console.log('err: ', errors);
 	};
+
+	useEffect(() => {
+		setValue('title', inputData?.title); // 책 검색시 title value 초기화
+	}, [inputData]);
 
 	return (
 		<form
@@ -70,7 +77,6 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 						})}
 						type="text"
 						placeholder="책 제목을 작성해주세요."
-						defaultValue={inputData?.title}
 						disabled={!onTitle}
 						className={Style.INPUT + ' flex-auto truncate'}
 					/>
@@ -97,7 +103,6 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 						})}
 						type="number"
 						placeholder="책 대여료를 작성해주세요."
-						defaultValue={inputData?.fee}
 						className={Style.INPUT + ' flex-auto appearance-none'}
 					/>
 					<span
@@ -117,7 +122,6 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 					})}
 					minRows={5}
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
-					defaultValue={inputData?.description}
 					className={Style.INPUT + ' h-auto w-full resize-none'}
 				/>
 			</FormRow>
@@ -129,7 +133,6 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 					})}
 					type="text"
 					placeholder="거래할 장소를 입력해주세요."
-					defaultValue={inputData?.location}
 					className={Style.INPUT + ' w-full'}
 				/>
 			</FormRow>

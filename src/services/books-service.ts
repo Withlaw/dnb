@@ -99,6 +99,38 @@ class BooksService {
     }
 
     return insertNewBookResponse.data;
+    /*
+    const [imageFileName, imageFileUrl] = this.getImageNameAndPath(imageFiles);
+    
+    if (imageFileName) newBook.image_url += '&' + imageFileUrl; // 이미지 파일이 존재하면 기본 이미지와 파일 이미지 url 합침.
+
+    const insertNewBook = supabase.from(this.endpoint).insert([newBook]).select();  // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
+    const uploadImageFile = this.uploadImage(imageFiles);
+
+    let insertNewBookResponse, uploadImageFileResponse;
+    try {
+      const [res1, res2] = await Promise.all([insertNewBook, uploadImageFile]);
+      insertNewBookResponse = res1;
+      uploadImageFileResponse = res2;
+
+      if(insertNewBookResponse.error) {
+        // insert new book error handling
+        console.error(insertNewBookResponse.error);
+        throw new Error('Book could not be deleted'); 
+      }
+
+      console.log('creat book: ', insertNewBookResponse, 'upload image: ', uploadImageFileResponse);
+
+      return insertNewBookResponse.data;
+      
+    } catch (error) {
+      if(insertNewBookResponse?.data) this.deleteBook(insertNewBookResponse!.data[0].id) // table에 추가 된 책 정보 삭제 
+      if(uploadImageFileResponse) this.deleteImage(uploadImageFileResponse.path) // 버킷에 업로드된 이미지 파일 삭제
+
+
+      throw error;
+    }
+*/
   } 
 
   async deleteBook(id:number) {
