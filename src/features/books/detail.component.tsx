@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
-import { BookDataFromServer } from '@/features/books/books.model.ts';
 import DetailRow from '@/features/books/detail-row.component.tsx';
+import BookImageSlider from '@/features/books/detail-slider.component.tsx';
 import { booksService } from '@/services/books-service.ts';
 
 type BookDetail = {
@@ -67,6 +67,22 @@ const BookDetail = () => {
 					/> */}
 				</figure>
 			</div>
+			{/* <div className="flex items-center justify-center bg-stone-200">
+				<BookImageSlider>
+					<figure>
+						<img
+							src={book?.bookImageUrl}
+							alt={book?.title}
+						/>
+					</figure>
+					<figure>
+						<img
+							src={book?.bookImageUrl}
+							alt={book?.title}
+						/>
+					</figure>
+				</BookImageSlider>
+			</div> */}
 
 			<div className="flex flex-col p-2">
 				<DetailRow>

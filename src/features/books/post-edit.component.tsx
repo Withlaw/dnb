@@ -15,6 +15,7 @@ const BookPostEditForm = () => {
 	const navigate = useNavigate();
 
 	const queryClient = useQueryClient();
+
 	// book detail data load
 	const { data: book } = useQuery({
 		enabled: Boolean(bookId),
@@ -41,9 +42,9 @@ const BookPostEditForm = () => {
 		},
 		onSuccess: res => {
 			window.alert('New book successfully created.');
-			// queryClient.invalidateQueries({ queryKey: [bookId, 'book'] });
+			queryClient.invalidateQueries({ queryKey: [bookId, 'book'] });
 
-			// navigate(`/books/${bookId}`, { replace: true });
+			navigate(`/books/${bookId}`, { replace: true });
 		},
 		onError: error => {
 			window.alert(error.message);
