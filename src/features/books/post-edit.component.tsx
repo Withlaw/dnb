@@ -1,10 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FieldValues } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
-	BookDataFromServer,
 	BookDataToServer,
 	BookFileToServer,
 } from '@/features/books/books.model.ts';
@@ -14,8 +12,9 @@ import Button from '@/ui/button.tsx';
 
 const BookPostEditForm = () => {
 	const { bookId } = useParams();
-	const [backupData, setBackupData] = useState();
+	const navigate = useNavigate();
 
+	const queryClient = useQueryClient();
 	// book detail data load
 	const { data: book } = useQuery({
 		enabled: Boolean(bookId),
@@ -42,15 +41,13 @@ const BookPostEditForm = () => {
 		},
 		onSuccess: res => {
 			window.alert('New book successfully created.');
-			console.log('update sucees: ', res);
-			/*
-			queryClient.invalidateQueries({ queryKey: [bookId, 'book'] });
+			// queryClient.invalidateQueries({ queryKey: [bookId, 'book'] });
 
-			navigate(`/books/${bookId}`, { replace: true });
-      */
+			// navigate(`/books/${bookId}`, { replace: true });
 		},
 		onError: error => {
 			window.alert(error.message);
+			navigate(-1);
 		},
 	});
 

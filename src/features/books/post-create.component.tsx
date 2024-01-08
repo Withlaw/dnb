@@ -19,7 +19,7 @@ const BookPostCreateForm = () => {
 	const [bookSearch, setBookSearch] = useState<BookSearch>();
 	const navigate = useNavigate();
 
-	const queryClient = useQueryClient();
+	// const queryClient = useQueryClient();
 	const { mutate, isPending: isCreating } = useMutation({
 		mutationFn: async ({
 			newBook,
@@ -30,12 +30,10 @@ const BookPostCreateForm = () => {
 		}) => await booksService.createBook(newBook, imageFiles),
 		onSuccess: res => {
 			window.alert('New book successfully created.');
-			/*
-			queryClient.invalidateQueries({ queryKey: ['books'] });
+			// queryClient.invalidateQueries({ queryKey: ['books'] });
 
-			const { id } = res[0];
+			const { id } = res;
 			navigate(`/books/${id}`, { replace: true });
-      */
 		},
 		onError: error => {
 			window.alert(error.message);

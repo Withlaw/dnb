@@ -30,6 +30,7 @@ const naverBookSearchClient = new NaverAPiClient('/search/book.json', {id:API_NA
 
 class BooksService {
   readonly endpoint = 'books';
+  readonly remoteStorage = 'book-images';
 
   constructor(  private readonly baseURL : string, private readonly apiKey : string){}
 
@@ -49,7 +50,7 @@ class BooksService {
   // data api 
   async getBook(bookId:number) {
     const { data, error } = await supabase
-    .from('books')
+    .from(this.endpoint)
     .select('*').eq('id', bookId).single();
 
     if (error) {
@@ -92,11 +93,14 @@ class BooksService {
     if (insertNewBookResponse.error || uploadImageFileResponse?.error) {
       // createBook error handling
 
+      /*
       if(insertNewBookResponse.data) this.deleteBook(insertNewBookResponse.data.id) // table에 추가 된 책 정보 삭제 
       if(uploadImageFileResponse && uploadImageFileResponse.data) this.deleteImage(uploadImageFileResponse.data.path) // 버킷에 업로드된 이미지 파일 삭제
 
       console.error(insertNewBookResponse.error, uploadImageFileResponse?.error);
-      
+      */
+      Promise.allSettled([this.deleteBook(insertNewBookResponse?.data?.id), this.deleteImage(uploadImageFileResponse?.data?.path)]);
+
       throw new Error('Book could not be created');
     }
 
@@ -141,31 +145,45 @@ class BooksService {
     backup: BookDataToServer;
     imageFiles?: BookFileToServer;
   }) {
-    // console.log('update: ','id: ',id, editedBook, backup,imageFiles);
-
     const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
     editedBook.user_image_url = imageFileUrl;
 
-    const { error } = await supabase.from(this.endpoint).update(editedBook).eq('id', id);
+    const updateQuery = (data:BookDataToServer) => supabase.from(this.endpoint).update(data).eq('id', id).select().single();
+    const uploadQuery = this.uploadImage(imageFiles);
+
+    const [updateResponse, uploadResponse] = await Promise.all([updateQuery(editedBook), uploadQuery]);
+
+    if(updateResponse.error || uploadResponse?.error) {
+      Promise.allSettled([updateQuery(backup), this.deleteImage(uploadResponse?.data?.path)])
+
+      throw new Error('Book could not be updated');
+    }
+
+    /*
+    const { error, data } = await supabase.from(this.endpoint).update(editedBook).eq('id', id);
   
     if (error) {
-      console.log(error);
+      console.error(error);
       throw new Error('Book could not be edited');
     }
 
     const uploadImageFileResponse = await this.uploadImage(imageFiles);
 
     if (uploadImageFileResponse?.error) {
-      supabase.from(this.endpoint).update(backup).eq('id', id); // 이미지 파일 업로드 실패시 백업 데이터로 db 업데이트
+      console.log('image falies: ', backup, data)
+      if(data) supabase.from(this.endpoint).update(backup).eq('id', id); // 이미지 파일 업로드 실패시 백업 데이터로 db 업데이트
       
       console.error(uploadImageFileResponse?.error);
       throw new Error('Book image files could not be edited');
     }
 
     return 1;
+    */
   }
 
-  async deleteBook(id:number) {
+  async deleteBook(id?:number) {
+    if(!id) return null;
+
       const { error } = await supabase.from(this.endpoint).delete().eq('id', id);
 
       if (error) {
@@ -180,26 +198,30 @@ class BooksService {
 
     const { imageFileName } = this.getImageNameAndPath(imageFiles);
 
-    // const { data, error } = await supabase
-    return await supabase
+    /*
+    const { data, error } = await supabase
     .storage
-    .from('book-images')
+    .from('book-images2')
     .upload(imageFileName!, imageFiles.files[0]) 
+
+    if (error) {
+      console.error(error);
+      throw new Error('Book image could not be uploaded');
+    }
+
+    return data;
+*/
     // 현재는 이미지 1개만 업로드 가능함.
     // 업로드할 이미지 없을 수도 있으니 나중에 분기처리하기.
-
     // 파일 업로드는 항상 form data insert query와 함께 실행되므로 여기에서 에러 처리를 해줄 필요가 없음.
 
-
-    // if (error) {
-    //   console.error(error);
-    //   throw new Error('Book image could not be uploaded');
-    // }
-
-    // return data;
+    return supabase.storage.from(this.remoteStorage).upload(imageFileName!, imageFiles.files[0]) 
   }
 
-  async deleteImage(imageName:string){
+  async deleteImage(imageName?:string){
+    if(!imageName) return null;
+
+    /*
     const { data, error } = await supabase.storage.from('book-images').remove([imageName]);
 
     if (error) {
@@ -208,6 +230,8 @@ class BooksService {
     }
 
     return data;
+    */
+    return supabase.storage.from(this.remoteStorage).remove([imageName]);
   }
 
   private getImageNameAndPath(imageFiles?:BookFileToServer){
