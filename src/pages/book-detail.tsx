@@ -1,47 +1,21 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import BookDetail from '@/features/books/detail.component.tsx';
 import BookPostDelete from '@/features/books/post-delete.component.tsx';
-import PostForm from '@/features/books/post-form.component.tsx';
 import Button from '@/ui/button.tsx';
-import Modal from '@/ui/modal.tsx';
 
 const BookDetailPage = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const modalBtnHandler = () => {
-		setIsModalOpen(prevValue => !prevValue);
-	};
-
 	return (
 		<div className="my-3 flex flex-col">
 			<BookDetail />
 
-			{/* ////////////////  */}
-
 			<div className="w-full p-2">
 				<Button>예약하기</Button>
-				<button onClick={modalBtnHandler}>수정하기</button>
-				<span> </span>
-				<Link to={'edit'} onClick={modalBtnHandler}>
-					수정페이지가기
-				</Link>
-				<span> </span>
+
+				<Link to={'edit'}>수정페이지가기</Link>
+
 				<BookPostDelete />
 			</div>
-
-			{isModalOpen && (
-				<Modal>
-					<div className="container mx-auto flex h-dvh max-w-screen-sm flex-col">
-						<PostForm>
-							<div>
-								<Modal.BtnSubmit>제출</Modal.BtnSubmit>
-								<Modal.BtnClose onClose={modalBtnHandler}>닫기</Modal.BtnClose>
-							</div>
-						</PostForm>
-					</div>
-				</Modal>
-			)}
 		</div>
 	);
 };
@@ -49,6 +23,7 @@ const BookDetailPage = () => {
 export default BookDetailPage;
 
 /*
+// edit window modal
 						<form
 							onSubmit={() => {
 								console.log('form submitted');

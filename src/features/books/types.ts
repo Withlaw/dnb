@@ -1,11 +1,4 @@
-export type BookSearch = {
-  title:string;
-  author: string;
-  publisher:string;
-  bookImageUrl : string;
-}
-
-export type BookSearchDataItem = {
+export type BookTitleSearchResult = {
 	description: string;
   author:string;
 	discount: string;
@@ -17,10 +10,10 @@ export type BookSearchDataItem = {
 	title: string;
 };
 
-export type BookSearchData = {
+export type BookTitleSearchData = {
   display: number;
   lastBuildDate: string;
   start: number;
   total: number;
-  items:BookSearchDataItem[];
+  items:BookTitleSearchResult[];
 }

@@ -1,12 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 
 import icons from '@/assets/icons.svg';
-import { BookSearchDataItem, BookSearchData } from '@/features/books/types.ts';
-import { abbreviateAuthor } from '@/features/books/utils.ts';
-import useDebounceValue from '@/hooks/use-debounce-value.tsx';
-import { booksService } from '@/services/books-service.ts';
+import { BookDataFromTitleSearch } from '@/features/books/books.model.ts';
+import useSearchForm from '@/features/books/use-book-search-form.hook.ts';
+import useBookSeach from '@/features/books/use-book-search.hook.ts';
 import Modal from '@/ui/modal.tsx';
 
 enum Style {
@@ -17,47 +14,32 @@ enum Style {
 
 type Props = {
 	modalHandler: () => void;
-	onSearch?: (book: BookSearchDataItem) => void;
+	onSearch?: (book: BookDataFromTitleSearch) => void;
 };
 
 const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
-	const form = useRef<HTMLFormElement>(null);
-	const [inputValue, setInputValue] = useState('');
-	const debouncedInputValue = useDebounceValue(inputValue, 500);
+	const { formRef, inputValue, inputChangeHandler, isInputChange } =
+		useSearchForm();
+	const { debouncedValue, searchData, isLoading, isError, error } =
+		useBookSeach(inputValue);
 
-	const { data, isLoading } = useQuery({
-		enabled: !!debouncedInputValue,
-		queryKey: ['bookSearch', debouncedInputValue],
-		queryFn: () => booksService.searchBook<BookSearchData>(debouncedInputValue),
-		staleTime: 60 * 1000,
-	});
+	const isTyping = inputValue !== debouncedValue;
 
-	const searchData: BookSearchDataItem[] | undefined = data?.items;
-	const isEmptySearchInput = inputValue.trim() === '';
-	const isTyping = inputValue !== debouncedInputValue;
-	const isFalied = !searchData;
-
-	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		console.log('form submit');
-	};
-
-	const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.currentTarget;
-		if (value.trim() === inputValue.trim()) return; // 띄어쓰기만 할 경우 싹 무시.
-		setInputValue(value);
-	};
-
-	const searchItemClickHandler = (data: BookSearchDataItem) => {
+	const searchItemClickHandler = (data: BookDataFromTitleSearch) => {
 		if (onSearch) onSearch(data);
 		modalHandler();
 	};
 
+	// const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+	// 	e.preventDefault();
+	// 	console.log('form submit');
+	// };
+
 	return (
 		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
+			{/* 이 아래는 다시 dropdown으로 추상화 할 수 있음 */}
 			<form
-				ref={form}
-				onSubmit={submitHandler}
+				ref={formRef}
 				className="flex w-80 flex-initial flex-col justify-between rounded-xl border border-solid bg-stone-300 p-4">
 				<div onClick={modalHandler} className="z-10 hover:cursor-pointer">
 					<span className="absolute left-[8px] top-[8px] text-stone-700">
@@ -97,7 +79,7 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 						</button> */}
 					</div>
 				</div>
-				{!isEmptySearchInput && (
+				{isInputChange && (
 					<ul className="mt-2 max-h-72 min-h-16 flex-auto divide-y overflow-y-auto rounded-md bg-[#fff]">
 						{isTyping && (
 							<li className={Style.ITEM_OFF}>
@@ -115,7 +97,8 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 						{!isTyping &&
 							searchData &&
 							searchData.map(data => {
-								const author = abbreviateAuthor(data.author);
+								const author = data.abbreviatedAuthor;
+								// const author = abbreviateAuthor(data.author);
 								// let author = data.author;
 								// if (author.split('^').length > 1)
 								// 	author = `${author.split('^')[0]} 등 ${
@@ -129,7 +112,7 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 										<figure className="flex-none">
 											<img
 												className="h-12 w-10"
-												src={data.image}
+												src={data.bookImageUrl}
 												alt={data.title}
 											/>
 										</figure>
@@ -156,9 +139,10 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 							</li>
 						)}
 
-						{!isTyping && !isLoading && isFalied && (
+						{!isTyping && !isLoading && isError && (
 							<li className={Style.ITEM_OFF}>
 								<span>서버에 연결할 수 없습니다.</span>
+								<span>{error?.message}</span>
 							</li>
 						)}
 					</ul>

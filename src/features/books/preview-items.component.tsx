@@ -1,8 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
-
-import { BooksPreviewModel } from '@/features/books/books.model.ts';
 import BooksPreviewItem from '@/features/books/preview-item.component.tsx';
-import { booksService } from '@/services/books-service.ts';
+import useBooksPreview from '@/features/books/use-books-preview.hook.ts';
+
+const BooksPreviewItems = () => {
+	const { books, isLoading, isError, error } = useBooksPreview();
+
+	return (
+		<ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3">
+			{isLoading && <h1>Loading...</h1>}
+			{isError && <h1>{error?.message}</h1>}
+			{books &&
+				books.map(book => {
+					return <BooksPreviewItem book={book} key={book.id} />;
+				})}
+			{/* {dummy &&
+				dummy.map(book => {
+					return <BooksPreviewItem book={book} key={book.id} />;
+				})} */}
+		</ul>
+	);
+};
+
+export default BooksPreviewItems;
 
 /*
 const dummy: BooksPreviewModel[] = [
@@ -113,28 +131,3 @@ const dummy: BooksPreviewModel[] = [
 	},
 ];
 */
-
-const BooksPreviewItems = () => {
-	const { data, isLoading } = useQuery({
-		queryKey: ['books'],
-		queryFn: async () => await booksService.getBooks(),
-	});
-
-	const books = data?.map(data => new BooksPreviewModel(data));
-
-	return (
-		<ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3">
-			{/* {isLoading ?? <h1>Loading...</h1>} */}
-			{books &&
-				books.map(book => {
-					return <BooksPreviewItem book={book} key={book.id} />;
-				})}
-			{/* {dummy &&
-				dummy.map(book => {
-					return <BooksPreviewItem book={book} key={book.id} />;
-				})} */}
-		</ul>
-	);
-};
-
-export default BooksPreviewItems;

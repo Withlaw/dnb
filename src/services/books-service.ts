@@ -1,7 +1,7 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase.ts';
 import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
-import { BookDataFromServer, BookDataToServer, BookFileToServer } from '@/features/books/books.model.ts';
+import { BookDataToServer, BookFileToServer } from '@/features/books/books.model.ts';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;
@@ -57,9 +57,8 @@ class BooksService {
       console.error(error);
       throw new Error('The book could not be loaded');
     }
-
-    const book = new BookDataFromServer(data);
-    return book
+    
+    return data
   }
 
   async getBooks () {

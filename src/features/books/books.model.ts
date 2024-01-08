@@ -1,3 +1,5 @@
+import { BookTitleSearchResult } from "@/features/books/types.ts";
+
 type FormFieldValues = {
   [k:string]: any;
 }
@@ -30,6 +32,30 @@ export class BooksPreviewModel {
 }
 
 // BookData
+export class BookDataFromTitleSearch {
+  readonly title:string;
+  readonly author: string;
+  readonly publisher:string;
+  readonly bookImageUrl : string;
+  readonly isbn: string;
+
+  constructor(data: BookTitleSearchResult){
+    this.title = data.title;
+    this.author = data.author;
+    this.publisher = data.publisher;
+    this.bookImageUrl = data.image;
+    this.isbn = data.isbn;
+  }
+
+  get abbreviatedAuthor () {
+    const splited = this.author.split('^')
+  
+    if( splited.length <= 1) return this.author;
+  
+    return `${splited[0]} 등 ${splited.length}인`;
+  }
+}
+
 export class BookDataFromServer {
 	id: number;
 	title: string;

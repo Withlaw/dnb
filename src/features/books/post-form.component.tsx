@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { useEffect } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { HiOutlineSearch, HiOutlinePlus } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
@@ -11,7 +10,7 @@ type Props = {
 	inputData?: FieldValues;
 	// inputData?: Partial<BookDataFromServer>;
 	onSubmit?: (data: FieldValues) => void;
-	onTitle?: () => void;
+	onTitleSearch?: () => void;
 };
 
 type UseFormInput = {
@@ -29,13 +28,17 @@ enum Style {
 	IMAGE = ' mb-1 mr-1 h-24 w-20',
 }
 
-const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
+const BookPostForm = ({
+	children,
+	inputData,
+	onSubmit,
+	onTitleSearch,
+}: Props) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		watch,
-		setValue,
 	} = useForm<UseFormInput>({
 		// defaultValues: {...inputData},
 		values: {
@@ -66,15 +69,17 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 			className="flex flex-col"
 			onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
 			<FormRow name="제목" isError={!!errors?.title}>
-				<div className={Style.INPUTCONTAINER + ' border-b'} onClick={onTitle}>
+				<div
+					className={Style.INPUTCONTAINER + ' border-b'}
+					onClick={onTitleSearch}>
 					<input
 						{...register('title', {
 							required: true,
-							onChange: onTitle,
+							onChange: onTitleSearch,
 						})}
 						type="text"
 						placeholder="책 제목을 작성해주세요."
-						disabled={!onTitle}
+						disabled={!onTitleSearch}
 						className={Style.INPUT + ' flex-auto truncate'}
 					/>
 					<span className="flex-none text-xl">
