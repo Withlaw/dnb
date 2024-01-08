@@ -37,36 +37,42 @@ export interface Database {
       books: {
         Row: {
           author: string | null
+          book_image_url: string | null
           created_at: string
           description: string | null
           fee: number | null
           id: number
-          image_url: string | null
+          location: string | null
           merchant_id: number | null
           publisher: string | null
           title: string | null
+          user_image_url: string | null
         }
         Insert: {
           author?: string | null
+          book_image_url?: string | null
           created_at?: string
           description?: string | null
           fee?: number | null
           id?: number
-          image_url?: string | null
+          location?: string | null
           merchant_id?: number | null
           publisher?: string | null
           title?: string | null
+          user_image_url?: string | null
         }
         Update: {
           author?: string | null
+          book_image_url?: string | null
           created_at?: string
           description?: string | null
           fee?: number | null
           id?: number
-          image_url?: string | null
+          location?: string | null
           merchant_id?: number | null
           publisher?: string | null
           title?: string | null
+          user_image_url?: string | null
         }
         Relationships: [
           {

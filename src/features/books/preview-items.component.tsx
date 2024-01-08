@@ -118,7 +118,6 @@ const BooksPreviewItems = () => {
 	const { data, isLoading } = useQuery({
 		queryKey: ['books'],
 		queryFn: async () => await booksService.getBooks(),
-		staleTime: 500 * 1000,
 	});
 
 	const books = data?.map(data => new BooksPreviewModel(data));

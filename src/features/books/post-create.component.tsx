@@ -43,14 +43,15 @@ const BookPostCreateForm = () => {
 	});
 
 	const submitHandler = (data: FieldValues) => {
+		const imageFiles = data.image_files.length
+			? new BookFileToServer(data.image_files)
+			: undefined;
+
 		const newBook = new BookDataToServer({
 			...data,
 			...bookSearch,
 			merchantId: 1,
 		});
-		const imageFiles = data.image_files.length
-			? new BookFileToServer(data.image_files)
-			: undefined;
 
 		// image -> 기본 이미지, 유저 업로드 이미지
 		mutate({ newBook, imageFiles });
@@ -65,7 +66,7 @@ const BookPostCreateForm = () => {
 			title: book.title,
 			author: abbreviateAuthor(book.author),
 			publisher: book.publisher,
-			imageUrl: book.image,
+			bookImageUrl: book.image,
 		});
 	};
 

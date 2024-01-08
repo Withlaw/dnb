@@ -33,7 +33,7 @@ class BooksService {
 
   constructor(  private readonly baseURL : string, private readonly apiKey : string){}
 
-  
+
   async searchBook<T>(query:string, start:number=1, display:number=10) {
     const response = await naverBookSearchClient.get(`?query=${query}&display=${display}&start=${start}`);
 
@@ -50,14 +50,14 @@ class BooksService {
   async getBook(bookId:number) {
     const { data, error } = await supabase
     .from('books')
-    .select('*').eq('id', bookId);
+    .select('*').eq('id', bookId).single();
 
     if (error) {
       console.error(error);
       throw new Error('The book could not be loaded');
     }
 
-    const book = new BookDataFromServer(data[0]);
+    const book = new BookDataFromServer(data);
     return book
   }
 
@@ -81,22 +81,21 @@ class BooksService {
 	}
 
   async createBook(newBook:BookDataToServer, imageFiles?:BookFileToServer) {
-    const [imageFileName, imageFileUrl] = this.getImageNameAndPath(imageFiles);
-    
-    if (imageFileName) newBook.image_url += '&' + imageFileUrl; // 이미지 파일이 존재하면 기본 이미지와 파일 이미지 url 합침.
+    const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
+    newBook.user_image_url = imageFileUrl;
 
-    const insertNewBook = supabase.from(this.endpoint).insert([newBook]).select();  // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
+    const insertNewBook = supabase.from(this.endpoint).insert([newBook]).select().single();  // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
     const uploadImageFile = this.uploadImage(imageFiles);
 
-    const [insertNewBookResponse, uploadImageFileResponse] = await Promise.all([insertNewBook, uploadImageFile])
+    const [insertNewBookResponse, uploadImageFileResponse] = await Promise.all([insertNewBook, uploadImageFile]);
 
     if (insertNewBookResponse.error || uploadImageFileResponse?.error) {
       // createBook error handling
 
-      if(insertNewBookResponse.data) this.deleteBook(insertNewBookResponse.data[0].id) // table에 추가 된 책 정보 삭제 
+      if(insertNewBookResponse.data) this.deleteBook(insertNewBookResponse.data.id) // table에 추가 된 책 정보 삭제 
       if(uploadImageFileResponse && uploadImageFileResponse.data) this.deleteImage(uploadImageFileResponse.data.path) // 버킷에 업로드된 이미지 파일 삭제
 
-      console.error('creat book error: ', insertNewBookResponse.error, 'upload image error: ', uploadImageFileResponse?.error);
+      console.error(insertNewBookResponse.error, uploadImageFileResponse?.error);
       
       throw new Error('Book could not be created');
     }
@@ -136,6 +135,36 @@ class BooksService {
 */
   } 
 
+  async editBook({id, editedBook, backup, imageFiles}:{
+    id: number;
+    editedBook: BookDataToServer;
+    backup: BookDataToServer;
+    imageFiles?: BookFileToServer;
+  }) {
+    // console.log('update: ','id: ',id, editedBook, backup,imageFiles);
+
+    const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
+    editedBook.user_image_url = imageFileUrl;
+
+    const { error } = await supabase.from(this.endpoint).update(editedBook).eq('id', id);
+  
+    if (error) {
+      console.log(error);
+      throw new Error('Book could not be edited');
+    }
+
+    const uploadImageFileResponse = await this.uploadImage(imageFiles);
+
+    if (uploadImageFileResponse?.error) {
+      supabase.from(this.endpoint).update(backup).eq('id', id); // 이미지 파일 업로드 실패시 백업 데이터로 db 업데이트
+      
+      console.error(uploadImageFileResponse?.error);
+      throw new Error('Book image files could not be edited');
+    }
+
+    return 1;
+  }
+
   async deleteBook(id:number) {
       const { error } = await supabase.from(this.endpoint).delete().eq('id', id);
 
@@ -149,14 +178,17 @@ class BooksService {
   async uploadImage(imageFiles?:BookFileToServer) {
     if(!imageFiles) return null;
 
-    // * 현재는 이미지 1개만 업로드 가능함.
-    const [imageFileName] = this.getImageNameAndPath(imageFiles);
+    const { imageFileName } = this.getImageNameAndPath(imageFiles);
 
     // const { data, error } = await supabase
     return await supabase
     .storage
     .from('book-images')
-    .upload(imageFileName!, imageFiles.files[0]) // 업로드할 이미지 없을 수도 있으니 나중에 분기처리하기.
+    .upload(imageFileName!, imageFiles.files[0]) 
+    // 현재는 이미지 1개만 업로드 가능함.
+    // 업로드할 이미지 없을 수도 있으니 나중에 분기처리하기.
+
+    // 파일 업로드는 항상 form data insert query와 함께 실행되므로 여기에서 에러 처리를 해줄 필요가 없음.
 
 
     // if (error) {
@@ -179,10 +211,10 @@ class BooksService {
   }
 
   private getImageNameAndPath(imageFiles?:BookFileToServer){
-    const imageFileName = imageFiles?.getFileNames()[0];  
-    const imageFileUrl = `${this.baseURL}/storage/v1/object/public/book-images/${imageFileName}`
+    const imageFileName = imageFiles?.getFileNames()[0];  // 현재는 이미지 1개만 업로드 가능함.
+    const imageFileUrl = imageFileName ? `${this.baseURL}/storage/v1/object/public/book-images/${imageFileName}` : null;
 
-    return [imageFileName, imageFileUrl];
+    return {imageFileName, imageFileUrl};
   }
 }
 

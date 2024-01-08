@@ -4,7 +4,7 @@ type Props = {
 	book: {
 		id: number;
 		title: string;
-		imageUrl: string;
+		bookImageUrl: string;
 		fee: number;
 		status: string;
 		merchantName: string;
@@ -18,7 +18,7 @@ const BooksPreviewItem = ({ book }: Props) => {
 				<figure className="flex-none">
 					<img
 						className="h-44 w-32 group-hover:scale-110 sm:h-32 sm:w-24"
-						src={book.imageUrl}
+						src={book.bookImageUrl}
 						alt={book.title}
 					/>
 					{/* 이미지 사이즈는 업로드시에 규격에 맞게 리사이징하므로 style 사이즈는 딱히 필요 없을 듯? */}

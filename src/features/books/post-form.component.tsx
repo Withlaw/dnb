@@ -9,6 +9,7 @@ import FormRow from '@/features/books/post-form-row.component.tsx';
 type Props = {
 	children?: React.ReactNode;
 	inputData?: FieldValues;
+	// inputData?: Partial<BookDataFromServer>;
 	onSubmit?: (data: FieldValues) => void;
 	onTitle?: () => void;
 };
@@ -18,7 +19,7 @@ type UseFormInput = {
 	fee: string;
 	description: string;
 	location: string;
-	image_files: FileList;
+	image_files?: FileList;
 };
 
 enum Style {
@@ -35,9 +36,9 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 		formState: { errors },
 		watch,
 		setValue,
-		// } = useForm<UseFormInput>();
 	} = useForm<UseFormInput>({
-		defaultValues: {
+		// defaultValues: {...inputData},
+		values: {
 			title: inputData?.title,
 			fee: inputData?.fee,
 			description: inputData?.description,
@@ -59,10 +60,6 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 		// window.alert('양식을 모두 작성해주세요.');
 		// console.log('err: ', errors);
 	};
-
-	useEffect(() => {
-		setValue('title', inputData?.title); // 책 검색시 title value 초기화
-	}, [inputData]);
 
 	return (
 		<form
@@ -140,8 +137,8 @@ const BookPostForm = ({ children, inputData, onSubmit, onTitle }: Props) => {
 			<FormRow name="사진">
 				<div className={Style.INPUTCONTAINER}>
 					<figure className="flex flex-wrap">
-						{inputData?.imageUrl && (
-							<img src={inputData?.imageUrl} className={Style.IMAGE} />
+						{inputData?.bookImageUrl && (
+							<img src={inputData?.bookImageUrl} className={Style.IMAGE} />
 						)}
 
 						<label

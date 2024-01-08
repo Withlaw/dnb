@@ -2,13 +2,14 @@ type FormFieldValues = {
   [k:string]: any;
 }
 
+// BooksPreview
 export class BooksPreviewModel {
 	readonly author: string;
 	readonly createdAt: string;
 	readonly description: string;
 	readonly fee: number;
 	readonly id: number;
-	readonly imageUrl: string;
+	readonly bookImageUrl: string;
 	readonly publisher: string;
 	readonly title: string;
   readonly merchantName = 'merchantname'
@@ -23,11 +24,12 @@ export class BooksPreviewModel {
 		this.id = data.id;
 		this.title = data.title;
 		this.publisher = data.publisher;
-		this.imageUrl = data.image_url;
+		this.bookImageUrl = data.book_image_url;
     this.location = data.location;
 	}
 }
 
+// BookData
 export class BookDataFromServer {
 	id: number;
 	title: string;
@@ -35,10 +37,12 @@ export class BookDataFromServer {
 	publisher: string;
 	description: string;
 	fee: number;
-	imageUrl: string;
+	bookImageUrl: string;
+  userImageUrl:string;
 	createdAt: number;
 	merchantId: number;
   location:string | undefined;
+
 
   constructor(data:FormFieldValues) {
     this.id = data.id;
@@ -47,14 +51,15 @@ export class BookDataFromServer {
 		this.publisher = data.publisher;
 		this.description = data.description;
 		this.fee = data.fee;
-		this.imageUrl = data.image_url;
+		this.bookImageUrl = data.book_image_url;
+    this.userImageUrl =data.user_image_url;
     this.createdAt = data.created_at
     this.merchantId = +data.merchant_id
     this.location = data.location ?? undefined;
   }
 };
 
-
+// BookFormData
 export class BookDataToServer {
   readonly	author: string;
   readonly	description: string;
@@ -64,7 +69,8 @@ export class BookDataToServer {
   readonly	title: string;
   readonly  location:string;
 
-  image_url: string;
+  book_image_url: string;
+  user_image_url: string | null;
 
 
   constructor(data:FormFieldValues) {
@@ -75,10 +81,12 @@ export class BookDataToServer {
 		this.publisher = data.publisher;
     this.location = data.location!;
     this.merchant_id = +data.merchantId
-		this.image_url = data.imageUrl;
+		this.book_image_url = data.bookImageUrl;
+		this.user_image_url = data?.userImageUrl ?? null;
   }
 }
 
+// BookFiles
 export class BookFileToServer  {
   readonly files:FileList;
 

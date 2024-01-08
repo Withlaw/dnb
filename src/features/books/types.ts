@@ -2,7 +2,7 @@ export type BookSearch = {
   title:string;
   author: string;
   publisher:string;
-  imageUrl : string;
+  bookImageUrl : string;
 }
 
 export type BookSearchDataItem = {

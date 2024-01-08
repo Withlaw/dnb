@@ -55,7 +55,16 @@ const BookDetail = () => {
 		<>
 			<div className="flex justify-center rounded-md bg-stone-200">
 				<figure>
-					<img className="h-72 w-64" src={book?.imageUrl} alt={book?.title} />
+					<img
+						className="h-72 w-64"
+						src={book?.bookImageUrl}
+						alt={book?.title}
+					/>
+					{/* <img
+						className="h-72 w-64"
+						src={book?.userImageUrl}
+						alt={book?.title}
+					/> */}
 				</figure>
 			</div>
 

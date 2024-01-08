@@ -1,7 +1,7 @@
-import BookPostUpdateForm from '@/features/books/post-update.component.tsx';
+import BookPostEditForm from '@/features/books/post-edit.component.tsx';
 
 const BookEditPage = () => {
-	return <BookPostUpdateForm />;
+	return <BookPostEditForm />;
 };
 
 export default BookEditPage;
