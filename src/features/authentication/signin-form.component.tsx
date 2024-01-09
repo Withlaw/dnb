@@ -1,22 +1,65 @@
-import FormRow from '@/features/authentication/singin-form-row.component.tsx';
+import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 
-enum Style {
-	INPUT = 'w-full text-sm outline-none',
-}
+import FormRow from '@/features/authentication/auth-form-row.component.tsx';
+import { AuthValidate } from '@/features/authentication/utils.ts';
 
-const SigninForm = () => {
+type Props = {
+	children?: React.ReactNode;
+	onSubmit: (data: FieldValues) => void;
+};
+
+type UseFormvalues = {
+	email: string;
+	password: string;
+};
+
+const SigninForm = ({ children, onSubmit }: Props) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<UseFormvalues>();
+
+	const submitHandler = (formData: FieldValues) => {
+		onSubmit(formData);
+	};
+	const submitErrorHandler = (error: FieldErrors<FieldValues>) => {};
+
 	return (
-		<form>
-			<FormRow name="Email">
-				<input type="email" placeholder="email@example.com" />
+		<form onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
+			<FormRow name="email" message={errors.email?.message}>
+				<input
+					type="email"
+					placeholder="email@example.com"
+					{...register('email', {
+						validate: value => {
+							return AuthValidate(value)
+								.isEmpty('이메일 주소를 입력해주세요.')
+								.isEmail('유효한 이메일 주소를 입력해주세요.')
+								.done();
+						},
+					})}
+				/>
 			</FormRow>
 
-			<FormRow name="Password">
-				<input type="password" placeholder="••••••••" />
+			<FormRow name="password" message={errors.password?.message}>
+				<input
+					type="password"
+					placeholder="••••••••"
+					{...register('password', {
+						validate: value => {
+							return AuthValidate(value)
+								.isEmpty('비밀 번호를 입력해주세요.')
+								.done();
+						},
+					})}
+				/>
 			</FormRow>
 
 			<div>
-				<button className="my-2 w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 bg-green-700 px-2 py-2 text-center text-sm text-stone-100 outline-none hover:bg-green-600">
+				<button
+					type="submit"
+					className="my-2 w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 bg-green-700 px-2 py-2 text-center text-sm text-stone-100 outline-none hover:bg-green-600">
 					<span className="truncate ">Sign In</span>
 				</button>
 			</div>

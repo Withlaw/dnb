@@ -8,7 +8,7 @@ import {
 	createBrowserRouter,
 } from 'react-router-dom';
 
-import SigninForm from '@/features/authentication/signin-form.component.tsx';
+import Signin from '@/features/authentication/signin.component.tsx';
 import SignupForm from '@/features/authentication/signup-form.component.tsx';
 import AuthenticationPage from '@/pages/authentication.tsx';
 import BookCreatePage from '@/pages/book-create.tsx';
@@ -43,7 +43,7 @@ const routes: RouteObject[] = [
 		children: [
 			{
 				path: 'sign-in',
-				element: <SigninForm />,
+				element: <Signin />,
 			},
 			{ path: 'sign-up', element: <SignupForm /> },
 		],

@@ -1,13 +1,13 @@
-import FormRow from '@/features/authentication/singin-form-row.component.tsx';
+import FormRow from '@/features/authentication/auth-form-row.component.tsx';
 
 const SignupForm = () => {
 	return (
 		<form>
-			<FormRow name="Email">
+			<FormRow name="email">
 				<input type="email" placeholder="email@example.com" />
 			</FormRow>
 
-			<FormRow name="Password">
+			<FormRow name="password">
 				<input type="password" placeholder="••••••••" />
 			</FormRow>
 

@@ -68,7 +68,7 @@ const BookPostForm = ({
 		<form
 			className="flex flex-col"
 			onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
-			<FormRow name="제목" isError={!!errors?.title}>
+			<FormRow name="제목" isError={Boolean(errors?.title)}>
 				<div
 					className={Style.INPUTCONTAINER + ' border-b'}
 					onClick={onTitleSearch}>
@@ -97,7 +97,7 @@ const BookPostForm = ({
 				</div>
 			</FormRow>
 
-			<FormRow name="가격" isError={!!errors?.fee}>
+			<FormRow name="가격" isError={Boolean(errors?.fee)}>
 				<div className={Style.INPUTCONTAINER}>
 					<input
 						{...register('fee', {
@@ -117,7 +117,7 @@ const BookPostForm = ({
 				</div>
 			</FormRow>
 
-			<FormRow name="설명" isError={!!errors?.description}>
+			<FormRow name="설명" isError={Boolean(errors?.description)}>
 				<ReactTextareaAutosize
 					{...register('description', {
 						required: true,
@@ -128,7 +128,7 @@ const BookPostForm = ({
 				/>
 			</FormRow>
 
-			<FormRow name="장소" isError={!!errors?.location}>
+			<FormRow name="장소" isError={Boolean(errors?.location)}>
 				<input
 					{...register('location', {
 						required: true,
