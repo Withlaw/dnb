@@ -26,8 +26,8 @@ export const AuthValidate = (value:string, message?:string) => {
       return AuthValidate(value, errorMessage);
     },
     done: () => {
-      if(!errorMessage) return true;
-      else return errorMessage;
+      if(errorMessage) return errorMessage;
+      else return true;
     }
   }
 }

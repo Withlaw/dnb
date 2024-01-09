@@ -11,7 +11,7 @@ const BooksPostLayout = () => {
 		navigate(-1);
 	};
 	return (
-		<div className="container mx-auto flex h-dvh max-w-screen-sm flex-col">
+		<div className="container mx-auto flex h-dvh max-w-screen-sm flex-col shadow-xl md:w-96 ">
 			<HeaderMain>
 				<div className="flex min-w-4" onClick={goBack}>
 					<NavHeader />

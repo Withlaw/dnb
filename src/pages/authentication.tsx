@@ -22,7 +22,7 @@ const AuthenticationPage = () => {
 				</div>
 
 				<div className="mb-2 flex w-72 flex-col">
-					<h2 className="mb-2 px-1 text-xl font-semibold tracking-widest">
+					<h2 className="mb-2 text-xl font-semibold tracking-widest">
 						{isLoginPage && '안녕하세요'}
 						{isSignupPage && '반갑습니다'}
 					</h2>

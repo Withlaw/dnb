@@ -29,7 +29,7 @@ const RootLayout = () => {
 	};
 
 	return (
-		<div className="container mx-auto flex h-dvh max-w-screen-sm flex-col">
+		<div className="container mx-auto flex h-full max-w-screen-sm flex-col shadow-xl">
 			<HeaderMain>
 				<div className="flex min-w-4" onClick={goBack}>
 					<NavHeader isBooksPage={isBooksPage} />
