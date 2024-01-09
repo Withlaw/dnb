@@ -8,6 +8,9 @@ import {
 	createBrowserRouter,
 } from 'react-router-dom';
 
+import SigninForm from '@/features/authentication/signin-form.component.tsx';
+import SignupForm from '@/features/authentication/signup-form.component.tsx';
+import AuthenticationPage from '@/pages/authentication.tsx';
 import BookCreatePage from '@/pages/book-create.tsx';
 import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
@@ -35,7 +38,16 @@ const routes: RouteObject[] = [
 			},
 		],
 	},
-	{ path: '/sign', element: null },
+	{
+		element: <AuthenticationPage />,
+		children: [
+			{
+				path: 'sign-in',
+				element: <SigninForm />,
+			},
+			{ path: 'sign-up', element: <SignupForm /> },
+		],
+	},
 	{
 		id: 'auth',
 		element: null,

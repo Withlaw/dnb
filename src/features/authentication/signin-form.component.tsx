@@ -1,0 +1,27 @@
+import FormRow from '@/features/authentication/singin-form-row.component.tsx';
+
+enum Style {
+	INPUT = 'w-full text-sm outline-none',
+}
+
+const SigninForm = () => {
+	return (
+		<form>
+			<FormRow name="Email">
+				<input type="email" placeholder="email@example.com" />
+			</FormRow>
+
+			<FormRow name="Password">
+				<input type="password" placeholder="••••••••" />
+			</FormRow>
+
+			<div>
+				<button className="my-2 w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 bg-green-700 px-2 py-2 text-center text-sm text-stone-100 outline-none hover:bg-green-600">
+					<span className="truncate ">Sign In</span>
+				</button>
+			</div>
+		</form>
+	);
+};
+
+export default SigninForm;

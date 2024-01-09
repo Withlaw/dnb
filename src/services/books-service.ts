@@ -1,5 +1,5 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
-import { supabase } from '@/adapters/api/supabase.ts';
+import { supabase } from '@/adapters/api/supabase-client.ts';
 import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
 import { BookDataToServer, BookFileToServer } from '@/features/books/books.model.ts';
 
