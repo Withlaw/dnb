@@ -24,7 +24,7 @@ const useBookEdit = (bookId?:string) => {
 				imageFiles,
 			});
 		},
-		onSuccess: res => {
+		onSuccess: () => {
 			window.alert('New book successfully created.');
 			queryClient.invalidateQueries({ queryKey: [bookId, 'book'] });
 

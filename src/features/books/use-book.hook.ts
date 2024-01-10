@@ -7,7 +7,7 @@ const useBook = (bookId?:string) => {
 		enabled: Boolean(bookId),
 		queryKey: [bookId, 'book'],
 		queryFn: async () => await booksService.getBook(+(bookId!)),
-		staleTime: 600 * 1000,
+		staleTime: 10 * 60 * 1000,
 	});
   
   let book;

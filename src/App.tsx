@@ -70,6 +70,7 @@ const routes: RouteObject[] = [
 			},
 		],
 	},
+	{ path: '/test', element: <BookEditPage /> },
 ];
 
 const router = createBrowserRouter(

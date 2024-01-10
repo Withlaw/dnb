@@ -14,7 +14,7 @@ const BookPostEditForm = () => {
 	const { bookId } = useParams();
 
 	// book detail data load
-	const { book, isLoading, isError, error } = useBook();
+	const { book, isLoading, isError, error } = useBook(bookId);
 
 	// book detail update
 	const { editBookPost, isUpdating } = useBookEdit(bookId);

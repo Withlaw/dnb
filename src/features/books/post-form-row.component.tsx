@@ -30,6 +30,7 @@ const FormRow = ({ children, name, isError }: Props) => {
 					)}
 				</legend>
 			)}
+
 			{children}
 		</fieldset>
 	);

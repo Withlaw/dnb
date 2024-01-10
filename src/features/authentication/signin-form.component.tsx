@@ -1,4 +1,4 @@
-import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import FormRow from '@/features/authentication/auth-form-row.component.tsx';
 import { AuthValidate } from '@/features/authentication/utils.ts';
@@ -26,10 +26,11 @@ const SigninForm = ({ children, onSubmit, isLoading }: Props) => {
 		onSubmit(formData);
 		reset();
 	};
-	const submitErrorHandler = (error: FieldErrors<FieldValues>) => {};
+	// const submitErrorHandler = (error: FieldErrors<FieldValues>) => {
+	// };
 
 	return (
-		<form onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
+		<form onSubmit={handleSubmit(submitHandler)}>
 			<FormRow name="email" message={errors.email?.message}>
 				<input
 					type="email"
@@ -69,6 +70,8 @@ const SigninForm = ({ children, onSubmit, isLoading }: Props) => {
 					<span className="truncate ">Sign In</span>
 				</button>
 			</div>
+
+			<div>{children}</div>
 		</form>
 	);
 };

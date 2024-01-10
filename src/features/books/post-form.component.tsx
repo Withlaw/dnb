@@ -82,17 +82,20 @@ const BookPostForm = ({
 						disabled={!onTitleSearch}
 						className={Style.INPUT + ' flex-auto truncate'}
 					/>
-					<span className="flex-none text-xl">
+					<span className="flex-none text-xl hover:cursor-pointer">
 						<HiOutlineSearch />
 					</span>
 				</div>
-				<div className=" flex items-end px-1 pt-2">
-					<span className=" max-w-[180px] truncate">
-						저자 {inputData?.author}
+
+				<div className=" flex px-1 pt-2">
+					{/* <span className=" max-w-[180px] truncate"> */}
+					<span className=" max-w-[9rem] truncate">
+						{inputData?.author ?? '저자'}
 					</span>
 					<span className="mx-2">|</span>
-					<span className=" w-[200px] min-w-20 truncate">
-						출판사 {inputData?.publisher}
+					{/* <span className=" w-[200px] min-w-20 truncate"> */}
+					<span className=" min-w-20 max-w-[8rem] truncate">
+						{inputData?.publisher ?? '출판사'}
 					</span>
 				</div>
 			</FormRow>

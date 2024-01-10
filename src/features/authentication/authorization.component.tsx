@@ -10,15 +10,13 @@ type Props = {
 
 const Authorization = ({ children, route }: Partial<Props>) => {
 	const navigate = useNavigate();
-	const { isLogin, isLoading } = useUserSession();
+	const { isLogin } = useUserSession();
 
 	useEffect(() => {
 		if (route?.id === 'guest-only' && isLogin) navigate('/', { replace: true });
 		if (route?.id === 'protected' && !isLogin)
 			navigate('/sign-in', { replace: true });
 	}, [route, isLogin, navigate]);
-
-	// if (isLoading) <h1>Loading...</h1>;
 
 	return children;
 };
