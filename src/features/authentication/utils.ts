@@ -9,8 +9,11 @@ export const AuthValidate = (value:string, message?:string) => {
     },
     isEmail : (message:string) => {
       // 유효한 이메일 주소를 입력해주세요.
+      const regexp = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+
       if(errorMessage) return AuthValidate(value, errorMessage);
-      if(!value.includes('@')) errorMessage = message;
+      // if(!value.includes('@')) errorMessage = message;
+      if(!regexp.test(value)) errorMessage = message;
       return AuthValidate(value, errorMessage);
     },
     isLongerThan: (length:number, message:string) => {

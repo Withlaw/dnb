@@ -6,6 +6,7 @@ import { AuthValidate } from '@/features/authentication/utils.ts';
 type Props = {
 	children?: React.ReactNode;
 	onSubmit: (data: FieldValues) => void;
+	isLoading: boolean;
 };
 
 type UseFormvalues = {
@@ -13,7 +14,7 @@ type UseFormvalues = {
 	password: string;
 };
 
-const SigninForm = ({ children, onSubmit }: Props) => {
+const SigninForm = ({ children, onSubmit, isLoading }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -38,6 +39,7 @@ const SigninForm = ({ children, onSubmit }: Props) => {
 								.isEmail('유효한 이메일 주소를 입력해주세요.')
 								.done();
 						},
+						disabled: isLoading,
 					})}
 				/>
 			</FormRow>
@@ -52,6 +54,7 @@ const SigninForm = ({ children, onSubmit }: Props) => {
 								.isEmpty('비밀 번호를 입력해주세요.')
 								.done();
 						},
+						disabled: isLoading,
 					})}
 				/>
 			</FormRow>
@@ -59,6 +62,7 @@ const SigninForm = ({ children, onSubmit }: Props) => {
 			<div>
 				<button
 					type="submit"
+					disabled={isLoading}
 					className="my-2 w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 bg-green-700 px-2 py-2 text-center text-sm text-stone-100 outline-none hover:bg-green-600">
 					<span className="truncate ">Sign In</span>
 				</button>
