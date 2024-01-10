@@ -17,7 +17,7 @@ const headerItems: HeaderItem[] = [
 	{ id: 1, name: 'menu', icon: <HiMenu size="24" /> },
 ];
 
-const RootLayout = () => {
+const HomeLayout = () => {
 	/* ui 폴더에는 순수 함수만 오도록 해야함. layout 컴포넌트는 페이지 같은 요소니까 예외? */
 	const currentPath = useMatch('/books');
 	const isBooksPage = currentPath !== null;
@@ -58,4 +58,4 @@ const RootLayout = () => {
 	);
 };
 
-export default RootLayout;
+export default HomeLayout;

@@ -19,10 +19,12 @@ const SigninForm = ({ children, onSubmit, isLoading }: Props) => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<UseFormvalues>();
 
 	const submitHandler = (formData: FieldValues) => {
 		onSubmit(formData);
+		reset();
 	};
 	const submitErrorHandler = (error: FieldErrors<FieldValues>) => {};
 
