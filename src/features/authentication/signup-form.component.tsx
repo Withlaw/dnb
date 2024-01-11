@@ -9,8 +9,8 @@ type Props = {
 	isLoading?: boolean;
 };
 
-type UseFormvalues = {
-	name: string;
+type UseFormValues = {
+	fullName: string;
 	email: string;
 	password: string;
 	passwordCheck: string;
@@ -24,7 +24,7 @@ const SignupForm = ({ children, onSubmit, isLoading }: Props) => {
 		watch,
 		getValues,
 		reset,
-	} = useForm<UseFormvalues>();
+	} = useForm<UseFormValues>();
 
 	const passwordValue = watch('password');
 	// const passwordValue = getValues('password');
@@ -33,23 +33,24 @@ const SignupForm = ({ children, onSubmit, isLoading }: Props) => {
 	// console.log('errors', errors.password);
 
 	const submitHandler = (formData: FieldValues) => {
-		// onSubmit(formData);
-		// reset();
+		onSubmit(formData);
+		reset();
 	};
 	// const submitErrorHandler = (error: FieldErrors<FieldValues>) => {
 	// };
 	return (
 		<form onSubmit={handleSubmit(submitHandler)}>
-			<FormRow name="name" message={errors.name?.message}>
+			<FormRow name="fullName" message={errors.fullName?.message}>
 				<input
 					type="text"
-					placeholder="nickname"
-					{...register('name', {
+					placeholder="full name"
+					{...register('fullName', {
 						validate: value => {
 							return AuthValidate(value)
 								.isEmpty('사용하실 닉네임을 입력해주세요.')
 								.done();
 						},
+						disabled: isLoading,
 					})}
 				/>
 			</FormRow>
@@ -83,6 +84,7 @@ const SignupForm = ({ children, onSubmit, isLoading }: Props) => {
 								.isLongerThan(8, '8자리 이상 입력해주세요.')
 								.done();
 						},
+						disabled: isLoading,
 					})}
 				/>
 				{isPasswordTyped &&
@@ -100,13 +102,16 @@ const SignupForm = ({ children, onSubmit, isLoading }: Props) => {
 										.isMatch(passwordValue, '비밀 번호가 일치하지 않습니다.')
 										.done();
 								},
+								disabled: isLoading,
 							})}
 						/>
 					)}
 			</FormRow>
 
 			<div>
-				<button className="my-2 w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 bg-green-700 px-2 py-2 text-center text-sm text-stone-100 outline-none hover:bg-green-600">
+				<button
+					disabled={isLoading}
+					className="my-2 w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 bg-green-700 px-2 py-2 text-center text-sm text-stone-100 outline-none hover:bg-green-600">
 					<span className="truncate ">Sign Up</span>
 				</button>
 			</div>

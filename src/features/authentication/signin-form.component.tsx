@@ -9,7 +9,7 @@ type Props = {
 	isLoading: boolean;
 };
 
-type UseFormvalues = {
+type UseFormValues = {
 	email: string;
 	password: string;
 };
@@ -20,7 +20,7 @@ const SigninForm = ({ children, onSubmit, isLoading }: Props) => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<UseFormvalues>();
+	} = useForm<UseFormValues>();
 
 	const submitHandler = (formData: FieldValues) => {
 		onSubmit(formData);

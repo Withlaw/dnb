@@ -8,6 +8,24 @@ import { supabase } from "@/adapters/api/supabase-client.ts";
 
 class AuthService {
   
+
+  async signup({fullName, email, password}:{fullName:string, email:string, password:string}){
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          fullName,
+          avatar: '',
+        }
+      }
+    })
+
+    if(error) throw new Error(error.message)
+
+    return data;
+  }
+
   async signin({email, password}:{email:string, password:string}){
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
