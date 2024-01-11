@@ -26,7 +26,7 @@ const useBookEdit = (bookId?:string) => {
 		},
 		onSuccess: () => {
 			window.alert('New book successfully created.');
-			queryClient.invalidateQueries({ queryKey: [bookId, 'book'] });
+			queryClient.invalidateQueries({ queryKey: ['book', bookId ] });
 
 			navigate(`/books/${bookId}`, { replace: true });
 		},

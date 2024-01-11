@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const useBook = (bookId?:string) => {
 	const { data, isLoading, isError , error } = useQuery({
 		enabled: Boolean(bookId),
-		queryKey: [bookId, 'book'],
+		queryKey: ['book', bookId],
 		queryFn: async () => await booksService.getBook(+(bookId!)),
 		staleTime: 10 * 60 * 1000,
 	});
