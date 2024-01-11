@@ -1,14 +1,108 @@
-import FormRow from '@/features/authentication/auth-form-row.component.tsx';
+import { FieldValues, useForm } from 'react-hook-form';
 
-const SignupForm = () => {
+import FormRow from '@/features/authentication/sign-form-row.component.tsx';
+import { AuthValidate } from '@/features/authentication/utils.ts';
+
+type Props = {
+	children?: React.ReactNode;
+	onSubmit: (data: FieldValues) => void;
+	isLoading?: boolean;
+};
+
+type UseFormvalues = {
+	name: string;
+	email: string;
+	password: string;
+	passwordCheck: string;
+};
+
+const SignupForm = ({ children, onSubmit, isLoading }: Props) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		watch,
+		getValues,
+		reset,
+	} = useForm<UseFormvalues>();
+
+	const passwordValue = watch('password');
+	// const passwordValue = getValues('password');
+	const isPasswordTyped = passwordValue && passwordValue.trim() !== '';
+
+	// console.log('errors', errors.password);
+
+	const submitHandler = (formData: FieldValues) => {
+		// onSubmit(formData);
+		// reset();
+	};
+	// const submitErrorHandler = (error: FieldErrors<FieldValues>) => {
+	// };
 	return (
-		<form>
-			<FormRow name="email">
-				<input type="email" placeholder="email@example.com" />
+		<form onSubmit={handleSubmit(submitHandler)}>
+			<FormRow name="name" message={errors.name?.message}>
+				<input
+					type="text"
+					placeholder="nickname"
+					{...register('name', {
+						validate: value => {
+							return AuthValidate(value)
+								.isEmpty('사용하실 닉네임을 입력해주세요.')
+								.done();
+						},
+					})}
+				/>
 			</FormRow>
 
-			<FormRow name="password">
-				<input type="password" placeholder="••••••••" />
+			<FormRow name="email" message={errors.email?.message}>
+				<input
+					type="email"
+					placeholder="email@example.com"
+					{...register('email', {
+						validate: value => {
+							return AuthValidate(value)
+								.isEmpty('이메일 주소를 입력해주세요.')
+								.isEmail('유효한 이메일 주소를 입력해주세요.')
+								.done();
+						},
+						disabled: isLoading,
+					})}
+				/>
+			</FormRow>
+
+			<FormRow
+				name="password"
+				message={errors.password?.message ?? errors.passwordCheck?.message}>
+				<input
+					type="password"
+					placeholder="••••••••"
+					{...register('password', {
+						validate: value => {
+							return AuthValidate(value)
+								.isEmpty('비밀 번호를 입력해주세요.')
+								.isLongerThan(8, '8자리 이상 입력해주세요.')
+								.done();
+						},
+					})}
+				/>
+				{isPasswordTyped &&
+					typeof AuthValidate(passwordValue)
+						.isEmpty('.')
+						.isLongerThan(8, '.')
+						.done() !== 'string' && (
+						// {isPasswordTyped && !errors.password && (
+						<input
+							type="password"
+							placeholder="••••••••"
+							{...register('passwordCheck', {
+								validate: value => {
+									return AuthValidate(value)
+										.isMatch(passwordValue, '비밀 번호가 일치하지 않습니다.')
+										.done();
+								},
+							})}
+						/>
+					)}
 			</FormRow>
 
 			<div>

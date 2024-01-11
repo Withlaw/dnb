@@ -29,6 +29,12 @@ export const AuthValidate = (value:string, message?:string) => {
       if(value.length > length) errorMessage = message;
       return AuthValidate(value, errorMessage);
     },
+    isMatch:(input:string, message:string) => {
+      // ~과 일치하지 않습니다.
+      if(errorMessage) return AuthValidate(value,errorMessage);
+      if(value !== input) errorMessage = message;
+      return AuthValidate(value, errorMessage);
+    },
     done: () => {
       if(errorMessage) return errorMessage;
       else return true;

@@ -9,7 +9,7 @@ import {
 
 import Authorization from '@/features/authentication/authorization.component.tsx';
 import Signin from '@/features/authentication/signin.component.tsx';
-import SignupForm from '@/features/authentication/signup-form.component.tsx';
+import Signup from '@/features/authentication/signup.component.tsx';
 import AuthenticationPage from '@/pages/authentication.tsx';
 import BookCreatePage from '@/pages/book-create.tsx';
 import BookDetailPage from '@/pages/book-detail.tsx';
@@ -47,7 +47,7 @@ const routes: RouteObject[] = [
 				path: 'sign-in',
 				element: <Signin />,
 			},
-			{ path: 'sign-up', element: <SignupForm /> },
+			{ path: 'sign-up', element: <Signup /> },
 		],
 	},
 	{

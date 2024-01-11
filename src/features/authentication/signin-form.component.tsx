@@ -1,6 +1,6 @@
 import { FieldValues, useForm } from 'react-hook-form';
 
-import FormRow from '@/features/authentication/auth-form-row.component.tsx';
+import FormRow from '@/features/authentication/sign-form-row.component.tsx';
 import { AuthValidate } from '@/features/authentication/utils.ts';
 
 type Props = {

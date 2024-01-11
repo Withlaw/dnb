@@ -11,9 +11,10 @@ const FormRow = ({ children, name, message }: Partial<Props>) => {
 	return (
 		<fieldset
 			className={clsx(
-				'group mb-4 rounded-md border border-solid bg-stone-100 px-2 ',
+				'group mb-4 rounded-md border border-solid  px-2 ',
 				message && 'border-red-300 bg-red-50 has-[:focus]:border-red-500 ',
-				message || 'border-stone-400 has-[:focus]:border-stone-600 ',
+				message ||
+					'border-stone-400 bg-stone-100 has-[:focus]:border-stone-600 ',
 			)}>
 			{name && (
 				<legend className="flex items-center px-1 text-xs capitalize text-stone-400">
@@ -30,9 +31,9 @@ const FormRow = ({ children, name, message }: Partial<Props>) => {
 			)}
 			<div
 				className={clsx(
-					'peer px-1 pb-2 *:w-full *:text-xs *:outline-none',
-					message && '*:bg-red-50',
-					message || '*:bg-stone-100',
+					'peer divide-y divide-stone-300 px-1 pb-2 *:w-full *:text-xs *:outline-none',
+					message && '  *:bg-red-50',
+					message || '  *:bg-stone-100',
 				)}>
 				{children}
 			</div>
