@@ -16,6 +16,7 @@ import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
+import UserPage from '@/pages/user.tsx';
 import BooksPostLayout from '@/ui/layout-books-post.tsx';
 import PageLayout from '@/ui/layout-page.tsx';
 import HomeLayout from '@/ui/layout-root.tsx';
@@ -53,12 +54,13 @@ const routes: RouteObject[] = [
 		id: 'protected',
 		element: <PageLayout />,
 		children: [
-			{ path: '/user', element: null },
+			{ path: '/user', element: <UserPage /> },
 			{
 				path: '/dashboard',
 				element: null,
 			},
 			{
+				id: 'book-post',
 				element: <BooksPostLayout />,
 				children: [
 					{ path: '/books/create', element: <BookCreatePage /> },
@@ -95,7 +97,7 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<RouterProvider router={router} />
-			<ReactQueryDevtools initialIsOpen={false} />
+			{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 		</QueryClientProvider>
 	);
 }

@@ -18,11 +18,11 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-	{ id: 0, name: '지도', path: '/books', icon: <HiOutlineMap size="24" /> },
+	{ id: 0, name: '지도', path: '/map', icon: <HiOutlineMap size="24" /> },
 	{
 		id: 1,
 		name: '대여 목록',
-		path: '/books',
+		path: '/rental',
 		icon: <HiOutlineBookOpen size="24" />,
 	},
 	// { id: 2, name: '홈', path: '/', icon: <HiHome size="24" />, end: true },
@@ -39,11 +39,11 @@ const navItems: NavItem[] = [
 		),
 		end: true,
 	},
-	{ id: 3, name: '채팅', path: '/books', icon: <HiOutlineChat size="24" /> },
+	{ id: 3, name: '채팅', path: '/chat', icon: <HiOutlineChat size="24" /> },
 	{
 		id: 4,
 		name: '내 정보',
-		path: '/books',
+		path: '/user',
 		icon: <HiOutlineUser size="24" />,
 	},
 ];
