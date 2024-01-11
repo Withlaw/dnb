@@ -1,6 +1,6 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import useRouterError from '@/hooks/use-router-error.tsx';
+import useRouterError from '@/hooks/use-router-error.ts';
 
 const ErrorPage = () => {
 	const { pathname } = useLocation();

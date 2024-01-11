@@ -61,23 +61,21 @@ const AuthenticationPage = () => {
 				</div>
 
 				<div className="my-4 flex w-72 flex-col items-center">
-					{isLoginPage && (
-						<div className="space-x-1 text-xs text-stone-600">
-							<span>아이디가 아직 없으신가요?</span>
+					<div className="space-x-1 text-xs text-stone-600">
+						{isLoginPage && <span>아이디가 아직 없으신가요?</span>}
+						{isSignupPage && <span>아이디가 이미 있으신가요?</span>}
+
+						{isLoginPage && (
 							<Link to={'/sign-up'} className="font-semibold underline">
 								회원가입
 							</Link>
-						</div>
-					)}
-
-					{isSignupPage && (
-						<div className="space-x-1 text-xs text-stone-600">
-							<span>아이디가 이미 있으신가요?</span>
+						)}
+						{isSignupPage && (
 							<Link to={'/sign-in'} className="font-semibold underline">
 								로그인
 							</Link>
-						</div>
-					)}
+						)}
+					</div>
 				</div>
 			</main>
 

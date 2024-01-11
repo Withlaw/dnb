@@ -48,9 +48,13 @@ const navItems: NavItem[] = [
 	},
 ];
 
-const NavMain = () => {
+const NavMain = ({ className = '' }: { className?: string }) => {
 	return (
-		<nav className=" fixed bottom-0 z-[99] h-[50px] w-full max-w-screen-sm  flex-initial rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black">
+		<nav
+			className={
+				'fixed bottom-0 z-[99] h-[50px] w-full max-w-screen-sm flex-initial rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black ' +
+				className
+			}>
 			<ul className="flex h-full items-center justify-around text-xs">
 				{navItems.map(item => {
 					return (

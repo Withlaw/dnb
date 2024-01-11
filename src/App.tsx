@@ -17,9 +17,8 @@ import BookEditPage from '@/pages/book-edit.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import UserPage from '@/pages/user.tsx';
-import BooksPostLayout from '@/ui/layout-books-post.tsx';
+import HomeLayout from '@/ui/layout-home.tsx';
 import PageLayout from '@/ui/layout-page.tsx';
-import HomeLayout from '@/ui/layout-root.tsx';
 
 const routes: RouteObject[] = [
 	{
@@ -33,11 +32,11 @@ const routes: RouteObject[] = [
 				path: 'books',
 				element: <BooksPreviewPage />,
 			},
-			{
-				path: 'books/:bookId',
-				element: <BookDetailPage />,
-			},
 		],
+	},
+	{
+		path: '/books/:bookId',
+		element: <BookDetailPage />,
 	},
 	{
 		id: 'guest-only',
@@ -59,20 +58,14 @@ const routes: RouteObject[] = [
 				path: '/dashboard',
 				element: null,
 			},
+			{ path: '/books/create', element: <BookCreatePage /> },
 			{
-				id: 'book-post',
-				element: <BooksPostLayout />,
-				children: [
-					{ path: '/books/create', element: <BookCreatePage /> },
-					{
-						path: '/books/:bookId/edit',
-						element: <BookEditPage />,
-					},
-				],
+				path: '/books/:bookId/edit',
+				element: <BookEditPage />,
 			},
 		],
 	},
-	{ path: '/test', element: <BookEditPage /> },
+	{ path: '/test', element: null },
 ];
 
 const router = createBrowserRouter(

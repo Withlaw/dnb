@@ -40,7 +40,7 @@ const SignupForm = ({ children, onSubmit, isLoading }: Props) => {
 	// };
 	return (
 		<form onSubmit={handleSubmit(submitHandler)}>
-			<FormRow name="fullName" message={errors.fullName?.message}>
+			<FormRow name="full name" message={errors.fullName?.message}>
 				<input
 					type="text"
 					placeholder="full name"

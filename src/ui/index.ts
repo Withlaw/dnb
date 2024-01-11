@@ -1,1 +1,1 @@
-export { default as RootLayout } from './layout-root.tsx';
+export { default as RootLayout } from './layout-home.tsx';

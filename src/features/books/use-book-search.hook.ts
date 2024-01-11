@@ -1,6 +1,6 @@
 import { BookDataFromTitleSearch } from "@/features/books/books.model.ts";
 import { BookTitleSearchData } from "@/features/books/types.ts";
-import useDebounceValue from "@/hooks/use-debounce-value.tsx";
+import useDebounceValue from "@/hooks/use-debounce-value.ts";
 import { booksService } from "@/services/books-service.ts";
 import { useQuery } from "@tanstack/react-query";
 

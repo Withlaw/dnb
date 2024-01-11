@@ -40,8 +40,10 @@ const UserInfo = () => {
 					<span className={Style.ITEM}>별별별별별</span>
 				</div>
 
-				{/* <span>수정하기</span> */}
-				{/* <SignOut /> */}
+				<div>
+					<span>수정하기</span>
+					<SignOut />
+				</div>
 			</div>
 		</div>
 	);
