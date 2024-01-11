@@ -2,7 +2,7 @@ import authService from "@/services/auth-service.ts";
 import { useQuery } from "@tanstack/react-query";
 
 const useUserSession = () => {
-  const { data : session, isLoading, isError, error} = useQuery({
+  const { data : session, isLoading, isError, error, isPending ,isFetching} = useQuery({
     queryKey:['user', 'session'],
     queryFn:async () => await authService.getCurrentSession(),
   })
