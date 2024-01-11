@@ -23,6 +23,12 @@ class AuthService {
     return data;
   }
 
+  async signout() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) throw new Error(error.message);
+  }
+
   async getCurrentSession() {
     const { data : { session }, error } = await supabase.auth.getSession();
     // 클라이언트에 저장된 로컬 세션 정보를 가져옴. 
@@ -46,7 +52,6 @@ class AuthService {
 
     return user;
   }
-
 
 }
 

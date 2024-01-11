@@ -1,6 +1,7 @@
 import { HiMenu } from 'react-icons/hi';
 import { ScrollRestoration, useNavigate } from 'react-router-dom';
 
+import SignOut from '@/features/authentication/signout.component.tsx';
 import HeaderMain from '@/ui/header-main.tsx';
 import NavHeader from '@/ui/nav-header.tsx';
 
@@ -41,7 +42,7 @@ const UserPage = () => {
 							<span></span>
 							<span>평점</span>
 							<span>수정하기</span>
-							<span>로그아웃</span>
+							<SignOut />
 						</div>
 					</div>
 
