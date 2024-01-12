@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import icons from '@/assets/icons.svg';
+import { BooksPreviewModel } from '@/features/books/books.model.ts';
+
 type Props = {
-	book: {
-		id: number;
-		title: string;
-		bookImageUrl: string;
-		fee: number;
-		status: string;
-		merchantName: string;
-	};
+	book: BooksPreviewModel;
 };
 
 const BooksPreviewItem = ({ book }: Props) => {
@@ -24,13 +20,27 @@ const BooksPreviewItem = ({ book }: Props) => {
 					{/* 이미지 사이즈는 업로드시에 규격에 맞게 리사이징하므로 style 사이즈는 딱히 필요 없을 듯? */}
 				</figure>
 				<div className="flex flex-auto justify-between py-2 pl-2">
-					<div className="flex w-20 flex-auto flex-col items-start ">
+					<div className="flex w-20 flex-auto flex-col items-start space-y-1">
 						<h4 className="mb-1 w-full break-words text-xl font-bold sm:text-sm">
 							{book.title}
 						</h4>
-						<p className="mb-1 text-stone-700 sm:text-sm">
-							{book.merchantName}
-						</p>
+						<div className="flex space-x-2 text-center">
+							{Boolean(book.merchantAvatarUrl) && (
+								<img
+									src={book.merchantAvatarUrl}
+									alt={book.merchantFullName}
+									className="size-4"
+								/>
+							)}
+							{!book.merchantAvatarUrl && (
+								<svg className="size-4">
+									<use href={`${icons}#default-avatar`}></use>
+								</svg>
+							)}
+							<p className="mb-1 text-stone-700 sm:text-sm">
+								{book.merchantFullName}
+							</p>
+						</div>
 						<p className="mb-1 text-stone-700 sm:text-sm">{book.fee}원</p>
 					</div>
 				</div>

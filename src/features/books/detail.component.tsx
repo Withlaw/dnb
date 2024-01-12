@@ -13,6 +13,7 @@ const BookDetail = () => {
 	const { bookId } = useParams();
 
 	const { book, isLoading, isError, error } = useBook(bookId);
+	console.log('book:', book);
 
 	if (isLoading) return <h3>Loading...</h3>;
 
@@ -63,17 +64,22 @@ const BookDetail = () => {
 					</DetailRow>
 
 					<DetailRow>
-						<Link to="">
+						<Link to={`/user${book.merchantId}`}>
 							<figure className="mx-1 flex items-center">
-								{/* {dummy.merchantAvatar ? (
-								<img src={dummy.merchantAvatar} />
-							) : ( */}
-								<svg className="size-6">
-									<use href={`${icons}#default-avatar`}></use>
-								</svg>
-								{/* )} */}
+								{Boolean(book.merchantAvatarUrl) && (
+									<img
+										src="https://shopping-phinf.pstatic.net/main_3752868/37528682620.20230530082635.jpg"
+										alt={book.title}
+										className="size-6 rounded-full"
+									/>
+								)}
+								{!book.merchantAvatarUrl && (
+									<svg className="size-6">
+										<use href={`${icons}#default-avatar`}></use>
+									</svg>
+								)}
 								<DetailRow.Span className="mx-2 font-semibold">
-									{'merchantName'}
+									{book.merchantFullName}
 								</DetailRow.Span>
 							</figure>
 						</Link>

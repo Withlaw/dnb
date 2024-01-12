@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 
+import useUser from '@/features/authentication/use-user.hook.ts';
 import {
 	BookDataFromTitleSearch,
 	BookDataToServer,
@@ -19,6 +20,8 @@ const BookPostCreateForm = () => {
 
 	const { createNewBookPost, isCreating } = useBookCreate();
 
+	const { user } = useUser();
+
 	const submitHandler = (data: FieldValues) => {
 		const imageFiles = data.image_files.length
 			? new BookFileToServer(data.image_files)
@@ -27,8 +30,10 @@ const BookPostCreateForm = () => {
 		const newBook = new BookDataToServer({
 			...data,
 			...bookSearch,
-			merchantId: 1,
+			merchantId: user?.id,
 		});
+
+		console.log('newBook: ', newBook);
 
 		// image -> 기본 이미지, 유저 업로드 이미지
 		createNewBookPost({ newBook, imageFiles });

@@ -52,7 +52,7 @@ class BooksService {
   // data fetch api 
   async getBooks () {
 		// try {
-			const { data, error } = await supabase.from(this.endpoint).select('*').order('created_at', { ascending: false });
+			const { data, error } = await supabase.from(this.endpoint).select(`*, member(full_name,avatar_url)`).order('created_at', { ascending: false });
 
 			if (error) {
 				console.error(error);
@@ -74,9 +74,8 @@ class BooksService {
   async getBook(bookId:number) {
     const { data, error } = await supabase
     .from(this.endpoint)
-    .select(`*, merchant_id(*)`).eq('id', bookId).single();
+    .select(`*, member(full_name,avatar_url,grade,id)`).eq('id', bookId).single();
 
-    console.log('data:',data)
     if (error) {
       console.error(error);
       throw new Error('The book could not be loaded');
@@ -89,7 +88,7 @@ class BooksService {
 
   async createBook(newBook:BookDataToServer, imageFiles?:BookFileToServer) {
     const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
-    newBook.user_image_url = imageFileUrl;
+    newBook.user_image_url = imageFileUrl ?? '';
 
     const insertNewBook = supabase.from(this.endpoint).insert([newBook]).select().single();  // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
     const uploadImageFile = this.uploadImage(imageFiles);
@@ -152,7 +151,7 @@ class BooksService {
     imageFiles?: BookFileToServer;
   }) {
     const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
-    editedBook.user_image_url = imageFileUrl;
+    editedBook.user_image_url = imageFileUrl ?? '';
 
     const updateQuery = (data:BookDataToServer) => supabase.from(this.endpoint).update(data).eq('id', id).select().single();
     const uploadQuery = this.uploadImage(imageFiles);

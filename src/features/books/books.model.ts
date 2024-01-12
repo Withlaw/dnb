@@ -14,7 +14,8 @@ export class BooksPreviewModel {
 	readonly bookImageUrl: string;
 	readonly publisher: string;
 	readonly title: string;
-  readonly merchantName = 'merchantname'
+  readonly merchantFullName : string;
+  readonly merchantAvatarUrl: string;
   readonly status = '대여 가능'
   readonly location:string;
 
@@ -28,6 +29,8 @@ export class BooksPreviewModel {
 		this.publisher = data.publisher;
 		this.bookImageUrl = data.book_image_url;
     this.location = data.location;
+    this.merchantAvatarUrl = data.member.avatar_url;
+    this.merchantFullName = data.member.full_name;
 	}
 }
 
@@ -57,17 +60,20 @@ export class BookDataFromTitleSearch {
 }
 
 export class BookDataFromServer {
-	id: number;
-	title: string;
-	author: string;
-	publisher: string;
-	description: string;
-	fee: number;
-	bookImageUrl: string;
-  userImageUrl:string;
-	createdAt: number;
-	merchantId: number;
-  location:string | undefined;
+  readonly	id: number;
+  readonly	title: string;
+  readonly	author: string;
+  readonly	publisher: string;
+  readonly	description: string;
+  readonly	fee: number;
+  readonly	bookImageUrl: string;
+  readonly  userImageUrl:string;
+  readonly	createdAt: number;
+  readonly  location:string;
+  readonly	merchantId: number;
+  readonly  merchantAvatarUrl:string;
+  readonly  merchantFullName:string;
+  readonly  merchantGrade:number;
 
 
   constructor(data:FormFieldValues) {
@@ -80,8 +86,11 @@ export class BookDataFromServer {
 		this.bookImageUrl = data.book_image_url;
     this.userImageUrl =data.user_image_url;
     this.createdAt = data.created_at
-    this.merchantId = +data.merchant_id
-    this.location = data.location ?? undefined;
+    this.location = data.location;
+    this.merchantId = +data.member.id;
+    this.merchantAvatarUrl = data.member.avatar_url;
+    this.merchantFullName = data.member.full_name;
+    this.merchantGrade = data.member.grade;
   }
 };
 
@@ -90,13 +99,13 @@ export class BookDataToServer {
   readonly	author: string;
   readonly	description: string;
   readonly	fee: number;
-  // readonly	merchant_id: number;
+  readonly	member: number;
   readonly	publisher: string;
   readonly	title: string;
   readonly  location:string;
 
   book_image_url: string;
-  user_image_url: string | null;
+  user_image_url: string;
 
 
   constructor(data:FormFieldValues) {
@@ -105,10 +114,10 @@ export class BookDataToServer {
 		this.fee = +data.fee;
 		this.title = data.title;
 		this.publisher = data.publisher;
-    this.location = data.location!;
-    // this.merchant_id = +data.merchantId
+    this.location = data.location;
+    this.member = +data.merchantId;
 		this.book_image_url = data.bookImageUrl;
-		this.user_image_url = data?.userImageUrl ?? null;
+		this.user_image_url = data.userImageUrl;
   }
 }
 
