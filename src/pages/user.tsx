@@ -5,6 +5,7 @@ import { ScrollRestoration, useNavigate } from 'react-router-dom';
 import UserDetail from '@/features/authentication/user-detail.component.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
+import GeneralNav from '@/ui/general-nav.tsx';
 
 const UserPage = () => {
 	const navigate = useNavigate();
@@ -14,7 +15,7 @@ const UserPage = () => {
 
 	return (
 		<>
-			<GeneralHeader className="md:w-96">
+			<GeneralHeader>
 				<div className="flex min-w-4" onClick={goBack}>
 					<div>
 						<span className="text-2xl hover:cursor-pointer">
@@ -35,6 +36,7 @@ const UserPage = () => {
 				<UserDetail />
 			</GeneralMain>
 
+			<GeneralNav />
 			<ScrollRestoration />
 		</>
 	);

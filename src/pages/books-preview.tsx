@@ -1,12 +1,11 @@
 import { HiMenu, HiOutlineSearch } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-import { ScrollRestoration } from 'react-router-dom';
 
 import BooksPreviewItems from '@/features/books/preview-items.component.tsx';
 import Button from '@/ui/button.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
-import NavMain from '@/ui/nav-main.tsx';
+import GeneralNav from '@/ui/general-nav.tsx';
 
 const BooksPreviewPage = () => {
 	return (
@@ -45,10 +44,7 @@ const BooksPreviewPage = () => {
 			</GeneralMain>
 
 			{/* <footer>app footer</footer> */}
-			<NavMain />
-
-			{/* 페이지 전환시 스크롤 초기화 */}
-			<ScrollRestoration />
+			<GeneralNav />
 		</>
 	);
 };

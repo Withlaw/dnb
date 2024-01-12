@@ -6,9 +6,8 @@ import BookDetail from '@/features/books/detail.component.tsx';
 import BookPostDelete from '@/features/books/post-delete.component.tsx';
 import Button from '@/ui/button.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
-import GeneralLayout from '@/ui/general-layout.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
-import NavMain from '@/ui/nav-main.tsx';
+import GeneralNav from '@/ui/general-nav.tsx';
 
 const BookDetailPage = () => {
 	const navigate = useNavigate();
@@ -17,8 +16,8 @@ const BookDetailPage = () => {
 	};
 
 	return (
-		<GeneralLayout>
-			<GeneralHeader className="md:w-96">
+		<>
+			<GeneralHeader>
 				<div className="flex min-w-4" onClick={goBack}>
 					<div>
 						<span className="text-2xl hover:cursor-pointer">
@@ -48,8 +47,8 @@ const BookDetailPage = () => {
 				</div>
 			</GeneralMain>
 
-			<NavMain className="md:w-96" />
-		</GeneralLayout>
+			<GeneralNav />
+		</>
 	);
 };
 

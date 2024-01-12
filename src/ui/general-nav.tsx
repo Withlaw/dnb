@@ -29,15 +29,12 @@ const navItems: NavItem[] = [
 	{
 		id: 2,
 		name: '홈',
-		path: '/',
+		path: '/books',
 		icon: (
-			<div>
-				<svg className="size-6 fill-none ">
-					<use href={`${icons}#logo-header`}></use>
-				</svg>
-			</div>
+			<svg className="size-6">
+				<use href={`${icons}#logo-header`}></use>
+			</svg>
 		),
-		end: true,
 	},
 	{ id: 3, name: '채팅', path: '/chat', icon: <HiOutlineChat size="24" /> },
 	{
@@ -48,12 +45,11 @@ const navItems: NavItem[] = [
 	},
 ];
 
-const NavMain = ({ className = '' }: { className?: string }) => {
+const GeneralNav = () => {
 	return (
 		<nav
 			className={
-				'fixed bottom-0 z-[99] h-[50px] w-full max-w-screen-sm flex-initial rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black ' +
-				className
+				'fixed bottom-0 z-[99] h-[50px] w-full max-w-screen-sm flex-initial rounded-t-2xl border border-solid bg-[#fff] shadow-lg shadow-black md:w-96 '
 			}>
 			<ul className="flex h-full items-center justify-around text-xs">
 				{navItems.map(item => {
@@ -64,7 +60,7 @@ const NavMain = ({ className = '' }: { className?: string }) => {
 								className={({ isActive }) =>
 									isActive
 										? 'flex flex-col items-center font-bold text-green-900'
-										: 'flex flex-col items-center'
+										: 'flex flex-col items-center text-gray-700 grayscale'
 								}
 								end={item.end}>
 								<span>{item.icon}</span>
@@ -78,4 +74,4 @@ const NavMain = ({ className = '' }: { className?: string }) => {
 	);
 };
 
-export default NavMain;
+export default GeneralNav;

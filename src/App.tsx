@@ -22,8 +22,8 @@ import PageLayout from '@/ui/layout-page.tsx';
 
 const routes: RouteObject[] = [
 	{
-		path: '/',
 		id: 'home',
+		path: '/',
 		element: <HomeLayout />,
 		errorElement: <ErrorPage />,
 		children: [
@@ -32,15 +32,17 @@ const routes: RouteObject[] = [
 				path: 'books',
 				element: <BooksPreviewPage />,
 			},
+			{
+				path: '/books/:bookId',
+				element: <BookDetailPage />,
+			},
 		],
 	},
-	{
-		path: '/books/:bookId',
-		element: <BookDetailPage />,
-	},
+
 	{
 		id: 'guest-only',
 		element: <AuthenticationPage />,
+		errorElement: <ErrorPage />,
 		children: [
 			{
 				path: 'sign-in',
@@ -49,9 +51,11 @@ const routes: RouteObject[] = [
 			{ path: 'sign-up', element: <Signup /> },
 		],
 	},
+
 	{
 		id: 'protected',
-		element: <PageLayout />,
+		element: <HomeLayout />,
+		errorElement: <ErrorPage />,
 		children: [
 			{ path: '/user', element: <UserPage /> },
 			{

@@ -5,7 +5,8 @@ const BooksPreviewItems = () => {
 	const { books, isLoading, isError, error } = useBooksPreview();
 
 	return (
-		<ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3">
+		<ul className="flex w-full flex-col flex-nowrap items-center ">
+			{/* <ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3"> */}
 			{isLoading && <h1>Loading...</h1>}
 			{isError && <h1>{error?.message}</h1>}
 			{books &&

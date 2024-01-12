@@ -1,4 +1,6 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
+
+import GeneralLayout from '@/ui/general-layout.tsx';
 
 /*
 type HeaderItem = {
@@ -15,9 +17,14 @@ const headerItems: HeaderItem[] = [
 
 const HomeLayout = () => {
 	return (
-		<div className="container mx-auto flex h-full max-w-screen-sm flex-col shadow-xl">
+		// <div className="container mx-auto flex h-full max-w-screen-sm flex-col shadow-xl">
+		<GeneralLayout>
 			<Outlet />
-		</div>
+
+			{/* 페이지 전환시 스크롤 초기화 */}
+			<ScrollRestoration />
+		</GeneralLayout>
+		// </div>
 	);
 };
 

@@ -15,7 +15,7 @@ const BookCreatePage = () => {
 
 	return (
 		<>
-			<GeneralHeader className="md:w-96">
+			<GeneralHeader>
 				<div className="flex min-w-4" onClick={goBack}>
 					<div>
 						<span className="text-2xl hover:cursor-pointer">
