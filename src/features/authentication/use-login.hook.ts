@@ -9,8 +9,8 @@ const useLogin = () => {
   const { mutate:login, isPending:isLoading, isError, error } = useMutation({
     mutationFn: async ({email,password}:{email:string, password:string}) => await authService.signin({email,password}),
     onSuccess:(data)=>{
-      queryClient.invalidateQueries({queryKey:['user']});
       queryClient.setQueryData(['user'], data.user);  
+      queryClient.setQueryData(['user', 'session'], data.session);  
       // user 쿼리, user session 쿼리 캐시 갱신
       navigate('/', {replace:true});
     },

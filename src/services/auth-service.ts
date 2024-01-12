@@ -5,28 +5,35 @@
 //
 
 import { supabase } from "@/adapters/api/supabase-client.ts";
+import { UserDataFromServer, UserDataToServer } from "@/features/authentication/users.model.ts";
 
 class AuthService {
   
-
-  async signup({fullName, email, password}:{fullName:string, email:string, password:string}){
+  async signup({ full_name, email, password }:UserDataToServer){
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
-          fullName,
-          avatar: '',
+          full_name,
+          avatar_url: '',
         }
       }
     })
 
     if(error) throw new Error(error.message)
 
-    return data;
+    const user = new UserDataFromServer({
+      id:data.user?.id,
+      email:data.user?.email,
+      role: data.user?.role,
+      ...data.user?.user_metadata,
+    });
+
+    return { user, session: data.session };
   }
 
-  async signin({email, password}:{email:string, password:string}){
+  async signin({ email, password }:UserDataToServer){
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
@@ -35,10 +42,14 @@ class AuthService {
     if(error) throw new Error(error.message)
     // 유효하지 않은 이메일 혹은 패스워드 일 때, 피드백 메시지 반환할 것
 
-    //token storage
-    //redirect
-    // console.log('login data: ',data)
-    return data;
+    const user = new UserDataFromServer({
+      id:data.user?.id,
+      email:data.user?.email,
+      role: data.user?.role,
+      ...data.user?.user_metadata,
+    });
+
+    return { user, session: data.session };
   }
 
   async signout() {
@@ -60,13 +71,22 @@ class AuthService {
   }
   
   async getUser() {
-    const { data:{ user } , error } = await supabase.auth.getUser()
+    const { data , error } = await supabase.auth.getUser()
     // 세션이 있을 경우 db에서 유저 세부 정보를 fetch해옴.
     // 위 로컬 세션에서 유저 정보를 불러오는 것을 권장, 최신의 유저 데이터가 필요할 경우에만 사용.
     // user 객체가 존재한다는 것은 서버로부터 access token을 검증하여 인증 허가된 권한을 받았다는 것을 의미함.
     // 인자로 jwt 액세스 토큰을 받음. 기본값으로 현재 세션의 토큰을 이용함.
 
     if (error) throw new Error(error.message);
+
+    // const { user_metadata } = user;
+
+    const user = new UserDataFromServer({
+      id:data.user.id,
+      email:data.user.email,
+      role: data.user.role,
+      ...data.user.user_metadata,
+    });
 
     return user;
   }
