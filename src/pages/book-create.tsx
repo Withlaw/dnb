@@ -1,5 +1,5 @@
 import { HiChevronLeft } from 'react-icons/hi';
-import { ScrollRestoration, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import BookPostCreateForm from '@/features/books/post-create.component.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
@@ -28,8 +28,6 @@ const BookCreatePage = () => {
 			<GeneralMain>
 				<BookPostCreateForm />
 			</GeneralMain>
-
-			<ScrollRestoration />
 		</>
 	);
 };

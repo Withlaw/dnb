@@ -16,9 +16,9 @@ import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
+import UserEditPage from '@/pages/user-edit.tsx';
 import UserPage from '@/pages/user.tsx';
 import HomeLayout from '@/ui/layout-home.tsx';
-import PageLayout from '@/ui/layout-page.tsx';
 
 const routes: RouteObject[] = [
 	{
@@ -58,6 +58,7 @@ const routes: RouteObject[] = [
 		errorElement: <ErrorPage />,
 		children: [
 			{ path: '/user', element: <UserPage /> },
+			{ path: '/user/edit', element: <UserEditPage /> },
 			{
 				path: '/dashboard',
 				element: null,

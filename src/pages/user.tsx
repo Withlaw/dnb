@@ -1,6 +1,6 @@
 import { HiMenu } from 'react-icons/hi';
 import { HiChevronLeft } from 'react-icons/hi';
-import { ScrollRestoration, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import UserDetail from '@/features/authentication/user-detail.component.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
@@ -37,7 +37,6 @@ const UserPage = () => {
 			</GeneralMain>
 
 			<GeneralNav />
-			<ScrollRestoration />
 		</>
 	);
 };
