@@ -9,6 +9,8 @@ const useUser = () => {
 
   const isAuthenticated = user?.role === 'authenticated';
 
+  console.log('user: ', user)
+
   return { user, isLoading, isError, error, isAuthenticated };
 }
 

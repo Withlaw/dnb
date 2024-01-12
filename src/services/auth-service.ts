@@ -35,7 +35,6 @@ class AuthService {
 
     return { user, session: data.session };
 */
-  
 
     const { data: signupData, error:signupError } = await supabase.auth.signUp({
       email,
@@ -50,38 +49,40 @@ class AuthService {
 
     if (signupError) throw new Error (signupError.message);
 
-    const { data:memberCreateData , error:memberCreateError } = await supabase.from('members').insert([{ full_name, address: '', books_num:0, grade:0, avatar_url:'' },]).select('id,full_name,address,books_num,grade,avatar_url').single();
+    const { data: createMemberData , error:createMemberError } = await this._createMember(full_name!);
     // 계정 생성이 완료되면 멤버 테이블 생성
 
-    if (memberCreateError) throw new Error (memberCreateError.message);
+    if (createMemberError) throw new Error (createMemberError.message);
 
     const user = new UserDataFromServer({
       email:signupData.user?.email,
       role: signupData.user?.role,
-      ...memberCreateData,
+      ...createMemberData,
     });
     
-
     return { user, session: signupData.session };
   }
 
   async signin({ email, password }:UserDataToServer){
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data: signinData, error:signinError } = await supabase.auth.signInWithPassword({
       email,
       password
     })
 
-    if(error) throw new Error(error.message)
+    if(signinError) throw new Error(signinError.message)
     // 유효하지 않은 이메일 혹은 패스워드 일 때, 피드백 메시지 반환할 것
 
+    const { data: getMemberData, error:getMemberError } = await this._getMember(signinData.user.id);
+
+    if(getMemberError) throw new Error(getMemberError.message)
+
     const user = new UserDataFromServer({
-      id:data.user?.id,
-      email:data.user?.email,
-      role: data.user?.role,
-      ...data.user?.user_metadata,
+      email:signinData.user?.email,
+      role: signinData.user?.role,
+      ...getMemberData,
     });
 
-    return { user, session: data.session };
+    return { user, session: signinData.session };
   }
 
   async signout() {
@@ -103,26 +104,33 @@ class AuthService {
   }
   
   async getUser() {
-    const { data , error } = await supabase.auth.getUser()
+    const { data:getUserData , error:getUserError } = await supabase.auth.getUser()
     // 세션이 있을 경우 db에서 유저 세부 정보를 fetch해옴.
     // 위 로컬 세션에서 유저 정보를 불러오는 것을 권장, 최신의 유저 데이터가 필요할 경우에만 사용.
     // user 객체가 존재한다는 것은 서버로부터 access token을 검증하여 인증 허가된 권한을 받았다는 것을 의미함.
     // 인자로 jwt 액세스 토큰을 받음. 기본값으로 현재 세션의 토큰을 이용함.
 
-    if (error) throw new Error(error.message);
+    if (getUserError) throw new Error(getUserError.message);
 
-    // const { user_metadata } = user;
+    const { data: getMemberData, error:getMemberError } = await this._getMember(getUserData.user.id);
+
+    if(getMemberError) throw new Error(getMemberError.message)
 
     const user = new UserDataFromServer({
-      id:data.user.id,
-      email:data.user.email,
-      role: data.user.role,
-      ...data.user.user_metadata,
+      email:getUserData.user?.email,
+      role: getUserData.user?.role,
+      ...getMemberData,
     });
 
     return user;
   }
 
+  private _createMember (full_name:string) {
+    return supabase.from('members').insert([{ full_name, address: '', books_num:0, grade:0, avatar_url:'' },]).select('id,full_name,address,books_num,grade,avatar_url').single();
+  } 
+  private _getMember (id:string) {
+    return supabase.from('members').select('id,full_name,address,books_num,grade,avatar_url').eq('user_id', id).single();
+  }
 }
 
 export default new AuthService()
