@@ -1,6 +1,17 @@
 const UserInfoEdit = () => {
+	// useUser
+	// form
+	// useUserEdit
+
 	return (
-		<form className="flex flex-col bg-red-100 p-3">
+		<form className="flex flex-col bg-[#fff] p-3">
+			<fieldset>
+				<label htmlFor="fullName" className="capitalize">
+					이메일
+				</label>
+				<input id="fullName" disabled></input>
+			</fieldset>
+
 			<fieldset>
 				<label htmlFor="fullName" className="capitalize">
 					닉네임

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import icons from '@/assets/icons.svg';
 import SignOut from '@/features/authentication/signout.component.tsx';
 import { UserDataFromServer } from '@/features/authentication/users.model.ts';
@@ -49,7 +51,9 @@ const UserInfo = ({ user }: Props) => {
 				</div>
 
 				<div>
-					<span>수정하기</span>
+					<Link to={'/user/edit'}>
+						<span>수정하기</span>
+					</Link>
 					<SignOut />
 				</div>
 			</div>
