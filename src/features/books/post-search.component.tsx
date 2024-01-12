@@ -2,6 +2,7 @@ import { HiOutlineX } from 'react-icons/hi';
 
 import icons from '@/assets/icons.svg';
 import { BookDataFromTitleSearch } from '@/features/books/books.model.ts';
+import BookPostSearchResults from '@/features/books/post-search-results.component.tsx';
 import useSearchForm from '@/features/books/use-book-search-form.hook.ts';
 import useBookSeach from '@/features/books/use-book-search.hook.ts';
 import Modal from '@/ui/modal.tsx';
@@ -94,9 +95,38 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 							</li>
 						)}
 
-						{!isTyping &&
-							searchData &&
-							searchData.map(data => {
+						{!isTyping && searchData && (
+							<BookPostSearchResults
+								searchData={searchData}
+								onClick={searchItemClickHandler}
+							/>
+						)}
+
+						{!isTyping && searchData && searchData.length === 0 && (
+							<li className={Style.ITEM_OFF}>
+								<span>찾으시는 책이 존재하지 않습니다.</span>
+							</li>
+						)}
+
+						{!isTyping && !isLoading && isError && (
+							<li className={Style.ITEM_OFF}>
+								<span>서버에 연결할 수 없습니다.</span>
+								<span>{error?.message}</span>
+							</li>
+						)}
+					</ul>
+				)}
+
+				{/* 무한스크롤 */}
+			</form>
+		</Modal>
+	);
+};
+
+export default BookPostSearch;
+
+/*
+searchData.map(data => {
 								const author = data.abbreviatedAuthor;
 								// const author = abbreviateAuthor(data.author);
 								// let author = data.author;
@@ -131,27 +161,5 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 										</div>
 									</li>
 								);
-							})}
-
-						{!isTyping && searchData && searchData.length === 0 && (
-							<li className={Style.ITEM_OFF}>
-								<span>찾으시는 책이 존재하지 않습니다.</span>
-							</li>
-						)}
-
-						{!isTyping && !isLoading && isError && (
-							<li className={Style.ITEM_OFF}>
-								<span>서버에 연결할 수 없습니다.</span>
-								<span>{error?.message}</span>
-							</li>
-						)}
-					</ul>
-				)}
-
-				{/* 무한스크롤 */}
-			</form>
-		</Modal>
-	);
-};
-
-export default BookPostSearch;
+							})
+              */

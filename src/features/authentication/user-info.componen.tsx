@@ -1,6 +1,6 @@
 import icons from '@/assets/icons.svg';
 import SignOut from '@/features/authentication/signout.component.tsx';
-import useUser from '@/features/authentication/use-user.hook.ts';
+import { UserDataFromServer } from '@/features/authentication/users.model.ts';
 
 enum Style {
 	ITEMS = 'flex items-center items-center space-x-2 text-xs ',
@@ -8,11 +8,11 @@ enum Style {
 	ITEM = 'text-stone-800',
 }
 
-const UserInfo = () => {
-	const { user } = useUser();
+type Props = {
+	user: UserDataFromServer;
+};
 
-	// console.log('user', user);
-
+const UserInfo = ({ user }: Props) => {
 	return (
 		<div className="my-2 flex flex-none items-center space-x-3 rounded-md border border-solid border-stone-300 px-5 py-3">
 			<figure className="flex-none">

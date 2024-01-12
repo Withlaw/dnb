@@ -1,7 +1,8 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase-client.ts';
 import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
-import { BookDataToServer, BookFileToServer } from '@/features/books/books.model.ts';
+import { BookDataFromServer, BookDataFromTitleSearch, BookDataToServer, BookFileToServer, BooksPreviewModel } from '@/features/books/books.model.ts';
+import { BookTitleSearchData } from '@/features/books/types.ts';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;
@@ -35,32 +36,20 @@ class BooksService {
   constructor(  private readonly baseURL : string, private readonly apiKey : string){}
 
 
-  async searchBook<T>(query:string, start:number=1, display:number=10) {
+  // search api
+  async searchBook(query:string, start:number=1, display:number=10) {
     const response = await naverBookSearchClient.get(`?query=${query}&display=${display}&start=${start}`);
 
     if (!response.ok) throw ({ status: response.status, statusText: response.statusText, message: "naverBookSearchClient could not search data."});
     
-    const data = await response.json() as T;
-
-    return data;
-
-    // 어떻게 추상화해야할까..
-  }
-
-  // data api 
-  async getBook(bookId:number) {
-    const { data, error } = await supabase
-    .from(this.endpoint)
-    .select('*').eq('id', bookId).single();
-
-    if (error) {
-      console.error(error);
-      throw new Error('The book could not be loaded');
-    }
+    const data = await response.json() as BookTitleSearchData;
     
-    return data
+    const books = data?.items?.map(book=>new BookDataFromTitleSearch(book));
+
+    return books;
   }
 
+  // data fetch api 
   async getBooks () {
 		// try {
 			const { data, error } = await supabase.from(this.endpoint).select('*');
@@ -70,15 +59,32 @@ class BooksService {
 				throw new Error('Books could not be loaded');
 			}
 
-			return data;
+      const books = data?.map(data => new BooksPreviewModel(data));
+
+			return books;
     // 에러를 처리한다는게, catch 해서 적절하게 뷰로 피드백 제공하는거니까 
-    // 뷰 레이어에서 try catch로 처리하는게 나을려나?
+    // 뷰 레이어에서 try catch로 처리하는게 나을려나? -> 리액트 쿼리로 한 번에 view logic을 처리하는게 나을 듯!?
 
 		// } catch (error) {
 		// 	console.error(error);
 		// 	return [];
 		// }
 	}
+
+  async getBook(bookId:number) {
+    const { data, error } = await supabase
+    .from(this.endpoint)
+    .select('*').eq('id', bookId).single();
+
+    if (error) {
+      console.error(error);
+      throw new Error('The book could not be loaded');
+    }
+
+    const book = new BookDataFromServer(data);
+    
+    return book
+  }
 
   async createBook(newBook:BookDataToServer, imageFiles?:BookFileToServer) {
     const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
