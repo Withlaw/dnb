@@ -90,7 +90,7 @@ export class BookDataToServer {
   readonly	author: string;
   readonly	description: string;
   readonly	fee: number;
-  readonly	merchant_id: number;
+  // readonly	merchant_id: number;
   readonly	publisher: string;
   readonly	title: string;
   readonly  location:string;
@@ -106,7 +106,7 @@ export class BookDataToServer {
 		this.title = data.title;
 		this.publisher = data.publisher;
     this.location = data.location!;
-    this.merchant_id = +data.merchantId
+    // this.merchant_id = +data.merchantId
 		this.book_image_url = data.bookImageUrl;
 		this.user_image_url = data?.userImageUrl ?? null;
   }

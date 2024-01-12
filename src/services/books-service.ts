@@ -52,7 +52,7 @@ class BooksService {
   // data fetch api 
   async getBooks () {
 		// try {
-			const { data, error } = await supabase.from(this.endpoint).select('*');
+			const { data, error } = await supabase.from(this.endpoint).select('*').order('created_at', { ascending: false });
 
 			if (error) {
 				console.error(error);
@@ -74,8 +74,9 @@ class BooksService {
   async getBook(bookId:number) {
     const { data, error } = await supabase
     .from(this.endpoint)
-    .select('*').eq('id', bookId).single();
+    .select(`*, merchant_id(*)`).eq('id', bookId).single();
 
+    console.log('data:',data)
     if (error) {
       console.error(error);
       throw new Error('The book could not be loaded');

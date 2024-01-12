@@ -17,6 +17,7 @@ const BooksPreviewItems = () => {
 				dummy.map(book => {
 					return <BooksPreviewItem book={book} key={book.id} />;
 				})} */}
+			{books && books.length === 0 && <h1>등록된 책이 없습니다.</h1>}
 		</ul>
 	);
 };

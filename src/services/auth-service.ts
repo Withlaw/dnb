@@ -10,6 +10,8 @@ import { UserDataFromServer, UserDataToServer } from "@/features/authentication/
 class AuthService {
   
   async signup({ full_name, email, password }:UserDataToServer){
+  
+    /*
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -21,6 +23,7 @@ class AuthService {
       }
     })
 
+
     if(error) throw new Error(error.message)
 
     const user = new UserDataFromServer({
@@ -31,6 +34,35 @@ class AuthService {
     });
 
     return { user, session: data.session };
+*/
+  
+
+    const { data: signupData, error:signupError } = await supabase.auth.signUp({
+      email,
+      password, 
+      options: {
+        data: {
+          full_name,
+        }
+      }
+    });
+    // 계정 생성
+
+    if (signupError) throw new Error (signupError.message);
+
+    const { data:memberCreateData , error:memberCreateError } = await supabase.from('members').insert([{ full_name, address: '', books_num:0, grade:0, avatar_url:'' },]).select('id,full_name,address,books_num,grade,avatar_url').single();
+    // 계정 생성이 완료되면 멤버 테이블 생성
+
+    if (memberCreateError) throw new Error (memberCreateError.message);
+
+    const user = new UserDataFromServer({
+      email:signupData.user?.email,
+      role: signupData.user?.role,
+      ...memberCreateData,
+    });
+    
+
+    return { user, session: signupData.session };
   }
 
   async signin({ email, password }:UserDataToServer){
