@@ -92,6 +92,10 @@ export class BookDataFromServer {
     this.merchantFullName = data.member.full_name;
     this.merchantGrade = data.member.grade;
   }
+
+  getImages() {
+    return [this.bookImageUrl, ...this.userImageUrl.split('&')]
+  }
 };
 
 // BookFormData

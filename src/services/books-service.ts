@@ -88,9 +88,12 @@ class BooksService {
 
   async createBook(newBook:BookDataToServer, imageFiles?:BookFileToServer) {
     const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
-    newBook.user_image_url = imageFileUrl ?? '';
+    // newBook.user_image_url = imageFileUrl ?? '';
 
-    const insertNewBook = supabase.from(this.endpoint).insert([newBook]).select().single();  // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
+    const insertNewBook = supabase.from(this.endpoint).insert([{
+      ...newBook,
+      user_image_url : imageFileUrl ?? '',
+    }]).select().single();  // insert에 배열을 전달하는 것에 주의할 것. 한 번에 여러 books를 보낼 수 있음.
     const uploadImageFile = this.uploadImage(imageFiles);
 
     const [insertNewBookResponse, uploadImageFileResponse] = await Promise.all([insertNewBook, uploadImageFile]);
@@ -198,7 +201,7 @@ class BooksService {
   }
 
   // file api
-  async uploadImage(imageFiles?:BookFileToServer) {
+  uploadImage(imageFiles?:BookFileToServer) {
     if(!imageFiles) return null;
 
     const { imageFileName } = this.getImageNameAndPath(imageFiles);
@@ -223,7 +226,7 @@ class BooksService {
     return supabase.storage.from(this.remoteStorage).upload(imageFileName!, imageFiles.files[0]) 
   }
 
-  async deleteImage(imageName?:string){
+  deleteImage(imageName?:string){
     if(!imageName) return null;
 
     /*

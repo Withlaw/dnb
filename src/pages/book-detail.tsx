@@ -22,7 +22,7 @@ const BookDetailPage = () => {
 	const { book, isLoading, isError, error } = useBook(bookId);
 	const { user } = useUser();
 
-	const ownThisBook: boolean = Boolean(user && user.id === book?.merchantId);
+	const ownThisBook = Boolean(user && user.id === book?.merchantId);
 
 	const goBack = () => {
 		navigate(-1);
@@ -65,6 +65,7 @@ const BookDetailPage = () => {
 					{isLoading && <h3>Loading...</h3>}
 					{isError && <h3>{error?.message}</h3>}
 					{book && <BookDetail book={book} />}
+
 					{!ownThisBook && (
 						<div className="w-full p-2">
 							<Button>예약하기</Button>

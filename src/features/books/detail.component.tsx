@@ -16,7 +16,7 @@ type Props = {
 };
 
 const BookDetail = ({ book }: Props) => {
-	console.log('book', book);
+	console.log('book: ', book.getImages());
 
 	return (
 		<>
@@ -30,19 +30,21 @@ const BookDetail = ({ book }: Props) => {
 					/>
 				</figure>
 			</div> */}
-			{/* 책 이미지 슬라이더 */}
 
+			{/* 책 이미지 슬라이더 */}
 			<div className="mb-2">
 				<BookImageSlider>
-					<div>
-						<figure className="flex justify-center bg-stone-200">
-							<img
-								className="h-80 w-64"
-								src={book?.bookImageUrl}
-								alt={book?.title}
-							/>
-						</figure>
-					</div>
+					{book.getImages().map(image => {
+						if (image.trim() === '') return;
+
+						return (
+							<div>
+								<figure className="flex justify-center bg-stone-200">
+									<img className="h-80 w-64" src={image} alt={book.title} />
+								</figure>
+							</div>
+						);
+					})}
 				</BookImageSlider>
 			</div>
 
@@ -50,11 +52,11 @@ const BookDetail = ({ book }: Props) => {
 			<div className="flex flex-col p-2">
 				<DetailRow>
 					<div className="flex flex-col">
-						<h1 className="text-xl font-semibold">{book?.title}</h1>
+						<h1 className="text-xl font-semibold">{book.title}</h1>
 						<div className="text-sm">
-							<DetailRow.Span>{book?.author}</DetailRow.Span>
+							<DetailRow.Span>{book.author}</DetailRow.Span>
 							<span className="mx-1 h-2 w-1">|</span>
-							<DetailRow.Span>{book?.publisher}</DetailRow.Span>
+							<DetailRow.Span>{book.publisher}</DetailRow.Span>
 						</div>
 					</div>
 				</DetailRow>
@@ -86,12 +88,12 @@ const BookDetail = ({ book }: Props) => {
 
 				<DetailRow>
 					<DetailRow.Span>대여기간: 10일</DetailRow.Span>
-					<DetailRow.Span>{`대여료: ${book?.fee} 원`}</DetailRow.Span>
+					<DetailRow.Span>{`대여료: ${book.fee} 원`}</DetailRow.Span>
 				</DetailRow>
 
 				<DetailRow>
 					<p className={'mx-1 min-h-20 w-full break-words'}>
-						{book?.description}
+						{book.description}
 					</p>
 				</DetailRow>
 			</div>
