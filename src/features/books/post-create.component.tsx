@@ -33,8 +33,6 @@ const BookPostCreateForm = () => {
 			merchantId: user?.id,
 		});
 
-		console.log('newBook: ', newBook);
-
 		// image -> 기본 이미지, 유저 업로드 이미지
 		createNewBookPost({ newBook, imageFiles });
 	};

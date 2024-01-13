@@ -16,7 +16,7 @@ type Props = {
 };
 
 const BookDetail = ({ book }: Props) => {
-	console.log('book: ', book.getImages());
+	console.log('book: ', book);
 
 	return (
 		<>
@@ -38,7 +38,7 @@ const BookDetail = ({ book }: Props) => {
 						if (image.trim() === '') return;
 
 						return (
-							<div>
+							<div key={image.length}>
 								<figure className="flex justify-center bg-stone-200">
 									<img className="h-80 w-64" src={image} alt={book.title} />
 								</figure>
@@ -92,7 +92,7 @@ const BookDetail = ({ book }: Props) => {
 				</DetailRow>
 
 				<DetailRow>
-					<p className={'mx-1 min-h-20 w-full break-words'}>
+					<p className={'mx-1 min-h-36 w-full break-words'}>
 						{book.description}
 					</p>
 				</DetailRow>

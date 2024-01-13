@@ -154,7 +154,7 @@ class BooksService {
     imageFiles?: BookFileToServer;
   }) {
     const { imageFileUrl } = this.getImageNameAndPath(imageFiles);
-    editedBook.user_image_url = imageFileUrl ?? '';
+    if(imageFileUrl) editedBook.user_image_url = imageFileUrl;
 
     const updateQuery = (data:BookDataToServer) => supabase.from(this.endpoint).update(data).eq('id', id).select().single();
     const uploadQuery = this.uploadImage(imageFiles);

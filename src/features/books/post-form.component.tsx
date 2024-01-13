@@ -64,17 +64,13 @@ const BookPostForm = ({
 			});
 	};
 
-	const submitErrorHandler = (errors: FieldErrors<FieldValues>) => {
-		// window.alert('양식을 모두 작성해주세요.');
-		// console.log('err: ', errors);
-	};
-
-	console.log('errors: ', errors, 'imageInputValue:', imageInputValue?.[0]);
+	// const submitErrorHandler = (errors: FieldErrors<FieldValues>) => {
+	// 	window.alert('양식을 모두 작성해주세요.');
+	// 	console.log('err: ', errors);
+	// };
 
 	return (
-		<form
-			className="flex flex-col"
-			onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
+		<form className="flex flex-col" onSubmit={handleSubmit(submitHandler)}>
 			<FormRow name="제목" message={errors.title?.message}>
 				<div
 					className={Style.INPUTCONTAINER + ' border-b'}
@@ -159,7 +155,18 @@ const BookPostForm = ({
 				<div className={Style.INPUTCONTAINER}>
 					<figure className="flex flex-wrap space-x-2">
 						{inputData?.bookImageUrl && (
-							<img src={inputData?.bookImageUrl} className={Style.IMAGE} />
+							<img
+								src={inputData?.bookImageUrl}
+								alt="book_image1"
+								className={Style.IMAGE}
+							/>
+						)}
+						{inputData?.userImageUrl && (
+							<img
+								src={inputData?.userImageUrl}
+								alt="book_image2"
+								className={Style.IMAGE}
+							/>
 						)}
 						{imagePreview && typeof imagePreview === 'string' && (
 							<img
@@ -169,36 +176,35 @@ const BookPostForm = ({
 							/>
 						)}
 
+						{/* 이미지 수정은 불가함 */}
 						<label
 							htmlFor="image-upload"
-							className={
+							className={clsx(
 								Style.IMAGE +
-								' flex items-center justify-center text-2xl text-stone-600 hover:cursor-pointer'
-							}>
+									' flex items-center justify-center text-2xl text-stone-600 hover:cursor-pointer',
+								!onTitleSearch && ' hidden',
+							)}>
 							<HiOutlinePlus />
 						</label>
-						{/* 이미지 미리보기 제공을 위해 이미지 컴포넌트 만들어야 할 듯 */}
 						<input
-							id="image-upload"
-							type="file"
-							accept="image/*"
-							className="hidden"
-							// multiple 용량 안정화 이후에 사용할 것.
 							{...register('image_files', {
 								validate: value => {
-									if (!value) return;
+									if (!value || !value[0] || !onTitleSearch) return;
 									if (value[0].size > 5000000)
 										return '이미지 파일은 5MB 이하만 가능합니다.';
 									else return;
 								},
 							})}
+							id="image-upload"
+							type="file"
+							accept="image/*"
+							className="hidden"
 						/>
 					</figure>
 				</div>
 			</FormRow>
 
-			{/* 하단 네비 바 자리에 예약하기버튼 두기 */}
-			<div className="my-3">{children}</div>
+			<div className="mt-4">{children}</div>
 		</form>
 	);
 };
