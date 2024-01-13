@@ -1,15 +1,17 @@
 import { HiChevronLeft } from 'react-icons/hi';
-import { HiMenu } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 
 import BookDetail from '@/features/books/detail.component.tsx';
 import BookPostDelete from '@/features/books/post-delete.component.tsx';
+import useShow from '@/hooks/use-show.ts';
 import Button from '@/ui/button.tsx';
+import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
 import GeneralNav from '@/ui/general-nav.tsx';
 
 const BookDetailPage = () => {
+	const { isShow, showHandler } = useShow();
 	const navigate = useNavigate();
 	const goBack = () => {
 		navigate(-1);
@@ -26,11 +28,10 @@ const BookDetailPage = () => {
 					</div>
 				</div>
 
-				<div className="flex items-center justify-end">
-					<span className="ml-4">
-						<HiMenu size="24" />
-					</span>
-				</div>
+				<GeneralHeaderMenu onClick={showHandler} isShowMenu={isShow}>
+					<GeneralHeaderMenu.Item>수정하기</GeneralHeaderMenu.Item>
+					<GeneralHeaderMenu.Item>삭제하기</GeneralHeaderMenu.Item>
+				</GeneralHeaderMenu>
 			</GeneralHeader>
 
 			<GeneralMain>
