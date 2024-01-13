@@ -14,7 +14,7 @@ const GeneralHeaderMenu = ({ children, onClick, isShowMenu }: Props) => {
 			</span>
 			{isShowMenu && (
 				<div className="absolute top-[34px] flex flex-col items-center rounded-md border border-solid bg-[#fff] p-1">
-					<div className="relative h-1 w-full">
+					<div className="relative h-2 w-full">
 						<span
 							className="absolute right-1 text-lg hover:cursor-pointer"
 							onClick={onClick}>

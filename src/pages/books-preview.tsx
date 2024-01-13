@@ -1,4 +1,4 @@
-import { HiMenu, HiOutlineSearch } from 'react-icons/hi';
+import { HiOutlineSearch } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 import BooksPreviewItems from '@/features/books/preview-items.component.tsx';
@@ -21,9 +21,6 @@ const BooksPreviewPage = () => {
 					<span className="ml-4">
 						<HiOutlineSearch size="24" />
 					</span>
-					{/* <span className="ml-4">
-						<HiMenu size="24" />
-					</span> */}
 				</div>
 			</GeneralHeader>
 

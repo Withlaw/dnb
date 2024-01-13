@@ -1,9 +1,9 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
 import { BookDataFromServer } from '@/features/books/books.model.ts';
 import DetailRow from '@/features/books/detail-row.component.tsx';
-import useBook from '@/features/books/use-book.hook.ts';
+import BookImageSlider from '@/features/books/detail-slider.component.tsx';
 
 enum Style {
 	DIV = 'border-1 flex justify-between border-b border-solid py-3',
@@ -16,10 +16,12 @@ type Props = {
 };
 
 const BookDetail = ({ book }: Props) => {
+	console.log('book', book);
+
 	return (
 		<>
 			{/* 책 이미지 */}
-			<div className="flex justify-center rounded-md bg-stone-200">
+			{/* <div className="flex justify-center rounded-md bg-stone-200">
 				<figure>
 					<img
 						className="h-72 w-64"
@@ -27,24 +29,22 @@ const BookDetail = ({ book }: Props) => {
 						alt={book?.title}
 					/>
 				</figure>
-			</div>
-			{/* 책 이미지 슬라이더 */}
-			{/* <div className="flex items-center justify-center bg-stone-200">
-				<BookImageSlider>
-					<figure>
-						<img
-							src={book?.bookImageUrl}
-							alt={book?.title}
-						/>
-					</figure>
-					<figure>
-						<img
-							src={book?.bookImageUrl}
-							alt={book?.title}
-						/>
-					</figure>
-				</BookImageSlider>
 			</div> */}
+			{/* 책 이미지 슬라이더 */}
+
+			<div className="mb-2">
+				<BookImageSlider>
+					<div>
+						<figure className="flex justify-center bg-stone-200">
+							<img
+								className="h-80 w-64"
+								src={book?.bookImageUrl}
+								alt={book?.title}
+							/>
+						</figure>
+					</div>
+				</BookImageSlider>
+			</div>
 
 			{/* 책 정보 및 글 내용 */}
 			<div className="flex flex-col p-2">

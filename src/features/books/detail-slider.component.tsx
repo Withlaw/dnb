@@ -12,17 +12,31 @@ type Props = {
 const BookImageSlider = ({ children, options }: Props) => {
 	const defaultSettings: Settings = {
 		speed: 1000,
+		dots: true,
+		infinite: false,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		nextArrow: <NextArrow />,
-		prevArrow: <PrevArrow />,
+		arrows: false,
+		// nextArrow: <NextArrow />,
+		// prevArrow: <PrevArrow />,
 		...options,
 	};
 
 	return (
-		<Slick
-			{...defaultSettings}
-			className="flex h-[400px] w-[300px] bg-green-300">
+		<Slick {...defaultSettings}>
+			{/* {[].map(image => {
+				return (
+					<div>
+						<figure className="flex justify-center bg-stone-200">
+							<img
+								className="h-80 w-64"
+								src={book?.bookImageUrl}
+								alt={book?.title}
+							/>
+						</figure>
+					</div>
+				);
+			})} */}
 			{children}
 		</Slick>
 	);

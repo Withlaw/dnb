@@ -1,7 +1,4 @@
-import { Link } from 'react-router-dom';
-
 import icons from '@/assets/icons.svg';
-import SignOut from '@/features/authentication/signout.component.tsx';
 import { UserDataFromServer } from '@/features/authentication/users.model.ts';
 import Star from '@/ui/star.tsx';
 
