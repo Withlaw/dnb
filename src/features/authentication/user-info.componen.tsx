@@ -49,13 +49,6 @@ const UserInfo = ({ user }: Props) => {
 					<span className={Style.ITEM_NAME}>평점</span>
 					<span className={Style.ITEM}>별별별별별</span>
 				</div>
-
-				<div>
-					<Link to={'/user/edit'}>
-						<span>수정하기</span>
-					</Link>
-					<SignOut />
-				</div>
 			</div>
 		</div>
 	);

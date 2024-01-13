@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import BookDetail from '@/features/books/detail.component.tsx';
 import BookPostDelete from '@/features/books/post-delete.component.tsx';
+import BookPostWish from '@/features/books/wish.component.tsx';
 import useShow from '@/hooks/use-show.ts';
 import Button from '@/ui/button.tsx';
 import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
@@ -29,8 +30,17 @@ const BookDetailPage = () => {
 				</div>
 
 				<GeneralHeaderMenu onClick={showHandler} isShowMenu={isShow}>
-					<GeneralHeaderMenu.Item>수정하기</GeneralHeaderMenu.Item>
-					<GeneralHeaderMenu.Item>삭제하기</GeneralHeaderMenu.Item>
+					<GeneralHeaderMenu.Item>
+						<BookPostWish>찜하기</BookPostWish>
+					</GeneralHeaderMenu.Item>
+
+					<GeneralHeaderMenu.Item>
+						<Link to={'edit'}>수정하기</Link>
+					</GeneralHeaderMenu.Item>
+
+					<GeneralHeaderMenu.Item>
+						<BookPostDelete>삭제하기</BookPostDelete>
+					</GeneralHeaderMenu.Item>
 				</GeneralHeaderMenu>
 			</GeneralHeader>
 
@@ -40,10 +50,6 @@ const BookDetailPage = () => {
 
 					<div className="w-full p-2">
 						<Button>예약하기</Button>
-
-						<Link to={'edit'}>수정페이지가기</Link>
-
-						<BookPostDelete />
 					</div>
 				</div>
 			</GeneralMain>

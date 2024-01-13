@@ -1,6 +1,6 @@
 import useLogout from '@/features/authentication/use-logout.hook.ts';
 
-const SignOut = () => {
+const SignOut = ({ children }: { children: React.ReactNode }) => {
 	const { logout, isLoading } = useLogout();
 
 	const signoutHandler = () => {
@@ -10,11 +10,13 @@ const SignOut = () => {
 		logout();
 	};
 
-	return (
-		<button onClick={signoutHandler} disabled={isLoading}>
-			로그아웃
-		</button>
-	);
+	return <span onClick={signoutHandler}>{children}</span>;
+
+	// return (
+	// 	<button onClick={signoutHandler} disabled={isLoading}>
+	// 		로그아웃
+	// 	</button>
+	// );
 };
 
 export default SignOut;

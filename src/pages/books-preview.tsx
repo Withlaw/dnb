@@ -21,9 +21,9 @@ const BooksPreviewPage = () => {
 					<span className="ml-4">
 						<HiOutlineSearch size="24" />
 					</span>
-					<span className="ml-4">
+					{/* <span className="ml-4">
 						<HiMenu size="24" />
-					</span>
+					</span> */}
 				</div>
 			</GeneralHeader>
 
