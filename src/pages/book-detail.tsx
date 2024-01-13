@@ -2,6 +2,7 @@ import { HiChevronLeft } from 'react-icons/hi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import useUserSession from '@/features/authentication/use-user-session.hook.ts';
+import useUser from '@/features/authentication/use-user.hook.ts';
 import BookDetail from '@/features/books/detail.component.tsx';
 import BookPostDelete from '@/features/books/post-delete.component.tsx';
 import useBook from '@/features/books/use-book.hook.ts';
@@ -14,23 +15,18 @@ import GeneralMain from '@/ui/general-main.tsx';
 import GeneralNav from '@/ui/general-nav.tsx';
 
 const BookDetailPage = () => {
+	const { bookId } = useParams();
+	const navigate = useNavigate();
 	const { isShow, showHandler } = useShow();
 
-	const navigate = useNavigate();
-
-	const { bookId } = useParams();
-
 	const { book, isLoading, isError, error } = useBook(bookId);
-	const { session } = useUserSession();
+	const { user } = useUser();
 
-	const isOwn =
-		session && session.user.user_metadata.member_id === book?.merchantId;
+	const ownThisBook: boolean = Boolean(user && user.id === book?.merchantId);
 
 	const goBack = () => {
 		navigate(-1);
 	};
-
-	console.log('book:', book, session);
 
 	return (
 		<>
@@ -44,19 +40,19 @@ const BookDetailPage = () => {
 				</div>
 
 				<GeneralHeaderMenu onClick={showHandler} isShowMenu={isShow}>
-					{!isOwn && (
+					{!ownThisBook && (
 						<GeneralHeaderMenu.Item>
 							<BookPostWish>찜하기</BookPostWish>
 						</GeneralHeaderMenu.Item>
 					)}
 
-					{isOwn && (
+					{ownThisBook && (
 						<GeneralHeaderMenu.Item>
 							<Link to={'edit'}>수정하기</Link>
 						</GeneralHeaderMenu.Item>
 					)}
 
-					{isOwn && (
+					{ownThisBook && (
 						<GeneralHeaderMenu.Item>
 							<BookPostDelete>삭제하기</BookPostDelete>
 						</GeneralHeaderMenu.Item>
@@ -69,7 +65,7 @@ const BookDetailPage = () => {
 					{isLoading && <h3>Loading...</h3>}
 					{isError && <h3>{error?.message}</h3>}
 					{book && <BookDetail book={book} />}
-					{!isOwn && (
+					{!ownThisBook && (
 						<div className="w-full p-2">
 							<Button>예약하기</Button>
 						</div>

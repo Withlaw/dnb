@@ -104,8 +104,11 @@ class AuthService {
   }
   
   async getUser() {
+    const { data: session } = await supabase.auth.getSession();
+    if (!session.session) return null;
+
     const { data:getUserData , error:getUserError } = await supabase.auth.getUser()
-    // 세션이 있을 경우 db에서 유저 세부 정보를 fetch해옴.
+    // 현재 세션이 존재할 경우 서버에 요청을 보내 db에서 유저 세부 정보를 fetch해옴.
     // 위 로컬 세션에서 유저 정보를 불러오는 것을 권장, 최신의 유저 데이터가 필요할 경우에만 사용.
     // user 객체가 존재한다는 것은 서버로부터 access token을 검증하여 인증 허가된 권한을 받았다는 것을 의미함.
     // 인자로 jwt 액세스 토큰을 받음. 기본값으로 현재 세션의 토큰을 이용함.
