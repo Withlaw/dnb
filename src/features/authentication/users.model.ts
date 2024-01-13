@@ -20,6 +20,7 @@ export class UserDataFromServer {
   readonly avatarUrl:string;
   readonly grade:number;
   readonly booksNum:number;
+  readonly address:string;
 
 
   constructor(data:Values){
@@ -30,6 +31,7 @@ export class UserDataFromServer {
     this.avatarUrl = data.avatar_url;
     this.grade = data.grade;
     this.booksNum = data.books_num;
+    this.address = data.address;
   }
 }
 

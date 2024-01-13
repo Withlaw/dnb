@@ -34,20 +34,20 @@ const UserInfo = ({ user }: Props) => {
 
 			<div className="flex flex-auto flex-col space-y-1 p-2 text-sm">
 				<div className={Style.ITEMS}>
-					<span className={Style.ITEM_NAME}>닉네임</span>
-					<span className={Style.ITEM}>{user?.fullName}</span>
-				</div>
-				<div className={Style.ITEMS}>
 					<span className={Style.ITEM_NAME}>이메일</span>
 					<span className={Style.ITEM}>{user?.email}</span>
 				</div>
 				<div className={Style.ITEMS}>
+					<span className={Style.ITEM_NAME}>닉네임</span>
+					<span className={Style.ITEM}>{user?.fullName}</span>
+				</div>
+				<div className={Style.ITEMS}>
 					<span className={Style.ITEM_NAME}>주소</span>
-					<span className={Style.ITEM}>등록하기</span>
+					<span className={Style.ITEM}>{'-'}</span>
 				</div>
 				<div className={Style.ITEMS}>
 					<span className={Style.ITEM_NAME}>평점</span>
-					<span className={Style.ITEM}>별별별별별</span>
+					<span className={Style.ITEM}>&starf;</span>
 				</div>
 			</div>
 		</div>

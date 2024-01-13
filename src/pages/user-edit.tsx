@@ -8,6 +8,9 @@ import GeneralMain from '@/ui/general-main.tsx';
 const UserEditPage = () => {
 	const navigate = useNavigate();
 	const goBack = () => {
+		const isConfirmed = window.confirm('개인정보 수정을 취소하시겠습니까?');
+		if (!isConfirmed) return;
+
 		navigate(-1);
 	};
 
