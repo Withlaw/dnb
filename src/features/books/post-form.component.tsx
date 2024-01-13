@@ -1,9 +1,11 @@
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { HiOutlineSearch, HiOutlinePlus } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
 import FormRow from '@/features/books/post-form-row.component.tsx';
+import useImagePreview from '@/features/books/use-image-preview.ts';
 
 type Props = {
 	children?: React.ReactNode;
@@ -25,7 +27,7 @@ enum Style {
 	INPUT = ' bg-inherit px-1 pb-1 text-lg outline-none ',
 	INPUTCONTAINER = ' flex items-center justify-between ',
 	ERROR = ' border-red-300 border-1 ',
-	IMAGE = ' mb-1 mr-1 h-24 w-20',
+	IMAGE = ' mb-1 mr-1 h-24 w-20 border',
 }
 
 const BookPostForm = ({
@@ -50,6 +52,9 @@ const BookPostForm = ({
 	});
 
 	const feeInputValue = watch('fee');
+	const imageInputValue = watch('image_files');
+
+	const imagePreview = useImagePreview(imageInputValue);
 
 	const submitHandler = (formData: FieldValues) => {
 		if (onSubmit)
@@ -64,17 +69,19 @@ const BookPostForm = ({
 		// console.log('err: ', errors);
 	};
 
+	console.log('errors: ', errors, 'imageInputValue:', imageInputValue?.[0]);
+
 	return (
 		<form
 			className="flex flex-col"
 			onSubmit={handleSubmit(submitHandler, submitErrorHandler)}>
-			<FormRow name="제목" isError={Boolean(errors?.title)}>
+			<FormRow name="제목" message={errors.title?.message}>
 				<div
 					className={Style.INPUTCONTAINER + ' border-b'}
 					onClick={onTitleSearch}>
 					<input
 						{...register('title', {
-							required: true,
+							required: '작성해주세요',
 							onChange: onTitleSearch,
 						})}
 						type="text"
@@ -106,11 +113,11 @@ const BookPostForm = ({
 				</div>
 			</FormRow>
 
-			<FormRow name="가격" isError={Boolean(errors?.fee)}>
+			<FormRow name="가격" message={errors.fee?.message}>
 				<div className={Style.INPUTCONTAINER}>
 					<input
 						{...register('fee', {
-							required: true,
+							required: '작성해주세요',
 						})}
 						type="number"
 						placeholder="책 대여료를 작성해주세요."
@@ -126,10 +133,10 @@ const BookPostForm = ({
 				</div>
 			</FormRow>
 
-			<FormRow name="설명" isError={Boolean(errors?.description)}>
+			<FormRow name="설명" message={errors.description?.message}>
 				<ReactTextareaAutosize
 					{...register('description', {
-						required: true,
+						required: '작성해주세요',
 					})}
 					minRows={5}
 					placeholder="대여하실 책과 관련하여 게시글 내용을 작성해 주세요."
@@ -137,10 +144,10 @@ const BookPostForm = ({
 				/>
 			</FormRow>
 
-			<FormRow name="장소" isError={Boolean(errors?.location)}>
+			<FormRow name="장소" message={errors.location?.message}>
 				<input
 					{...register('location', {
-						required: true,
+						required: '작성해주세요',
 					})}
 					type="text"
 					placeholder="거래할 장소를 입력해주세요."
@@ -148,11 +155,18 @@ const BookPostForm = ({
 				/>
 			</FormRow>
 
-			<FormRow name="사진">
+			<FormRow name="사진" message={errors.image_files?.message}>
 				<div className={Style.INPUTCONTAINER}>
-					<figure className="flex flex-wrap">
+					<figure className="flex flex-wrap space-x-2">
 						{inputData?.bookImageUrl && (
 							<img src={inputData?.bookImageUrl} className={Style.IMAGE} />
+						)}
+						{imagePreview && typeof imagePreview === 'string' && (
+							<img
+								src={imagePreview}
+								alt="preview_image"
+								className={Style.IMAGE}
+							/>
 						)}
 
 						<label
@@ -170,7 +184,14 @@ const BookPostForm = ({
 							accept="image/*"
 							className="hidden"
 							// multiple 용량 안정화 이후에 사용할 것.
-							{...register('image_files')}
+							{...register('image_files', {
+								validate: value => {
+									if (!value) return;
+									if (value[0].size > 5000000)
+										return '이미지 파일은 5MB 이하만 가능합니다.';
+									else return;
+								},
+							})}
 						/>
 					</figure>
 				</div>

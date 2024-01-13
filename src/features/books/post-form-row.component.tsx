@@ -4,27 +4,27 @@ import { HiExclamationCircle } from 'react-icons/hi';
 type Props = {
 	children: React.ReactNode;
 	name?: string;
-	isError?: boolean;
+	message?: string;
 };
 
-const FormRow = ({ children, name, isError }: Props) => {
+const FormRow = ({ children, name, message }: Props) => {
 	return (
 		<fieldset
 			className={clsx(
 				'my-2 rounded-md border border-solid p-3 ',
-				isError && 'border-red-300 ',
-				isError || 'border-stone-300 ',
+				message && 'border-red-300 ',
+				message || 'border-stone-300 ',
 			)}>
 			{name && (
 				<legend className="flex items-center px-1 text-sm">
 					{name}
-					{isError && (
+					{message && (
 						<>
 							<span className="ml-2 text-red-600">
 								<HiExclamationCircle />
 							</span>
 							<span className="text-red-600">
-								<span className="">작성해주세요</span>
+								<span className="">{message}</span>
 							</span>
 						</>
 					)}
