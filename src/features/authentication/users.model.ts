@@ -36,6 +36,22 @@ export class UserDataFromServer {
 }
 
 export class UserDataToServer {
+  readonly full_name?:string;
+  readonly avatar_url?:string;
+  readonly address?:string;
+  readonly grade?:number;
+  readonly books_num?:number;
+
+  constructor(data:Values){
+    this.full_name = data.fullName;
+    this.avatar_url = data.avatarUrl;
+    this.address = data.address;
+    this.grade = data.grade;
+    this.books_num = data.booksNum;
+  }
+}
+
+export class SignData {
   readonly email:string;
   readonly password:string;
   readonly full_name?:string;

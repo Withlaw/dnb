@@ -1,5 +1,5 @@
 import { HiMenu } from 'react-icons/hi';
-import { HiChevronLeft } from 'react-icons/hi';
+import { HiChevronLeft, HiOutlinePencilAlt } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 
 import SignOut from '@/features/authentication/signout.component.tsx';

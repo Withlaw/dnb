@@ -12,9 +12,10 @@ type UseFormInput = {
 
 type Props = {
 	defaultValue: UserDataFromServer;
+	onSubmit?: (data: FieldValues) => void;
 };
 
-const UserInfoEditForm = ({ defaultValue }: Props) => {
+const UserInfoEditForm = ({ defaultValue, onSubmit }: Props) => {
 	const { register, handleSubmit } = useForm<UseFormInput>({
 		values: {
 			fullName: defaultValue.fullName,
@@ -24,12 +25,11 @@ const UserInfoEditForm = ({ defaultValue }: Props) => {
 	});
 
 	const submitHandler = (formData: FieldValues) => {
-		// if (onSubmit)
-		// 	onSubmit({
-		// 		...inputData,
-		// 		...formData,
-		// 	});
-		console.log('formData: ', formData);
+		if (onSubmit)
+			onSubmit({
+				...defaultValue,
+				...formData,
+			});
 	};
 
 	return (

@@ -82,7 +82,13 @@ const BookPostForm = ({
 						disabled={!onTitleSearch}
 						className={Style.INPUT + ' flex-auto truncate'}
 					/>
-					<span className="flex-none text-xl hover:cursor-pointer">
+					<span
+						className={clsx(
+							'flex-none text-xl',
+							onTitleSearch
+								? 'hover:cursor-pointer'
+								: 'hover:cursor-not-allowed',
+						)}>
 						<HiOutlineSearch />
 					</span>
 				</div>

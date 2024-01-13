@@ -8,7 +8,7 @@ import GeneralMain from '@/ui/general-main.tsx';
 const BookEditPage = () => {
 	const navigate = useNavigate();
 	const goBack = () => {
-		const isConfirmed = window.confirm('개인 정보 변경을 취소하시겠습니까?');
+		const isConfirmed = window.confirm('글 수정을 취소하시겠습니까?');
 		if (!isConfirmed) return;
 		navigate(-1);
 	};

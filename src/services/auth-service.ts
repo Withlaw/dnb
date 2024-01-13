@@ -5,11 +5,11 @@
 //
 
 import { supabase } from "@/adapters/api/supabase-client.ts";
-import { UserDataFromServer, UserDataToServer } from "@/features/authentication/users.model.ts";
+import { SignData, UserDataFromServer, UserDataToServer } from "@/features/authentication/users.model.ts";
 
 class AuthService {
   
-  async signup({ full_name, email, password }:UserDataToServer){
+  async signup({ full_name, email, password }: SignData){
   
     /*
     const { data, error } = await supabase.auth.signUp({
@@ -63,7 +63,7 @@ class AuthService {
     return { user, session: signupData.session };
   }
 
-  async signin({ email, password }:UserDataToServer){
+  async signin({ email, password }:SignData){
     const { data: signinData, error:signinError } = await supabase.auth.signInWithPassword({
       email,
       password
@@ -127,6 +127,29 @@ class AuthService {
 
     return user;
   }
+
+  async editUser (id:number, data:UserDataToServer) {
+    // password는 따로?
+    
+    const updateUser=  supabase.auth.updateUser({data:{full_name:data.full_name}})
+
+    const updateMember = supabase.from('members').update(data).eq('id', id).select().single();
+
+    const [updateUserResponse, updateMemberResponse] = await Promise.all([updateUser, updateMember]);
+
+    if(updateUserResponse.error || updateMemberResponse.error) {
+      throw new Error('Could not update user.');
+    }
+
+    // const user = new UserDataFromServer({
+    //   email:updateUserResponse.data.user.email,
+    //   role: updateUserResponse.data.user.role,
+    //   ...updateMemberResponse.data,
+    // });
+    
+    // return { user, session: updateUserResponse.data.user };
+  }
+
 
   private _createMember (full_name:string) {
     return supabase.from('members').insert([{ full_name, address: '', books_num:0, grade:0, avatar_url:'' },]).select('id,full_name,address,books_num,grade,avatar_url').single();

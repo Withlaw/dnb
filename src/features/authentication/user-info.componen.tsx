@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import icons from '@/assets/icons.svg';
 import SignOut from '@/features/authentication/signout.component.tsx';
 import { UserDataFromServer } from '@/features/authentication/users.model.ts';
+import Star from '@/ui/star.tsx';
 
 enum Style {
-	ITEMS = 'flex items-center items-center space-x-2 text-xs ',
 	ITEM_NAME = 'w-10',
-	ITEM = 'text-stone-800',
+	ITEMS = 'flex items-center space-x-2 text-xs ',
+	ITEM = 'text-stone-800 text-center',
 }
 
 type Props = {
@@ -35,19 +36,24 @@ const UserInfo = ({ user }: Props) => {
 			<div className="flex flex-auto flex-col space-y-1 p-2 text-sm">
 				<div className={Style.ITEMS}>
 					<span className={Style.ITEM_NAME}>이메일</span>
-					<span className={Style.ITEM}>{user?.email}</span>
+					<span className={Style.ITEM}>{user.email}</span>
 				</div>
 				<div className={Style.ITEMS}>
 					<span className={Style.ITEM_NAME}>닉네임</span>
-					<span className={Style.ITEM}>{user?.fullName}</span>
+					<span className={Style.ITEM}>{user.fullName}</span>
 				</div>
 				<div className={Style.ITEMS}>
 					<span className={Style.ITEM_NAME}>주소</span>
-					<span className={Style.ITEM}>{'-'}</span>
+					<span className={Style.ITEM}>{user.address || '-'}</span>
 				</div>
 				<div className={Style.ITEMS}>
 					<span className={Style.ITEM_NAME}>평점</span>
-					<span className={Style.ITEM}>&starf;</span>
+					<span className={Style.ITEM}>
+						<span className="flex items-center">
+							<Star grade={user.grade} />
+							{`(${user.grade})`}
+						</span>
+					</span>
 				</div>
 			</div>
 		</div>
