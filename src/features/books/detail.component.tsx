@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
+import { BookDataFromServer } from '@/features/books/books.model.ts';
 import DetailRow from '@/features/books/detail-row.component.tsx';
 import useBook from '@/features/books/use-book.hook.ts';
 
@@ -9,31 +10,26 @@ enum Style {
 	TEXT = 'mx-1',
 }
 
-const BookDetail = () => {
-	const { bookId } = useParams();
+type Props = {
+	book: BookDataFromServer;
+	// children?: React.ReactNode;
+};
 
-	const { book, isLoading, isError, error } = useBook(bookId);
-	console.log('book:', book);
-
-	if (isLoading) return <h3>Loading...</h3>;
-
-	if (isError) return <h3>{error?.message}</h3>;
-
-	if (book)
-		return (
-			<>
-				{/* 책 이미지 */}
-				<div className="flex justify-center rounded-md bg-stone-200">
-					<figure>
-						<img
-							className="h-72 w-64"
-							src={book?.bookImageUrl}
-							alt={book?.title}
-						/>
-					</figure>
-				</div>
-				{/* 책 이미지 슬라이더 */}
-				{/* <div className="flex items-center justify-center bg-stone-200">
+const BookDetail = ({ book }: Props) => {
+	return (
+		<>
+			{/* 책 이미지 */}
+			<div className="flex justify-center rounded-md bg-stone-200">
+				<figure>
+					<img
+						className="h-72 w-64"
+						src={book?.bookImageUrl}
+						alt={book?.title}
+					/>
+				</figure>
+			</div>
+			{/* 책 이미지 슬라이더 */}
+			{/* <div className="flex items-center justify-center bg-stone-200">
 				<BookImageSlider>
 					<figure>
 						<img
@@ -50,57 +46,57 @@ const BookDetail = () => {
 				</BookImageSlider>
 			</div> */}
 
-				{/* 책 정보 및 글 내용 */}
-				<div className="flex flex-col p-2">
-					<DetailRow>
-						<div className="flex flex-col">
-							<h1 className="text-xl font-semibold">{book?.title}</h1>
-							<div className="text-sm">
-								<DetailRow.Span>{book?.author}</DetailRow.Span>
-								<span className="mx-1 h-2 w-1">|</span>
-								<DetailRow.Span>{book?.publisher}</DetailRow.Span>
-							</div>
+			{/* 책 정보 및 글 내용 */}
+			<div className="flex flex-col p-2">
+				<DetailRow>
+					<div className="flex flex-col">
+						<h1 className="text-xl font-semibold">{book?.title}</h1>
+						<div className="text-sm">
+							<DetailRow.Span>{book?.author}</DetailRow.Span>
+							<span className="mx-1 h-2 w-1">|</span>
+							<DetailRow.Span>{book?.publisher}</DetailRow.Span>
 						</div>
-					</DetailRow>
+					</div>
+				</DetailRow>
 
-					<DetailRow>
-						<Link to={`/user${book.merchantId}`}>
-							<figure className="mx-1 flex items-center">
-								{Boolean(book.merchantAvatarUrl) && (
-									<img
-										src="https://shopping-phinf.pstatic.net/main_3752868/37528682620.20230530082635.jpg"
-										alt={book.title}
-										className="size-6 rounded-full"
-									/>
-								)}
-								{!book.merchantAvatarUrl && (
-									<svg className="size-6">
-										<use href={`${icons}#default-avatar`}></use>
-									</svg>
-								)}
-								<DetailRow.Span className="mx-2 font-semibold">
-									{book.merchantFullName}
-								</DetailRow.Span>
-							</figure>
-						</Link>
-						<div>
-							<span className={Style.TEXT}>채팅하기</span>
-						</div>
-					</DetailRow>
+				<DetailRow>
+					<Link to={`/user${book.merchantId}`}>
+						<figure className="mx-1 flex items-center">
+							{Boolean(book.merchantAvatarUrl) && (
+								<img
+									src="https://shopping-phinf.pstatic.net/main_3752868/37528682620.20230530082635.jpg"
+									alt={book.title}
+									className="size-6 rounded-full"
+								/>
+							)}
+							{!book.merchantAvatarUrl && (
+								<svg className="size-6">
+									<use href={`${icons}#default-avatar`}></use>
+								</svg>
+							)}
+							<DetailRow.Span className="mx-2 font-semibold">
+								{book.merchantFullName}
+							</DetailRow.Span>
+						</figure>
+					</Link>
+					<div>
+						<span className={Style.TEXT}>채팅하기</span>
+					</div>
+				</DetailRow>
 
-					<DetailRow>
-						<DetailRow.Span>대여기간: 10일</DetailRow.Span>
-						<DetailRow.Span>{`대여료: ${book?.fee} 원`}</DetailRow.Span>
-					</DetailRow>
+				<DetailRow>
+					<DetailRow.Span>대여기간: 10일</DetailRow.Span>
+					<DetailRow.Span>{`대여료: ${book?.fee} 원`}</DetailRow.Span>
+				</DetailRow>
 
-					<DetailRow>
-						<p className={'mx-1 min-h-20 w-full break-words'}>
-							{book?.description}
-						</p>
-					</DetailRow>
-				</div>
-			</>
-		);
+				<DetailRow>
+					<p className={'mx-1 min-h-20 w-full break-words'}>
+						{book?.description}
+					</p>
+				</DetailRow>
+			</div>
+		</>
+	);
 };
 
 export default BookDetail;

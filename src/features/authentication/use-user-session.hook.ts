@@ -5,6 +5,7 @@ const useUserSession = () => {
   const { data : session, isError, error, isPending ,isFetching} = useQuery({
     queryKey:['user', 'session'],
     queryFn:async () => await authService.getCurrentSession(),
+    staleTime:20*1000,
   })
 
   const isLogin = Boolean(session);

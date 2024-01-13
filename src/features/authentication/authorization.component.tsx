@@ -13,7 +13,7 @@ const Authorization = ({ children, route }: Partial<Props>) => {
 	const { isLogin, isFetching } = useUserSession();
 	// const { isAuthenticated } = useUser();
 
-	// console.log('Authorization', route, isLogin, isFetching);
+	console.log('Authorization');
 
 	const isGuestOnlyPage = route?.id === 'guest-only';
 	const isProtectedPage = route?.id === 'protected';
@@ -23,6 +23,8 @@ const Authorization = ({ children, route }: Partial<Props>) => {
 			navigate('/', { replace: true });
 		if (isProtectedPage && !isFetching && !isLogin)
 			navigate('/sign-in', { replace: true });
+
+		console.log('Authorization effect');
 	}, [isLogin, isFetching, route]);
 
 	// if (isHomePage) return children;
