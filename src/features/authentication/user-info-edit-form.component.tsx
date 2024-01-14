@@ -64,14 +64,14 @@ const UserInfoEditForm = ({ defaultValue, onSubmit }: Props) => {
 						{...register('address')}
 					/>
 				</FormRow>
-				<FormRow name="avatar">
+				{/* <FormRow name="avatar">
 					<input
 						type="file"
 						id="avatar"
 						className="border border-solid text-sm"
 						{...register('avatarUrl')}
 					/>
-				</FormRow>
+				</FormRow> */}
 			</fieldset>
 
 			{/* <fieldset>

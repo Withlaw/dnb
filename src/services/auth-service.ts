@@ -46,6 +46,7 @@ class AuthService {
       }
     });
     // 계정 생성
+    // full name과 nick name을 구분해야 할 듯. 유저 이름은 계정 메타 데이터로, 닉네임은 멤버 테이블 요소로 관리할 것.
 
     if (signupError) throw new Error (signupError.message);
 
