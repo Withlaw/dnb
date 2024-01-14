@@ -11,7 +11,7 @@ type Props = {
 
 const BooksPreviewItem = ({ book }: Props) => {
 	return (
-		<li className="group relative my-2 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-2xl">
+		<li className="group relative my-2 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-xl">
 			<Link to={`${book.id}`} className=" flex justify-between">
 				<figure className="flex-none">
 					<img

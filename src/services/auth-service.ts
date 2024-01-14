@@ -175,7 +175,6 @@ class AuthService {
 
     const books = data.map(item=>new BookDataFromServer({...item.book, rental_status: item.rental_status}))
     
-    console.log('getUserRentals', data, books)
     return books;
   }
 

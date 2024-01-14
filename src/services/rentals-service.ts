@@ -41,9 +41,13 @@ class RentalsService {
 
     if(rentError) throw new Error(rentError.message);
 
-    const { error:updataBookStateError } = await supabase.from('books').update({ rental_id: rentData.id, }).eq('id', rentalInfo.book_id).select()
+    const { error:updataBookStateError } = await supabase.from('books').update({ status: '대여 불가', rental_id: rentData.id, }).eq('id', rentalInfo.book_id).select()
 
     if(updataBookStateError) throw new Error(updataBookStateError.message);
+
+
+    const rentalResult = new RentalInfoFromServer(rentData);
+    return rentalResult;
   }
 
   async return (rentalId:number) {
@@ -54,6 +58,10 @@ class RentalsService {
     const { error:updataBookStateError } = await supabase.from('books').update({ status: '대여 가능', rental_id: null }).eq('id', returnData.book_id!).select()
 
     if(updataBookStateError) throw new Error(updataBookStateError.message);
+
+    const returnResult = new RentalInfoFromServer(returnData);
+    return returnResult;
+
   }
 }
 

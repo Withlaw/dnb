@@ -34,7 +34,7 @@ const Rent = ({ type, bookId }: Props) => {
 	};
 
 	if (type === 'rent' && !book?.rentalId)
-		return <Button onClick={rentalHandler}>예약하기</Button>;
+		return <Button onClick={rentalHandler}>대여하기</Button>;
 	if (type === 'return' && book?.rentalId)
 		return <Button onClick={rentalHandler}>반납하기</Button>;
 };

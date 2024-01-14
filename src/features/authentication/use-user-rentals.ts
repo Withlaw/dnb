@@ -9,8 +9,6 @@ const useUserRentals = (id?:number, enabled:boolean = true) => {
     staleTime: 10 * 60 * 1000,
   })
 
-  console.log('rentals', rentals, error)
-
   return { rentals, isLoading, isError, error };
 }
 

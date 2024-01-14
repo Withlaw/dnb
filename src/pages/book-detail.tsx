@@ -26,17 +26,6 @@ const BookDetailPage = () => {
 
 	const ownThisBook = Boolean(user && user.id === book?.merchantId);
 
-	// const rentalHandler = () => {
-	//   const rentalInfo = new RentalInfoToServer({
-	//     endAt:'',
-	//     numDays:10,
-	//     customerId:user?.id,
-	//     fee:book?.fee,
-	//     bookId:+bookId!,
-	//     merchantId : book?.merchantId,
-	//   })
-	// }
-
 	const goBack = () => {
 		navigate(-1);
 	};
