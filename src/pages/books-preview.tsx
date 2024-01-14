@@ -30,7 +30,7 @@ const BooksPreviewPage = () => {
 					<div className="flex-initial">
 						<Link to="create">
 							{/* 당근처럼 아이콘으로? */}
-							<Button>글쓰기</Button>
+							<Button>책 등록하기</Button>
 						</Link>
 					</div>
 

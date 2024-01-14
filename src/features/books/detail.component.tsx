@@ -16,7 +16,7 @@ type Props = {
 };
 
 const BookDetail = ({ book }: Props) => {
-	console.log('book: ', book);
+	// console.log('book: ', book);
 
 	return (
 		<>

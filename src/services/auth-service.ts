@@ -6,6 +6,7 @@
 
 import { supabase } from "@/adapters/api/supabase-client.ts";
 import { SignData, UserDataFromServer, UserDataToServer } from "@/features/authentication/users.model.ts";
+import { BookDataFromServer } from "@/features/books/books.model.ts";
 
 class AuthService {
   
@@ -150,6 +151,21 @@ class AuthService {
     
     // return { user, session: updateUserResponse.data.user };
   }
+
+  async getUserBooks (id?:number) {
+    if(!id) return;
+
+    const { data, error } = await supabase.from('books').select('*').eq('member', id).order('created_at', { ascending: false });
+
+			if (error) {
+				console.error(error);
+				throw new Error('User Books could not be loaded');
+			}
+
+      const books = data?.map(data => new BookDataFromServer(data));
+
+			return books;
+	}
 
 
   private _createMember (full_name:string) {

@@ -3,6 +3,7 @@ import { supabase } from '@/adapters/api/supabase-client.ts';
 import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
 import { BookDataFromServer, BookDataFromTitleSearch, BookDataToServer, BookFileToServer, BooksPreviewModel } from '@/features/books/books.model.ts';
 import { BookTitleSearchData } from '@/features/books/types.ts';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;

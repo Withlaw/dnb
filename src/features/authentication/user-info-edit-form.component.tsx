@@ -81,7 +81,7 @@ const UserInfoEditForm = ({ defaultValue, onSubmit }: Props) => {
 
 			<div className="my-8 flex justify-center">
 				<div className="w-40">
-					<Button>확인</Button>
+					<Button>저장</Button>
 				</div>
 			</div>
 		</form>
