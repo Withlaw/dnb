@@ -43,9 +43,12 @@ export interface Database {
           fee: number | null
           id: number
           location: string | null
-          merchant_id: number | null
+          member: number
           publisher: string | null
+          rental_id: number | null
+          status: string
           title: string | null
+          user_id: string | null
           user_image_url: string | null
         }
         Insert: {
@@ -56,9 +59,12 @@ export interface Database {
           fee?: number | null
           id?: number
           location?: string | null
-          merchant_id?: number | null
+          member: number
           publisher?: string | null
+          rental_id?: number | null
+          status?: string
           title?: string | null
+          user_id?: string | null
           user_image_url?: string | null
         }
         Update: {
@@ -69,89 +75,111 @@ export interface Database {
           fee?: number | null
           id?: number
           location?: string | null
-          merchant_id?: number | null
+          member?: number
           publisher?: string | null
+          rental_id?: number | null
+          status?: string
           title?: string | null
+          user_id?: string | null
           user_image_url?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "books_merchant_id_fkey"
-            columns: ["merchant_id"]
+            foreignKeyName: "books_member_fkey"
+            columns: ["member"]
             isOneToOne: false
-            referencedRelation: "customers"
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "books_rental_id_fkey"
+            columns: ["rental_id"]
+            isOneToOne: false
+            referencedRelation: "rentals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "books_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
       }
-      customers: {
+      members: {
         Row: {
           address: string | null
           avatar_url: string | null
+          books_num: number | null
           created_at: string
-          email: string | null
+          full_name: string | null
+          grade: number | null
           id: number
-          location: string | null
-          name: string | null
+          user_id: string | null
         }
         Insert: {
           address?: string | null
           avatar_url?: string | null
+          books_num?: number | null
           created_at?: string
-          email?: string | null
+          full_name?: string | null
+          grade?: number | null
           id?: number
-          location?: string | null
-          name?: string | null
+          user_id?: string | null
         }
         Update: {
           address?: string | null
           avatar_url?: string | null
+          books_num?: number | null
           created_at?: string
-          email?: string | null
+          full_name?: string | null
+          grade?: number | null
           id?: number
-          location?: string | null
-          name?: string | null
+          user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       rentals: {
         Row: {
           book_id: number | null
-          created_at: string
           customer_id: number | null
-          end_date: string | null
+          end_at: string | null
           fee: number | null
           id: number
-          location: string | null
           merchant_id: number | null
           num_days: number | null
-          start_date: string | null
+          start_at: string
           status: string | null
         }
         Insert: {
           book_id?: number | null
-          created_at?: string
           customer_id?: number | null
-          end_date?: string | null
+          end_at?: string | null
           fee?: number | null
           id?: number
-          location?: string | null
           merchant_id?: number | null
           num_days?: number | null
-          start_date?: string | null
+          start_at?: string
           status?: string | null
         }
         Update: {
           book_id?: number | null
-          created_at?: string
           customer_id?: number | null
-          end_date?: string | null
+          end_at?: string | null
           fee?: number | null
           id?: number
-          location?: string | null
           merchant_id?: number | null
           num_days?: number | null
-          start_date?: string | null
+          start_at?: string
           status?: string | null
         }
         Relationships: [
@@ -166,14 +194,14 @@ export interface Database {
             foreignKeyName: "rentals_customer_id_fkey"
             columns: ["customer_id"]
             isOneToOne: false
-            referencedRelation: "customers"
+            referencedRelation: "members"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "rentals_merchant_id_fkey"
             columns: ["merchant_id"]
             isOneToOne: false
-            referencedRelation: "customers"
+            referencedRelation: "members"
             referencedColumns: ["id"]
           }
         ]

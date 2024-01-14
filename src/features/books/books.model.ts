@@ -16,8 +16,9 @@ export class BooksPreviewModel {
 	readonly title: string;
   readonly merchantFullName : string;
   readonly merchantAvatarUrl: string;
-  readonly status = '대여 가능'
-  readonly location:string;
+  readonly status: '대여 가능' | '대여 불가';
+  readonly location : string;
+  readonly rentalId : number | null;
 
 	constructor(data: FormFieldValues) {
 		this.author = data.author;
@@ -31,6 +32,8 @@ export class BooksPreviewModel {
     this.location = data.location;
     this.merchantAvatarUrl = data.member.avatar_url;
     this.merchantFullName = data.member.full_name;
+    this.rentalId = data.rental_id;
+    this.status = data?.rental_id ? '대여 불가' : '대여 가능'
 	}
 }
 
@@ -74,6 +77,8 @@ export class BookDataFromServer {
   readonly  merchantAvatarUrl:string;
   readonly  merchantFullName:string;
   readonly  merchantGrade:number;
+  readonly  rentalId:number | null;
+  readonly  status:'대여 가능' | '대여 불가';
 
 
   constructor(data:FormFieldValues) {
@@ -91,6 +96,8 @@ export class BookDataFromServer {
     this.merchantAvatarUrl = data.member.avatar_url;
     this.merchantFullName = data.member.full_name;
     this.merchantGrade = data.member.grade;
+    this.rentalId = data.rental_id;
+    this.status = data?.rental_id ? '대여 불가' : '대여 가능'
   }
 
   getImages() {

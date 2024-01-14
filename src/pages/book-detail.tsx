@@ -7,6 +7,8 @@ import BookDetail from '@/features/books/detail.component.tsx';
 import BookPostDelete from '@/features/books/post-delete.component.tsx';
 import useBook from '@/features/books/use-book.hook.ts';
 import BookPostWish from '@/features/books/wish.component.tsx';
+import Rent from '@/features/rentals/rent.component.tsx';
+import { RentalInfoToServer } from '@/features/rentals/rentals.model.ts';
 import useShow from '@/hooks/use-show.ts';
 import Button from '@/ui/button.tsx';
 import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
@@ -17,12 +19,23 @@ import GeneralNav from '@/ui/general-nav.tsx';
 const BookDetailPage = () => {
 	const { bookId } = useParams();
 	const navigate = useNavigate();
-	const { isShow, showHandler } = useShow();
 
+	const { isShow, showHandler } = useShow();
 	const { book, isLoading, isError, error } = useBook(bookId);
 	const { user } = useUser();
 
 	const ownThisBook = Boolean(user && user.id === book?.merchantId);
+
+	// const rentalHandler = () => {
+	//   const rentalInfo = new RentalInfoToServer({
+	//     endAt:'',
+	//     numDays:10,
+	//     customerId:user?.id,
+	//     fee:book?.fee,
+	//     bookId:+bookId!,
+	//     merchantId : book?.merchantId,
+	//   })
+	// }
 
 	const goBack = () => {
 		navigate(-1);
@@ -66,9 +79,10 @@ const BookDetailPage = () => {
 					{isError && <h3>{error?.message}</h3>}
 					{book && <BookDetail book={book} />}
 
-					{!ownThisBook && (
+					{bookId && !ownThisBook && (
 						<div className="w-full p-2">
-							<Button>예약하기</Button>
+							<Rent type="rent" bookId={bookId} />
+							<Rent type="return" bookId={bookId} />
 						</div>
 					)}
 				</div>

@@ -1,64 +1,65 @@
 {
-  "name": "dnb-v2",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "description": "우리 동네 직거래 도서 대여 서비스",
-  "author": {
-    "name": "Withlaw",
-    "email": "sanxang@gmail.com"
-  },
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/Withlaw/dnb"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "mylint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@reduxjs/toolkit": "^2.0.1",
-    "@supabase/supabase-js": "^2.39.2",
-    "@tanstack/react-query": "^5.15.5",
-    "@tanstack/react-query-devtools": "^5.17.0",
-    "clsx": "^2.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.49.2",
-    "react-icons": "^4.12.0",
-    "react-redux": "^9.0.4",
-    "react-router-dom": "^6.21.1",
-    "react-slick": "^0.29.0",
-    "react-textarea-autosize": "^8.5.3",
-    "slick-carousel": "^1.8.1"
-  },
-  "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@types/react-slick": "^0.23.13",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "postcss": "^8.4.32",
-    "prettier": "^3.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.10",
-    "supabase": "^1.127.4",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8",
-    "vite-plugin-eslint": "^1.8.1"
-  }
+	"name": "dnb-v2",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"description": "우리 동네 직거래 도서 대여 서비스",
+	"author": {
+		"name": "Withlaw",
+		"email": "sanxang@gmail.com"
+	},
+	"repository": {
+		"type": "github",
+		"url": "https://github.com/Withlaw/dnb"
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"mylint": "eslint .",
+		"preview": "vite preview",
+		"genDBTypes": "supabase gen types typescript --linked > src/types/database.type.ts"
+	},
+	"dependencies": {
+		"@reduxjs/toolkit": "^2.0.1",
+		"@supabase/supabase-js": "^2.39.2",
+		"@tanstack/react-query": "^5.15.5",
+		"@tanstack/react-query-devtools": "^5.17.0",
+		"clsx": "^2.1.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-hook-form": "^7.49.2",
+		"react-icons": "^4.12.0",
+		"react-redux": "^9.0.4",
+		"react-router-dom": "^6.21.1",
+		"react-slick": "^0.29.0",
+		"react-textarea-autosize": "^8.5.3",
+		"slick-carousel": "^1.8.1"
+	},
+	"devDependencies": {
+		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
+		"@types/react": "^18.2.43",
+		"@types/react-dom": "^18.2.17",
+		"@types/react-slick": "^0.23.13",
+		"@typescript-eslint/eslint-plugin": "^6.14.0",
+		"@typescript-eslint/parser": "^6.14.0",
+		"@vitejs/plugin-react": "^4.2.1",
+		"autoprefixer": "^10.4.16",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-config-react-app": "^7.0.1",
+		"eslint-import-resolver-typescript": "^3.6.1",
+		"eslint-plugin-import": "^2.29.1",
+		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.5",
+		"postcss": "^8.4.32",
+		"prettier": "^3.1.1",
+		"prettier-plugin-tailwindcss": "^0.5.10",
+		"supabase": "^1.127.4",
+		"tailwindcss": "^3.4.0",
+		"typescript": "^5.2.2",
+		"vite": "^5.0.8",
+		"vite-plugin-eslint": "^1.8.1"
+	}
 }
