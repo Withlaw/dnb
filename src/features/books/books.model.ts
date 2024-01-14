@@ -78,7 +78,8 @@ export class BookDataFromServer {
   readonly  merchantFullName:string;
   readonly  merchantGrade:number;
   readonly  rentalId:number | null;
-  readonly  status:'대여 가능' | '대여 불가';
+  readonly  status: '대여 가능' | '대여 불가';
+  readonly  rentalStatus?: '대여중' | '반납 완료';
 
 
   constructor(data:FormFieldValues) {
@@ -98,6 +99,7 @@ export class BookDataFromServer {
     this.merchantGrade = data.member.grade;
     this.rentalId = data.rental_id;
     this.status = data?.rental_id ? '대여 불가' : '대여 가능'
+    this.rentalStatus = data?.rental_status;
   }
 
   getImages() {

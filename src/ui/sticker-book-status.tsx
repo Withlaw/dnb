@@ -1,19 +1,14 @@
 import clsx from 'clsx';
 
-const BookStatusSticker = ({
-	isRented,
-	text,
-}: {
-	isRented: boolean;
-	text: string;
-}) => {
+const BookStatusSticker = ({ status }: { status: string }) => {
 	return (
 		<div
 			className={clsx(
 				'flex size-12 items-center rounded-full p-2 text-center text-sm sm:size-10 sm:text-xs',
-				isRented ? 'bg-red-100' : 'bg-green-100',
+				status === '대여 가능' && 'bg-green-100',
+				status === '대여 불가' && 'bg-red-100',
 			)}>
-			<span>{text}</span>
+			<span>{status}</span>
 			{/* {!isRented && <span>대여 가능</span>} */}
 		</div>
 	);

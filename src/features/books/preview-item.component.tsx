@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
 import { BooksPreviewModel } from '@/features/books/books.model.ts';
-import BookStatusSticker from '@/ui/book-status-sticker.tsx';
+import BookStatusSticker from '@/ui/sticker-book-status.tsx';
 
 type Props = {
 	book: BooksPreviewModel;
@@ -56,10 +56,7 @@ const BooksPreviewItem = ({ book }: Props) => {
 				<span>{book.status}</span>
 			</div> */}
 			<div className="absolute bottom-3 right-3 flex-none group-hover:font-semibold">
-				<BookStatusSticker
-					isRented={Boolean(book.rentalId)}
-					text={book.rentalId ? '대여 불가' : '대여 가능'}
-				/>
+				<BookStatusSticker status={book.rentalId ? '대여 불가' : '대여 가능'} />
 			</div>
 		</li>
 	);

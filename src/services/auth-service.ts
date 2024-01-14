@@ -163,9 +163,21 @@ class AuthService {
 			}
 
       const books = data?.map(data => new BookDataFromServer(data));
-
 			return books;
 	}
+
+  async getUserRentals (id?:number) {
+    if(!id) return;
+
+    const { data, error } = await supabase.from('rentals').select(`start_at, rental_status:status ,book:book_id(*)`).eq('customer_id', id).order('start_at', { ascending: false });
+
+    if(error) throw new Error(error.message);
+
+    const books = data.map(item=>new BookDataFromServer({...item.book, rental_status: item.rental_status}))
+    
+    console.log('getUserRentals', data, books)
+    return books;
+  }
 
 
   private _createMember (full_name:string) {

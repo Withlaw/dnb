@@ -1,7 +1,7 @@
 import useUser from '@/features/authentication/use-user.hook.ts';
 import useBook from '@/features/books/use-book.hook.ts';
 import { RentalInfoToServer } from '@/features/rentals/rentals.model.ts';
-import useRent from '@/features/rentals/use-rent.ts';
+import useRent from '@/features/rentals/use-rent.hook.ts';
 import useReturn from '@/features/rentals/use-return.hook.ts';
 import Button from '@/ui/button.tsx';
 

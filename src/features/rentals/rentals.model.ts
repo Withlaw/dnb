@@ -9,7 +9,7 @@ export class RentalInfoFromServer {
   readonly numDays:number;
   readonly fee:number;
   readonly status:'대여중'|'반납 완료';
-  readonly book:number;
+  readonly bookId:number;
   readonly customerId:number
   readonly merchantId:number
 
@@ -20,7 +20,7 @@ export class RentalInfoFromServer {
     this.numDays = data.num_days;
     this.fee = data.fee;
     this.status = data.status;
-    this.book = data.book_id;
+    this.bookId = data.book_id;
     this.customerId = data.customer_id;
     this.merchantId = data.merchant_id;
   }
