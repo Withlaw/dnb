@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 
 import { BookDataFromServer } from '@/features/books/books.model.ts';
+import BookStatusSticker from '@/ui/book-status-sticker.tsx';
 
 const UserBooks = ({ book }: { book: BookDataFromServer }) => {
 	return (
 		<li>
 			<Link
 				to={`/books/${book.id}`}
-				className="relative flex justify-between hover:cursor-pointer ">
+				className="relative flex justify-between hover:cursor-pointer">
 				<div className="flex space-x-2">
 					<figure className="flex-none">
 						<img
@@ -30,8 +31,11 @@ const UserBooks = ({ book }: { book: BookDataFromServer }) => {
 					</div>
 				</div>
 
-				<div className="absolute bottom-0 right-0 flex size-12 flex-none items-center rounded-full bg-red-100 p-2 text-center text-sm group-hover:font-semibold sm:size-10 sm:text-xs">
-					<span>대여 가능</span>
+				<div className="absolute bottom-0 right-0 size-12 flex-none text-sm sm:size-10 sm:text-xs">
+					<BookStatusSticker
+						isRented={Boolean(book.rentalId)}
+						text={book.rentalId ? '대여 불가' : '대여 가능'}
+					/>
 				</div>
 			</Link>
 		</li>

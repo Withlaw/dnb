@@ -1,7 +1,9 @@
+import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
 import { BooksPreviewModel } from '@/features/books/books.model.ts';
+import BookStatusSticker from '@/ui/book-status-sticker.tsx';
 
 type Props = {
 	book: BooksPreviewModel;
@@ -46,8 +48,18 @@ const BooksPreviewItem = ({ book }: Props) => {
 				</div>
 			</Link>
 
-			<div className="absolute bottom-3 right-3 flex size-12 flex-none items-center rounded-full bg-red-100 p-2 text-center text-sm group-hover:font-semibold sm:size-10 sm:text-xs">
+			{/* <div
+				className={clsx(
+					'absolute bottom-3 right-3 flex size-12 flex-none items-center rounded-full p-2 text-center text-sm group-hover:font-semibold sm:size-10 sm:text-xs',
+					book.rentalId ? 'bg-red-100' : 'bg-green-100',
+				)}>
 				<span>{book.status}</span>
+			</div> */}
+			<div className="absolute bottom-3 right-3 flex-none group-hover:font-semibold">
+				<BookStatusSticker
+					isRented={Boolean(book.rentalId)}
+					text={book.rentalId ? '대여 불가' : '대여 가능'}
+				/>
 			</div>
 		</li>
 	);
