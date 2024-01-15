@@ -4,6 +4,7 @@ import icons from '@/assets/icons.svg';
 import { BookDataFromTitleSearch } from '@/features/books/books.model.ts';
 import BookPostSearchResults from '@/features/books/post-search-results.component.tsx';
 import useSearchForm from '@/features/books/use-book-search-form.hook.ts';
+import useBookSearchInfinite from '@/features/books/use-book-search-infinite.hook.ts';
 import useBookSeach from '@/features/books/use-book-search.hook.ts';
 import Modal from '@/ui/modal.tsx';
 
@@ -21,8 +22,18 @@ type Props = {
 const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	const { formRef, inputValue, inputChangeHandler, isInputChange } =
 		useSearchForm();
-	const { debouncedValue, searchData, isLoading, isError, error } =
-		useBookSeach(inputValue);
+	// const { debouncedValue, searchData, isLoading, isError, error } =
+	// 	useBookSeach(inputValue);
+
+	const {
+		debouncedValue,
+		searchResults,
+		hasNextPage,
+		ref,
+		isLoading,
+		isError,
+		error,
+	} = useBookSearchInfinite(inputValue);
 
 	const isTyping = inputValue !== debouncedValue;
 
@@ -95,14 +106,14 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 							</li>
 						)}
 
-						{!isTyping && searchData && (
+						{!isTyping && searchResults && (
 							<BookPostSearchResults
-								searchData={searchData}
+								searchData={searchResults}
 								onClick={searchItemClickHandler}
 							/>
 						)}
 
-						{!isTyping && searchData && searchData.length === 0 && (
+						{!isTyping && !searchResults && (
 							<li className={Style.ITEM_OFF}>
 								<span>찾으시는 책이 존재하지 않습니다.</span>
 							</li>
@@ -113,6 +124,9 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 								<span>서버에 연결할 수 없습니다.</span>
 								<span>{error?.message}</span>
 							</li>
+						)}
+						{!isTyping && !isLoading && hasNextPage && (
+							<div ref={ref} className="h-10 text-center"></div>
 						)}
 					</ul>
 				)}

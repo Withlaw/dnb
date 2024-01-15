@@ -47,7 +47,7 @@ class BooksService {
     
     const books = data?.items?.map(book=>new BookDataFromTitleSearch(book));
 
-    return books;
+    return {...data, items:books};
   }
 
   // data fetch api 
