@@ -8,29 +8,32 @@ const BooksPreviewItems = () => {
 	return (
 		<ul className="flex w-full flex-col flex-nowrap items-center ">
 			{/* <ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3"> */}
-			{isLoading && <h1>Loading...</h1>}
-			{isError && <h1>{error?.message}</h1>}
-			{books?.length !== 0 &&
-				books?.map(book => {
+			{isLoading && <li>Loading ...</li>}
+			{isError && <li>{error?.message}</li>}
+			{books &&
+				books?.length !== 0 &&
+				books.map(book => {
 					return <BooksPreviewItem book={book} key={book.id} />;
 				})}
-			{!isLoading && books && hasNextPage && (
-				<div ref={scrollEndTarget} className="h-10 w-full text-center">
-					<span>loading ..@@@@.</span>
-				</div>
+
+			{books && hasNextPage && (
+				<li ref={scrollEndTarget} className="h-10 w-full text-center">
+					<span>loading ...</span>
+				</li>
 			)}
-			{/* {dummy &&
-				dummy.map(book => {
-					return <BooksPreviewItem book={book} key={book.id} />;
-				})} */}
-			{books?.length !== 0 || <h1>등록된 책이 없습니다.</h1>}
+			{books && books?.length === 0 && <li>등록된 책이 없습니다.</li>}
 		</ul>
 	);
 };
 
 export default BooksPreviewItems;
 
-/*
+// legacy code
+/* {dummy &&
+				dummy.map(book => {
+					return <BooksPreviewItem book={book} key={book.id} />;
+				})} 
+
 const dummy: BooksPreviewModel[] = [
 	{
 		status: '대여 가능',
