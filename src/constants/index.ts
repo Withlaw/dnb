@@ -15,3 +15,7 @@ export const API_NAVER = {
   BOOK_SEARCH_ID : import.meta.env.VITE_API__NAVER_BOOK_SEARCH_ID,
   BOOK_SEARCH_PW : import.meta.env.VITE_API__NAVER_BOOK_SEARCH_PW
 }
+
+export const RENT = {
+  DURATION : 10,
+}

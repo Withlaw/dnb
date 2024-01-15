@@ -18,9 +18,7 @@ const BooksPreviewPage = () => {
 				</div>
 
 				<div className="flex items-center justify-end">
-					<span className="ml-4">
-						<HiOutlineSearch size="24" />
-					</span>
+					<span className="ml-4">{/* <HiOutlineSearch size="24" /> */}</span>
 				</div>
 			</GeneralHeader>
 
