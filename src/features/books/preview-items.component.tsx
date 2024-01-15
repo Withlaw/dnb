@@ -2,22 +2,28 @@ import BooksPreviewItem from '@/features/books/preview-item.component.tsx';
 import useBooksPreview from '@/features/books/use-books-preview.hook.ts';
 
 const BooksPreviewItems = () => {
-	const { books, isLoading, isError, error } = useBooksPreview();
+	const { scrollEndTarget, books, hasNextPage, isLoading, isError, error } =
+		useBooksPreview();
 
 	return (
 		<ul className="flex w-full flex-col flex-nowrap items-center ">
 			{/* <ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3"> */}
 			{isLoading && <h1>Loading...</h1>}
 			{isError && <h1>{error?.message}</h1>}
-			{books &&
-				books.map(book => {
+			{books?.length !== 0 &&
+				books?.map(book => {
 					return <BooksPreviewItem book={book} key={book.id} />;
 				})}
+			{!isLoading && books && hasNextPage && (
+				<div ref={scrollEndTarget} className="h-10 w-full text-center">
+					<span>loading ..@@@@.</span>
+				</div>
+			)}
 			{/* {dummy &&
 				dummy.map(book => {
 					return <BooksPreviewItem book={book} key={book.id} />;
 				})} */}
-			{books && books.length === 0 && <h1>등록된 책이 없습니다.</h1>}
+			{books?.length !== 0 || <h1>등록된 책이 없습니다.</h1>}
 		</ul>
 	);
 };

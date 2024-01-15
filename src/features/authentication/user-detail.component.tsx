@@ -65,14 +65,14 @@ const UserDetail = () => {
 						</div>
 						<ul className="flex flex-col space-y-3">
 							{isMyBooksTab && books && <UserBooks books={books} />}
-							{isMyBooksTab && !books && (
+							{isMyBooksTab && books?.length === 0 && (
 								<li>
 									<h4>등록한 책이 없습니다.</h4>
 								</li>
 							)}
 
 							{isMyRentalsTab && rentals && <UserBooks books={rentals} />}
-							{isMyRentalsTab && !rentals && (
+							{isMyRentalsTab && rentals?.length === 0 && (
 								<li>
 									<h4>빌린 책이 없습니다.</h4>
 								</li>

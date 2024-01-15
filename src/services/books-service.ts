@@ -51,9 +51,9 @@ class BooksService {
   }
 
   // data fetch api 
-  async getBooks () {
+  async getBooks (start:number=0, display:number=10) {
 		// try {
-			const { data, error } = await supabase.from(this.endpoint).select(`*, member(full_name,avatar_url)`).order('created_at', { ascending: false });
+			const { data, error, count } = await supabase.from(this.endpoint).select(`*, member(full_name,avatar_url)`,{count:'exact'}).order('created_at', { ascending: false }).range(start, start+display-1);
 
 			if (error) {
 				console.error(error);
@@ -62,7 +62,7 @@ class BooksService {
 
       const books = data?.map(data => new BooksPreviewModel(data));
 
-			return books;
+			return { books, start ,total:count??0 };
     // 에러를 처리한다는게, catch 해서 적절하게 뷰로 피드백 제공하는거니까 
     // 뷰 레이어에서 try catch로 처리하는게 나을려나? -> 리액트 쿼리로 한 번에 view logic을 처리하는게 나을 듯!?
 
