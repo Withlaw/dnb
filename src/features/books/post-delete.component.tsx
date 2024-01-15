@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 
 import useBookDelete from '@/features/books/use-book-delete.hook.ts';
-import Button from '@/ui/button.tsx';
 
 const BookPostDelete = ({ children }: { children: React.ReactNode }) => {
 	const { bookId } = useParams();

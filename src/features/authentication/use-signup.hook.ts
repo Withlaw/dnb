@@ -1,4 +1,4 @@
-import { SignData, UserDataToServer } from "@/features/authentication/users.model.ts";
+import { SignData } from "@/features/authentication/users.model.ts";
 import authService from "@/services/auth-service.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";

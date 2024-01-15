@@ -112,11 +112,14 @@ const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 							/>
 						)}
 
-						{!isTyping && !isLoading && !searchResults && (
-							<li className={Style.ITEM_OFF}>
-								<span>찾으시는 책이 존재하지 않습니다.</span>
-							</li>
-						)}
+						{!isTyping &&
+							!isLoading &&
+							searchResults &&
+							searchResults?.length === 0 && (
+								<li className={Style.ITEM_OFF}>
+									<span>찾으시는 책이 존재하지 않습니다.</span>
+								</li>
+							)}
 
 						{!isTyping && !isLoading && isError && (
 							<li className={Style.ITEM_OFF}>

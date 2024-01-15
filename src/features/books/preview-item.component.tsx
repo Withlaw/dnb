@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
@@ -12,34 +11,34 @@ type Props = {
 const BooksPreviewItem = ({ book }: Props) => {
 	return (
 		<li className="group relative my-2 w-full rounded-xl border border-solid border-stone-200 p-4 shadow-md hover:cursor-pointer hover:shadow-xl">
-			<Link to={`${book.id}`} className=" flex justify-between">
+			<Link to={`${book.id}`} className=" flex justify-between space-x-3">
 				<figure className="flex-none">
 					<img
-						className="h-44 w-32 group-hover:scale-110 sm:h-32 sm:w-24"
+						className="h-44 w-32 border border-stone-300 group-hover:scale-110 sm:h-32 sm:w-24"
 						src={book.bookImageUrl}
 						alt={book.title}
 					/>
 					{/* 이미지 사이즈는 업로드시에 규격에 맞게 리사이징하므로 style 사이즈는 딱히 필요 없을 듯? */}
 				</figure>
-				<div className="flex flex-auto justify-between py-2 pl-2">
+				<div className="flex flex-auto justify-between py-2">
 					<div className="flex w-20 flex-auto flex-col items-start space-y-1">
-						<h4 className="mb-1 w-full break-words text-xl font-bold sm:text-sm">
+						<h4 className="mb-1 w-full break-words text-lg font-bold sm:text-sm">
 							{book.title}
 						</h4>
-						<div className="flex space-x-2 text-center">
+						<div className="flex items-center space-x-2">
 							{Boolean(book.merchantAvatarUrl) && (
 								<img
 									src={book.merchantAvatarUrl}
 									alt={book.merchantFullName}
-									className="size-4"
+									className="size-5"
 								/>
 							)}
-							{!book.merchantAvatarUrl && (
-								<svg className="size-4">
+							{Boolean(book.merchantAvatarUrl) || (
+								<svg className="size-5">
 									<use href={`${icons}#default-avatar`}></use>
 								</svg>
 							)}
-							<p className="mb-1 text-stone-700 sm:text-sm">
+							<p className="sm:text-md mb-1 text-stone-700">
 								{book.merchantFullName}
 							</p>
 						</div>

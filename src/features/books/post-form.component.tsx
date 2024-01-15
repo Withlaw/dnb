@@ -1,6 +1,5 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
-import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { HiOutlineSearch, HiOutlinePlus } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
@@ -24,7 +23,7 @@ type UseFormInput = {
 };
 
 enum Style {
-	INPUT = ' bg-inherit px-1 pb-1 text-lg outline-none ',
+	INPUT = ' bg-inherit px-1 pb-1 text-base outline-none ',
 	INPUTCONTAINER = ' flex items-center justify-between ',
 	ERROR = ' border-red-300 border-1 ',
 	IMAGE = ' mb-1 mr-1 h-24 w-20 border',
@@ -96,14 +95,14 @@ const BookPostForm = ({
 					</span>
 				</div>
 
-				<div className=" flex px-1 pt-2">
+				<div className=" flex px-1 pt-2 text-sm">
 					{/* <span className=" max-w-[180px] truncate"> */}
-					<span className=" max-w-[9rem] truncate">
+					<span className=" max-w-[10rem] truncate">
 						{inputData?.author ?? '저자'}
 					</span>
 					<span className="mx-2">|</span>
 					{/* <span className=" w-[200px] min-w-20 truncate"> */}
-					<span className=" min-w-20 max-w-[8rem] truncate">
+					<span className=" min-w-20 max-w-[9rem] truncate">
 						{inputData?.publisher ?? '출판사'}
 					</span>
 				</div>

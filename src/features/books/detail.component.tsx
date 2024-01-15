@@ -81,9 +81,7 @@ const BookDetail = ({ book }: Props) => {
 							</DetailRow.Span>
 						</figure>
 					</Link>
-					<div>
-						<span className={Style.TEXT}>채팅하기</span>
-					</div>
+					<div>{/* <span className={Style.TEXT}>채팅하기</span> */}</div>
 				</DetailRow>
 
 				<DetailRow>
