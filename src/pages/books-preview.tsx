@@ -1,4 +1,3 @@
-import { HiOutlineSearch } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 import BooksPreviewItems from '@/features/books/preview-items.component.tsx';

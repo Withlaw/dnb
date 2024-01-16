@@ -1,5 +1,5 @@
 export interface HttpClient {
-	readonly baseURL: string;
+	readonly baseUrl: string;
 	readonly apiKey?: string;
 
 	get<T = any>(endpoint: string): Promise<Response | T>;

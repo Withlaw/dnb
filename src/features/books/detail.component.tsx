@@ -5,10 +5,10 @@ import { BookDataFromServer } from '@/features/books/books.model.ts';
 import DetailRow from '@/features/books/detail-row.component.tsx';
 import BookImageSlider from '@/features/books/detail-slider.component.tsx';
 
-enum Style {
-	DIV = 'border-1 flex justify-between border-b border-solid py-3',
-	TEXT = 'mx-1',
-}
+// enum Style {
+// 	DIV = 'border-1 flex justify-between border-b border-solid py-3',
+// 	TEXT = 'mx-1',
+// }
 
 type Props = {
 	book: BookDataFromServer;

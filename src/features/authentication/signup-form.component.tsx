@@ -16,13 +16,12 @@ type UseFormValues = {
 	passwordCheck: string;
 };
 
-const SignupForm = ({ children, onSubmit, isLoading }: Props) => {
+const SignupForm = ({ onSubmit, isLoading }: Props) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		watch,
-		getValues,
 		reset,
 	} = useForm<UseFormValues>();
 

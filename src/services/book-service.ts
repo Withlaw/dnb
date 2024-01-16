@@ -60,13 +60,14 @@ export interface BookServiceInterface {
   deleteImage: (imageName?:string) => any;
 }
 
-const naverBookSearchClient = new NaverAPiClient('/search/book.json', {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW})
+const naverBookSearchClient = new NaverAPiClient({baseUrl:API_NAVER.BASE_URL, resource:'/search/book.json', options: {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW}})
 
 class BookService {
   readonly endpoint = 'books';
   readonly remoteStorage = 'book-images';
 
-  constructor(  private readonly baseURL : string, private readonly apiKey : string){}
+  constructor(  private readonly baseURL : string ){}
+  // constructor(  private readonly baseURL : string, private readonly apiKey : string){}
 
 
   // search api
@@ -283,4 +284,4 @@ class BookService {
   }
 }
 
-export const booksService = new BookService(API_SUPABASE.BASE_URL, API_SUPABASE.KEY);
+export const booksService = new BookService(API_SUPABASE.BASE_URL);

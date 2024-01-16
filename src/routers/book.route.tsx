@@ -1,6 +1,3 @@
-import { RouteObject } from 'react-router-dom';
-
-import { API_SUPABASE } from '@/constants/index.ts';
 import RentalServiceProvider from '@/contexts/rental-service.context.tsx';
 import BookCreatePage from '@/pages/book-create.tsx';
 import BookDetailPage from '@/pages/book-detail.tsx';

@@ -1,13 +1,13 @@
 import { HttpClient } from '@/adapters/api/http-client.ts';
 
 class Fetch  {
-	readonly baseURL: string;
-	readonly apiKey: string;
+	readonly baseUrl: string;
+	readonly apiKey: string | undefined;
   readonly time:number;
 
-	constructor({ baseURL , apiKey = '' , time = 3000 }:{baseURL: string, apiKey?: string, time?:number}) {
-		this.baseURL = baseURL;
-		this.apiKey = apiKey ?? '';
+	constructor({ baseUrl , apiKey , time = 3000 }:{baseUrl: string, apiKey?: string, time?:number}) {
+		this.baseUrl = baseUrl;
+		this.apiKey = apiKey;
     this.time = time;
 	}
 
@@ -27,15 +27,15 @@ class Fetch  {
 		// <fetch 횡단 관심사 설정>
     // 네트워크 요청 제한시간 설정
 		return Promise.race([
-			window.fetch(this.baseURL+endpoint, configs),
+			window.fetch(this.baseUrl+endpoint, configs),
 			this._timeout(this.time),
 		]);
 	}
 }
 
 export class FetchClient extends Fetch implements HttpClient {
-	constructor(baseURL: string, apiKey: string) {
-    super({baseURL, apiKey, time:5000});
+	constructor(baseUrl: string, apiKey?: string) {
+    super({baseUrl, apiKey, time:5000});
 	}
 
 	async get<T=any>(endpoint: string): Promise<T> {
@@ -75,8 +75,8 @@ export class NaverAPiClient extends Fetch implements HttpClient {
   private readonly clientPW :string;
   private readonly resource :string;
 
-  constructor(resource:string, options:NaverAPiClientOptions) {
-    super({ baseURL : '/api/v1' });
+  constructor({baseUrl, resource, options}:{baseUrl:string, resource:string, options:NaverAPiClientOptions}) {
+    super({ baseUrl });
     // 빌드시 /api => https://openapi.naver.com로 수정
     this.resource = resource;
     this.clientID = options.id;
