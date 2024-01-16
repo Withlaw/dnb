@@ -5,9 +5,9 @@ class Fetch  {
 	readonly apiKey: string;
   readonly time:number;
 
-	constructor(baseURL: string, apiKey: string, time=5000) {
+	constructor({ baseURL , apiKey = '' , time = 3000 }:{baseURL: string, apiKey?: string, time?:number}) {
 		this.baseURL = baseURL;
-		this.apiKey = apiKey;
+		this.apiKey = apiKey ?? '';
     this.time = time;
 	}
 
@@ -35,7 +35,7 @@ class Fetch  {
 
 export class FetchClient extends Fetch implements HttpClient {
 	constructor(baseURL: string, apiKey: string) {
-    super(baseURL, apiKey, 10000);
+    super({baseURL, apiKey, time:5000});
 	}
 
 	async get<T=any>(endpoint: string): Promise<T> {
@@ -76,7 +76,7 @@ export class NaverAPiClient extends Fetch implements HttpClient {
   private readonly resource :string;
 
   constructor(resource:string, options:NaverAPiClientOptions) {
-    super('/api/v1', '', 5000);
+    super({ baseURL : '/api/v1' });
     // 빌드시 /api => https://openapi.naver.com로 수정
     this.resource = resource;
     this.clientID = options.id;
