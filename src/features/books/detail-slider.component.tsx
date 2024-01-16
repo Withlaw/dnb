@@ -1,4 +1,4 @@
-import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
+// import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
 import Slick, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
@@ -42,29 +42,29 @@ const BookImageSlider = ({ children, options }: Props) => {
 	);
 };
 
-enum Style {
-	CONTAINER = 'flex items-center justify-center bg-stone-200',
-	ARROW = 'text-3xl hover:cursor-pointer',
-}
+// enum Style {
+// 	CONTAINER = 'flex items-center justify-center bg-stone-200',
+// 	ARROW = 'text-3xl hover:cursor-pointer',
+// }
 
-function PrevArrow({ onClick }: Props) {
-	return (
-		<div className="flex flex-auto items-center justify-center">
-			<span className={Style.ARROW} onClick={onClick}>
-				<HiArrowLeft />
-			</span>
-		</div>
-	);
-}
+// function PrevArrow({ onClick }: Props) {
+// 	return (
+// 		<div className="flex flex-auto items-center justify-center">
+// 			<span className={Style.ARROW} onClick={onClick}>
+// 				<HiArrowLeft />
+// 			</span>
+// 		</div>
+// 	);
+// }
 
-function NextArrow({ onClick }: Props) {
-	return (
-		<div className="flex flex-auto items-center justify-center ">
-			<span className={Style.ARROW} onClick={onClick}>
-				<HiArrowRight />
-			</span>
-		</div>
-	);
-}
+// function NextArrow({ onClick }: Props) {
+// 	return (
+// 		<div className="flex flex-auto items-center justify-center ">
+// 			<span className={Style.ARROW} onClick={onClick}>
+// 				<HiArrowRight />
+// 			</span>
+// 		</div>
+// 	);
+// }
 
 export default BookImageSlider;

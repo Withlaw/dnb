@@ -1,7 +1,7 @@
 import AuthServiceProvider from '@/contexts/auth-service.context.tsx';
 import Signin from '@/features/authentication/signin.component.tsx';
 import Signup from '@/features/authentication/signup.component.tsx';
-import { AuthService } from '@/services/auth-service.ts';
+import AuthService from '@/services/auth-service.ts';
 
 const AUTH_ROUTES = {
 	SIGN_IN_PAGE: {

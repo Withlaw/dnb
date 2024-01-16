@@ -1,5 +1,4 @@
 import { supabase } from '@/adapters/api/supabase-client.ts';
-import { API_SUPABASE  } from '@/constants/index.ts';
 import { RentalInfoFromServer, RentalInfoToServer } from '@/features/rentals/rentals.model.ts';
 
 export interface RentalServiceInterface {
@@ -11,7 +10,7 @@ export interface RentalServiceInterface {
 export default class RentalService implements RentalServiceInterface {
   readonly endpoint = 'rentals';
 
-  constructor(private readonly baseURL : string, private readonly apiKey : string){}
+  // constructor(private readonly baseURL : string, private readonly apiKey : string){}
 
   async getRentalInfo (rentalId:number) {
     const { data , error } = await supabase.from(this.endpoint).select('*').eq('id', rentalId).single();
@@ -70,5 +69,3 @@ export default class RentalService implements RentalServiceInterface {
     return returnResult;
   }
 }
-
-export const rentalsService = new RentalService(API_SUPABASE.BASE_URL, API_SUPABASE.KEY);

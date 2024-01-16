@@ -1,5 +1,5 @@
 import { supabase } from "@/adapters/api/supabase-client.ts";
-import { SignData, UserDataFromServer, UserDataToServer } from "@/features/authentication/users.model.ts";
+import { UserDataFromServer, UserDataToServer } from "@/features/authentication/users.model.ts";
 import { BookDataFromServer } from "@/features/books/books.model.ts";
 import { Session } from "@supabase/supabase-js";
 
@@ -12,7 +12,7 @@ export interface UserServiceInterface {
 }
 
 
-export class UserService implements UserServiceInterface {
+export default class UserService implements UserServiceInterface {
   async getCurrentSession() {
     const { data : { session }, error } = await supabase.auth.getSession();
     // 클라이언트에 저장된 로컬 세션 정보를 가져옴. 

@@ -1,15 +1,26 @@
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
 
+import AuthServiceProvider from '@/contexts/auth-service.context.tsx';
+import RentalServiceProvider from '@/contexts/rental-service.context.tsx';
 import UserServiceProvider from '@/contexts/user-service.context.tsx';
 import Authorization from '@/features/authentication/authorization.component.tsx';
+import Signin from '@/features/authentication/signin.component.tsx';
+import Signup from '@/features/authentication/signup.component.tsx';
 import AuthenticationPage from '@/pages/authentication.tsx';
+import BookCreatePage from '@/pages/book-create.tsx';
+import BookDetailPage from '@/pages/book-detail.tsx';
+import BookEditPage from '@/pages/book-edit.tsx';
+import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
-import AUTH_ROUTES from '@/routers/auth.route.tsx';
-import RENTAL_ROUTES from '@/routers/book.route.tsx';
-import USER_ROUTES from '@/routers/user.route.tsx';
-import { UserService } from '@/services/user-service.ts';
+import UserEditPage from '@/pages/user-edit.tsx';
+import UserPage from '@/pages/user.tsx';
+import AuthService from '@/services/auth-service.ts';
+import RentalService from '@/services/rental-service.ts';
+import UserService from '@/services/user-service.ts';
 import HomeLayout from '@/ui/layout-home.tsx';
 
+/*
+// legacy
 const routes: RouteObject[] = [
 	{
 		id: 'home',
@@ -43,15 +54,75 @@ const routes: RouteObject[] = [
 	},
 	{ path: '/test', element: null },
 ];
+*/
+
+const routes: RouteObject[] = [
+	{
+		id: 'home',
+		path: '/',
+		element: <HomeLayout />,
+		errorElement: <ErrorPage />,
+		children: [
+			{ index: true, element: <Navigate to={'books'} replace /> },
+			{
+				path: 'books',
+				element: <BooksPreviewPage />,
+			},
+			{
+				path: '/books/:bookId',
+				element: <BookDetailPage />,
+			},
+		],
+	},
+
+	{
+		id: 'guest-only',
+		element: <AuthenticationPage />,
+		errorElement: <ErrorPage />,
+		children: [
+			{
+				path: 'sign-in',
+				element: <Signin />,
+			},
+			{ path: 'sign-up', element: <Signup /> },
+		],
+	},
+
+	{
+		id: 'protected',
+		element: <HomeLayout />,
+		errorElement: <ErrorPage />,
+		children: [
+			{ path: '/user', element: <UserPage /> },
+			{ path: '/user/edit', element: <UserEditPage /> },
+			{ path: '/books/create', element: <BookCreatePage /> },
+			{
+				path: '/books/:bookId/edit',
+				element: <BookEditPage />,
+			},
+			{
+				path: '/dashboard',
+				element: null,
+			},
+		],
+	},
+	{ path: '/test', element: null },
+];
 
 const userService = new UserService();
+const authService = new AuthService();
+const rentalService = new RentalService();
 
 const router = createBrowserRouter(
 	routes.map(route => {
 		route.element = (
-			<UserServiceProvider userService={userService}>
-				<Authorization route={route}>{route.element}</Authorization>
-			</UserServiceProvider>
+			<AuthServiceProvider authService={authService}>
+				<UserServiceProvider userService={userService}>
+					<RentalServiceProvider rentalService={rentalService}>
+						<Authorization route={route}>{route.element}</Authorization>
+					</RentalServiceProvider>
+				</UserServiceProvider>
+			</AuthServiceProvider>
 		);
 		return route;
 	}),

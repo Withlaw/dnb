@@ -14,7 +14,7 @@ export interface AuthServiceInterface {
   signout: () => Promise<void>;
 }
 
-export class AuthService implements AuthServiceInterface {
+export default class AuthService implements AuthServiceInterface {
   
   async signup({ full_name, email, password }: SignData){
   
@@ -108,5 +108,3 @@ export class AuthService implements AuthServiceInterface {
   } 
 
 }
-
-export default new AuthService()

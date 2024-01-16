@@ -22,7 +22,10 @@ const Rent = ({ type, bookId }: Props) => {
 	const isReturnType = type === 'return';
 
 	const rentalHandler = () => {
-		if (!user || !book) return;
+		if (!user || !book) {
+			window.alert('로그인이 필요합니다.');
+			return;
+		}
 
 		const now = new Date();
 		const rentalInfo = new RentalInfoToServer({

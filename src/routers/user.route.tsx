@@ -2,8 +2,8 @@ import AuthServiceProvider from '@/contexts/auth-service.context.tsx';
 import UserServiceProvider from '@/contexts/user-service.context.tsx';
 import UserEditPage from '@/pages/user-edit.tsx';
 import UserPage from '@/pages/user.tsx';
-import { AuthService } from '@/services/auth-service.ts';
-import { UserService } from '@/services/user-service.ts';
+import AuthService from '@/services/auth-service.ts';
+import UserService from '@/services/user-service.ts';
 
 const USER_ROUTES = {
 	USER_PAGE: {

@@ -31,10 +31,7 @@ const RENTAL_ROUTES = {
 	},
 };
 
-const rentalService = new RentalService(
-	API_SUPABASE.BASE_URL,
-	API_SUPABASE.KEY,
-);
+const rentalService = new RentalService();
 
 Object.entries(RENTAL_ROUTES).forEach(route => {
 	const path = route[0] as keyof typeof RENTAL_ROUTES;
