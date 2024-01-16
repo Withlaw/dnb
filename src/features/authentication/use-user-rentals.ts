@@ -1,10 +1,12 @@
-import authService from "@/services/auth-service.ts";
+import { useUserService } from "@/contexts/index.ts";
 import { useQuery } from "@tanstack/react-query";
 
 const useUserRentals = (id?:number, enabled:boolean = true) => {
+  const userService = useUserService();
+  
   const { data:rentals, isLoading, isError, error } = useQuery({
     queryKey:['rentals', id],
-    queryFn: async () => await authService.getUserRentals(id),
+    queryFn: async () => await userService.getUserRentals(id),
     enabled : Boolean(id) && enabled,
     staleTime: 10 * 60 * 1000,
   })

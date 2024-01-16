@@ -1,13 +1,15 @@
-import { rentalsService } from "@/services/rentals-service.ts";
+
+import { useRentalService } from "@/contexts/index.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const useReturn = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const rentalService = useRentalService();
 
   const { mutate:returnBook, isPending:isReturning } = useMutation({
-    mutationFn: async (bookId:number) => await rentalsService.return(bookId),
+    mutationFn: async (bookId:number) => await rentalService.return(bookId),
     onSuccess: (res) => {
       window.alert('반납이 완료되었습니다.');
       queryClient.invalidateQueries({queryKey:['rentals', res.customerId]});
@@ -22,5 +24,5 @@ const useReturn = () => {
   return { returnBook, isReturning };
 
 }
- 
+
 export default useReturn;

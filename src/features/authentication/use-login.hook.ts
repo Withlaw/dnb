@@ -1,11 +1,12 @@
+import { useAuthService } from "@/contexts/index.ts";
 import { SignData } from "@/features/authentication/users.model.ts";
-import authService from "@/services/auth-service.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const useLogin = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const authService = useAuthService();
 
   const { mutate:login, isPending:isLoading, isError, error } = useMutation({
     mutationFn: async ({email,password}:SignData) => await authService.signin({email,password}),

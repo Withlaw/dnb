@@ -1,10 +1,12 @@
-import authService from "@/services/auth-service.ts";
+import { useUserService } from "@/contexts/index.ts";
 import { useQuery } from "@tanstack/react-query";
 
 const useUserSession = () => {
+  const userService = useUserService();
+
   const { data : session, isError, error, isPending ,isFetching} = useQuery({
     queryKey:['user', 'session'],
-    queryFn:async () => await authService.getCurrentSession(),
+    queryFn:async () => await userService.getCurrentSession(),
     staleTime:1*60*1000,
   })
 

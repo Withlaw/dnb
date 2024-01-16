@@ -1,5 +1,5 @@
 import { BookDataToServer, BookFileToServer } from "@/features/books/books.model.ts";
-import { booksService } from "@/services/books-service.ts";
+import { booksService } from "@/services/book-service.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const useBookEdit = (bookId?:string) => {
 			});
 		},
 		onSuccess: () => {
-			window.alert('New book successfully created.');
+			window.alert('New book successfully updated.');
 			queryClient.invalidateQueries({ queryKey: ['book', bookId ] });
 
 			navigate(`/books/${bookId}`, { replace: true });

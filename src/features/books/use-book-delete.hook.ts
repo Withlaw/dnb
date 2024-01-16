@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { booksService } from '@/services/books-service.ts';
+import { booksService } from '@/services/book-service.ts';
 
 
 const useBookDelete = () => {
@@ -12,7 +12,7 @@ const useBookDelete = () => {
 		mutationFn: async (id: number) => booksService.deleteBook(id),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['books'] });
-			window.alert('Book successfully deleted!');
+			window.alert('Book successfully deleted.');
 			navigate('/books');
 		},
 		onError: error => {

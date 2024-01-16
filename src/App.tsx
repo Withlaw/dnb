@@ -8,18 +8,15 @@ import {
 } from 'react-router-dom';
 
 import Authorization from '@/features/authentication/authorization.component.tsx';
-import Signin from '@/features/authentication/signin.component.tsx';
-import Signup from '@/features/authentication/signup.component.tsx';
 import AuthenticationPage from '@/pages/authentication.tsx';
-import BookCreatePage from '@/pages/book-create.tsx';
-import BookDetailPage from '@/pages/book-detail.tsx';
-import BookEditPage from '@/pages/book-edit.tsx';
-import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
-import UserEditPage from '@/pages/user-edit.tsx';
-import UserPage from '@/pages/user.tsx';
+import AUTH_ROUTES from '@/routers/auth.route.tsx';
+import RENTAL_ROUTES from '@/routers/book.route.tsx';
+import router from '@/routers/index.tsx';
+import USER_ROUTES from '@/routers/user.route.tsx';
 import HomeLayout from '@/ui/layout-home.tsx';
 
+/*
 const routes: RouteObject[] = [
 	{
 		id: 'home',
@@ -28,14 +25,16 @@ const routes: RouteObject[] = [
 		errorElement: <ErrorPage />,
 		children: [
 			{ index: true, element: <Navigate to={'books'} replace /> },
-			{
-				path: 'books',
-				element: <BooksPreviewPage />,
-			},
-			{
-				path: '/books/:bookId',
-				element: <BookDetailPage />,
-			},
+			RENTAL_ROUTES.BOOKS_PREVIEW_PAGE,
+			RENTAL_ROUTES.BOOK_DETAIL_PAGE,
+			// {
+			// 	path: 'books',
+			// 	element: <BooksPreviewPage />,
+			// },
+			// {
+			// 	path: '/books/:bookId',
+			// 	element: <BookDetailPage />,
+			// },
 		],
 	},
 
@@ -44,11 +43,13 @@ const routes: RouteObject[] = [
 		element: <AuthenticationPage />,
 		errorElement: <ErrorPage />,
 		children: [
-			{
-				path: 'sign-in',
-				element: <Signin />,
-			},
-			{ path: 'sign-up', element: <Signup /> },
+			AUTH_ROUTES.SIGN_IN_PAGE,
+			AUTH_ROUTES.SIGN_UP_PAGE,
+			// {
+			// 	path: 'sign-in',
+			// 	element: <Signin />,
+			// },
+			// { path: 'sign-up', element: <Signup /> },
 		],
 	},
 
@@ -57,17 +58,21 @@ const routes: RouteObject[] = [
 		element: <HomeLayout />,
 		errorElement: <ErrorPage />,
 		children: [
-			{ path: '/user', element: <UserPage /> },
-			{ path: '/user/edit', element: <UserEditPage /> },
-			{
-				path: '/dashboard',
-				element: null,
-			},
-			{ path: '/books/create', element: <BookCreatePage /> },
-			{
-				path: '/books/:bookId/edit',
-				element: <BookEditPage />,
-			},
+			RENTAL_ROUTES.BOOK_CREATE_PAGE,
+			RENTAL_ROUTES.BOOK_EDIT_PAGE,
+			USER_ROUTES.USER_PAGE,
+			USER_ROUTES.USER_EDIT_PAGE,
+			// { path: '/user', element: <UserPage /> },
+			// { path: '/user/edit', element: <UserEditPage /> },
+			// { path: '/books/create', element: <BookCreatePage /> },
+			// {
+			// 	path: '/books/:bookId/edit',
+			// 	element: <BookEditPage />,
+			// },
+			// {
+			// 	path: '/dashboard',
+			// 	element: null,
+			// },
 		],
 	},
 	{ path: '/test', element: null },
@@ -81,6 +86,8 @@ const router = createBrowserRouter(
 		return route;
 	}),
 );
+
+*/
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -96,7 +103,7 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<RouterProvider router={router} />
-			{/* <ReactQueryDevtools initialIsOpen={false} /> */}
+			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);
 }

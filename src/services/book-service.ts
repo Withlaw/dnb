@@ -3,7 +3,6 @@ import { supabase } from '@/adapters/api/supabase-client.ts';
 import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
 import { BookDataFromServer, BookDataFromTitleSearch, BookDataToServer, BookFileToServer, BooksPreviewModel } from '@/features/books/books.model.ts';
 import { BookTitleSearchData } from '@/features/books/types.ts';
-import { SupabaseClient } from '@supabase/supabase-js';
 
 // interface BookServiceInterface {
 // 	getBooks<T = any>(): Promise<T>;
@@ -28,9 +27,42 @@ export class BooksServiceByHttpClient {
 }
 */
 
+export interface BookServiceInterface {
+  searchBook: (query:string, start:number, display:number) =>  Promise<{
+    items: BookDataFromTitleSearch[];
+    display: number;
+    lastBuildDate: string;
+    start: number;
+    total: number;
+  }>;
+  
+  getBooks: (start:number, display:number) => Promise<{
+    books: BooksPreviewModel[];
+    start: number;
+    total: number;
+  }>;
+
+  getBook: (id:number) => Promise<BookDataFromServer>;
+
+  createBook: (newBook:BookDataToServer, imageFiles?:BookFileToServer) => any;
+
+  editBook: ({id, editedBook, backup, imageFiles}:{
+    id: number;
+    editedBook: BookDataToServer;
+    backup: BookDataToServer;
+    imageFiles?: BookFileToServer;
+  }) => Promise<void>
+
+  deleteBook: (id?:number) => Promise<null | undefined>;
+
+  uploadImage: (imageFiles?:BookFileToServer) => any;
+
+  deleteImage: (imageName?:string) => any;
+}
+
 const naverBookSearchClient = new NaverAPiClient('/search/book.json', {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW})
 
-class BooksService {
+class BookService {
   readonly endpoint = 'books';
   readonly remoteStorage = 'book-images';
 
@@ -251,4 +283,4 @@ class BooksService {
   }
 }
 
-export const booksService = new BooksService(API_SUPABASE.BASE_URL, API_SUPABASE.KEY);
+export const booksService = new BookService(API_SUPABASE.BASE_URL, API_SUPABASE.KEY);

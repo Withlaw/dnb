@@ -1,5 +1,5 @@
 import useDebounceValue from "@/hooks/use-debounce-value.ts";
-import { booksService } from "@/services/books-service.ts";
+import { booksService } from "@/services/book-service.ts";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
@@ -8,7 +8,7 @@ const useBookSearch = (inputValue : string) => {
   const debouncedValue = useDebounceValue(inputValue, 500);
   const { ref, inView  } = useInView({threshold:0.5})
 
-  const { data, fetchNextPage, hasNextPage, isLoading, isError, error } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetching:isLoading, isError, error } = useInfiniteQuery({
     queryKey:['bookSearch2', debouncedValue],
     queryFn: ({ pageParam }) => booksService.searchBook(debouncedValue, pageParam),
     initialPageParam: 1,

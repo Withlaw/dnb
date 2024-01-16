@@ -1,4 +1,4 @@
-import { booksService } from "@/services/books-service.ts";
+import { booksService } from "@/services/book-service.ts";
 import { useQuery } from "@tanstack/react-query";
 
 const useBook = (bookId?:string) => {

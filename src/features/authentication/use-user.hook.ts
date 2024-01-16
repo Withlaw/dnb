@@ -1,10 +1,12 @@
-import authService from "@/services/auth-service.ts";
+import { useUserService } from "@/contexts/index.ts";
 import { useQuery } from "@tanstack/react-query";
 
 const useUser = () => {
+  const userService = useUserService();
+
   const { data : user, isLoading, isError, error} = useQuery({
     queryKey:['user'],
-    queryFn: async () => await authService.getUser(),
+    queryFn: async () => await userService.getUser(),
     staleTime: 30 * 60 * 1000,
   })
 

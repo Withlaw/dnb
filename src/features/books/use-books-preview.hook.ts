@@ -1,4 +1,4 @@
-import { booksService } from "@/services/books-service.ts";
+import { booksService } from "@/services/book-service.ts";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";

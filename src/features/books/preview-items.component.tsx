@@ -8,8 +8,8 @@ const BooksPreviewItems = () => {
 	return (
 		<ul className="flex w-full flex-col flex-nowrap items-center ">
 			{/* <ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3"> */}
-			{isLoading && <li>Loading ...</li>}
 			{isError && <li>{error?.message}</li>}
+			{!books && isLoading && <li>Loading ...</li>}
 			{books &&
 				books?.length !== 0 &&
 				books.map(book => {
