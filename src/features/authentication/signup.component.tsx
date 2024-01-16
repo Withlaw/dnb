@@ -1,8 +1,8 @@
 import { FieldValues } from 'react-hook-form';
 
+import { SignData } from '@/features/authentication/auth.model.ts';
 import SignupForm from '@/features/authentication/signup-form.component.tsx';
 import useSignup from '@/features/authentication/use-signup.hook.ts';
-import { SignData } from '@/features/authentication/users.model.ts';
 
 const Signup = () => {
 	const { signup } = useSignup();

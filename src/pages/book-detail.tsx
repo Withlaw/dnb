@@ -1,16 +1,13 @@
 import { HiChevronLeft } from 'react-icons/hi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import useUserSession from '@/features/authentication/use-user-session.hook.ts';
-import useUser from '@/features/authentication/use-user.hook.ts';
 import BookDetail from '@/features/books/detail.component.tsx';
 import BookPostDelete from '@/features/books/post-delete.component.tsx';
 import useBook from '@/features/books/use-book.hook.ts';
 import BookPostWish from '@/features/books/wish.component.tsx';
 import Rent from '@/features/rentals/rent.component.tsx';
-import { RentalInfoToServer } from '@/features/rentals/rentals.model.ts';
+import useUser from '@/features/users/use-user.hook.ts';
 import useShow from '@/hooks/use-show.ts';
-import Button from '@/ui/button.tsx';
 import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
@@ -68,10 +65,10 @@ const BookDetailPage = () => {
 					{isError && <h3>{error?.message}</h3>}
 					{book && <BookDetail book={book} />}
 
-					{bookId && !ownThisBook && (
+					{book && !ownThisBook && (
 						<div className="w-full p-2">
-							<Rent type="rent" bookId={bookId} />
-							<Rent type="return" bookId={bookId} />
+							<Rent type="rent" book={book} user={user} />
+							<Rent type="return" book={book} user={user} />
 						</div>
 					)}
 				</div>

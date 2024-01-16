@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import useUserBooks from '@/features/authentication/use-user-books.hook.ts';
-import useUserRentals from '@/features/authentication/use-user-rentals.ts';
-import useUser from '@/features/authentication/use-user.hook.ts';
-import UserBooks from '@/features/authentication/user-books.component.tsx';
-import UserInfo from '@/features/authentication/user-info.componen.tsx';
+import useUserBooks from '@/features/users/use-user-books.hook.ts';
+import useUserRentals from '@/features/users/use-user-rentals.ts';
+import useUser from '@/features/users/use-user.hook.ts';
+import UserBooks from '@/features/users/user-books.component.tsx';
+import UserInfo from '@/features/users/user-info.componen.tsx';
 
 const UserDetail = () => {
 	const [tab, setTab] = useState('등록한 책');

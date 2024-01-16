@@ -1,5 +1,6 @@
 import { supabase } from "@/adapters/api/supabase-client.ts";
-import { SignData, UserDataFromServer } from "@/features/authentication/users.model.ts";
+import { UserDataFromServer } from "@/features/users/users.model.ts";
+import { SignData } from "@/features/authentication/auth.model.ts";
 import { Session } from "@supabase/supabase-js";
 
 export interface AuthServiceInterface {

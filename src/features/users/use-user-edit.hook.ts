@@ -1,6 +1,6 @@
 
 import { useUserService } from "@/contexts/index.ts";
-import { UserDataToServer } from "@/features/authentication/users.model.ts";
+import { UserDataToServer } from "@/features/users/users.model.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 

@@ -50,15 +50,3 @@ export class UserDataToServer {
     this.books_num = data.booksNum;
   }
 }
-
-export class SignData {
-  readonly email:string;
-  readonly password:string;
-  readonly full_name?:string;
-
-  constructor(data:Values){
-    this.email = data.email;
-    this.password = data.password;
-    this.full_name = data.fullName;
-  }
-}

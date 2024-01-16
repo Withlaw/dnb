@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { RouteObject, useNavigate } from 'react-router-dom';
 
-import useUserSession from '@/features/authentication/use-user-session.hook.ts';
+import useUserSession from '@/features/users/use-user-session.hook.ts';
 
 type Props = {
 	children: React.ReactNode;

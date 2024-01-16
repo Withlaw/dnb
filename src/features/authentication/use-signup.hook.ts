@@ -1,5 +1,5 @@
 import { useAuthService } from "@/contexts/index.ts";
-import { SignData } from "@/features/authentication/users.model.ts";
+import { SignData } from "@/features/authentication/auth.model.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 

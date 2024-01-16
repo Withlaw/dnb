@@ -1,7 +1,7 @@
 import { HiChevronLeft } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
-import UserInfoEdit from '@/features/authentication/user-info-edit.component.tsx';
+import UserInfoEdit from '@/features/users/user-info-edit.component.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
 

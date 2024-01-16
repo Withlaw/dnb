@@ -1,9 +1,9 @@
 import { FieldValues } from 'react-hook-form';
 
-import useUserEdit from '@/features/authentication/use-user-edit.hook.ts';
-import useUser from '@/features/authentication/use-user.hook.ts';
-import UserInfoEditForm from '@/features/authentication/user-info-edit-form.component.tsx';
-import { UserDataToServer } from '@/features/authentication/users.model.ts';
+import useUserEdit from '@/features/users/use-user-edit.hook.ts';
+import useUser from '@/features/users/use-user.hook.ts';
+import UserInfoEditForm from '@/features/users/user-info-edit-form.component.tsx';
+import { UserDataToServer } from '@/features/users/users.model.ts';
 
 const UserInfoEdit = () => {
 	// useUser

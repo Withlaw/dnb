@@ -1,5 +1,5 @@
 import { supabase } from "@/adapters/api/supabase-client.ts";
-import { UserDataFromServer, UserDataToServer } from "@/features/authentication/users.model.ts";
+import { UserDataFromServer, UserDataToServer } from "@/features/users/users.model.ts";
 import { BookDataFromServer } from "@/features/books/books.model.ts";
 import { Session } from "@supabase/supabase-js";
 

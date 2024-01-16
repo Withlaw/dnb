@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-import useUser from '@/features/authentication/use-user.hook.ts';
 import {
 	BookDataFromTitleSearch,
 	BookDataToServer,
@@ -11,6 +10,7 @@ import BookPostForm from '@/features/books/post-form.component.tsx';
 import BookPostSearch from '@/features/books/post-search.component.tsx';
 import useBookCreate from '@/features/books/use-book-create.hook.ts';
 import useBookSearchModal from '@/features/books/use-book-search-modal.hook.ts';
+import useUser from '@/features/users/use-user.hook.ts';
 import Button from '@/ui/button.tsx';
 
 const BookPostCreateForm = () => {

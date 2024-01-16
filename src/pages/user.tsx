@@ -3,7 +3,7 @@ import { HiChevronLeft, HiOutlinePencilAlt } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 
 import SignOut from '@/features/authentication/signout.component.tsx';
-import UserDetail from '@/features/authentication/user-detail.component.tsx';
+import UserDetail from '@/features/users/user-detail.component.tsx';
 import useShow from '@/hooks/use-show.ts';
 import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
