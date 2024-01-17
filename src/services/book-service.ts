@@ -1,6 +1,6 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase-client.ts';
-import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
+import { API_NAVER, API_SUPABASE, API_SUPABASE_FUNCTIONS  } from '@/constants/index.ts';
 import { BookDataFromServer, BookDataFromTitleSearch, BookDataToServer, BookFileToServer, BooksPreviewModel } from '@/features/books/books.model.ts';
 import { BookTitleSearchData } from '@/features/books/types.ts';
 
@@ -60,7 +60,8 @@ export interface BookServiceInterface {
   deleteImage: (imageName?:string) => any;
 }
 
-const naverBookSearchClient = new NaverAPiClient({baseUrl:API_NAVER.BASE_URL, resource:'/search/book.json', options: {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW}})
+const naverBookSearchClient = new NaverAPiClient({baseUrl:API_SUPABASE.BASE_URL, resource:'/functions/v1/naver-book-search', options: {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW}})
+// const naverBookSearchClient = new NaverAPiClient({baseUrl:API_NAVER.BASE_URL, resource:'/search/book.json', options: {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW}})
 
 class BookService {
   readonly endpoint = 'books';

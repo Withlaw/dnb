@@ -1,5 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
+import { API_SUPABASE } from '@/constants/index.ts';
+
 const AuthenticationPage = () => {
 	const { pathname } = useLocation();
 	const isLoginPage = pathname === '/sign-in';
@@ -13,7 +15,7 @@ const AuthenticationPage = () => {
 				<div className="mb-14 flex w-full flex-col items-center justify-center text-center">
 					<Link to="/">
 						<img
-							src="/src/assets/images/logo.png"
+							src={`${API_SUPABASE.BASE_URL}/storage/v1/object/public/assets/logo.png`}
 							alt="logo"
 							className="size-16"
 						/>
