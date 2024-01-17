@@ -2,11 +2,15 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { corsHeaders } from "../_shared/cors.ts";
-
 const baseUrl = Deno.env.get('_API_NAVER_BOOK_SEARCH_BASE_URL') as string;
 const id = Deno.env.get('_API_NAVER_BOOK_SEARCH_ID') as string;
 const password = Deno.env.get('_API_NAVER_BOOK_SEARCH_PW') as string;
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': 'https://dnb-project.com',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type,X-Naver-Client-Id, X-Naver-Client-Secret',
+  'Access-Control-Max-Age': '600',
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {

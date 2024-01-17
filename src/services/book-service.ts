@@ -1,6 +1,6 @@
 import { NaverAPiClient } from '@/adapters/api/fetch.ts';
 import { supabase } from '@/adapters/api/supabase-client.ts';
-import { API_NAVER, API_SUPABASE, API_SUPABASE_FUNCTIONS  } from '@/constants/index.ts';
+import { API_NAVER, API_SUPABASE  } from '@/constants/index.ts';
 import { BookDataFromServer, BookDataFromTitleSearch, BookDataToServer, BookFileToServer, BooksPreviewModel } from '@/features/books/books.model.ts';
 import { BookTitleSearchData } from '@/features/books/types.ts';
 
