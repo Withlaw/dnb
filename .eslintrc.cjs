@@ -1,4 +1,7 @@
 /** @type {import('eslint').Config} */
+
+const vitest = require('eslint-plugin-vitest');
+
 module.exports = {
 	root: true,
 	env: { browser: true, es2020: true },
@@ -6,8 +9,9 @@ module.exports = {
 		// "react-app",
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
-		// 'plugin:@typescript-eslint/recommended-type-checked',
 		'plugin:react-hooks/recommended',
+		'plugin:testing-library/react',
+		'plugin:vitest/recommended',
 		'prettier',
 	],
 	ignorePatterns: ['dist', '.eslintrc.cjs', '*.config.*'],
@@ -39,6 +43,8 @@ module.exports = {
 
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'@typescript-eslint/no-explicit-any': 'warn',
+
+		// "vitest/expect-expect": "off",
 	},
 	settings: {
 		// "import/parsers": {
@@ -50,5 +56,8 @@ module.exports = {
 				project: './tsconfig.json',
 			},
 		},
+	},
+	globals: {
+		...vitest.environments.env.globals,
 	},
 };
