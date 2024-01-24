@@ -6,6 +6,7 @@ import BookPostDelete from '@/features/books/post-delete.component.tsx';
 import useBook from '@/features/books/use-book.hook.ts';
 import BookPostWish from '@/features/books/wish.component.tsx';
 import Rent from '@/features/rentals/rent.component.tsx';
+import Return from '@/features/rentals/return.component.tsx';
 import useUser from '@/features/users/use-user.hook.ts';
 import useShow from '@/hooks/use-show.ts';
 import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
@@ -21,7 +22,7 @@ const BookDetailPage = () => {
 	const { book, isLoading, isError, error } = useBook(bookId);
 	const { user } = useUser();
 
-	const ownThisBook = Boolean(user && user.id === book?.merchantId);
+	const ownThisBook = Boolean(user?.id === book?.merchantId);
 
 	const goBack = () => {
 		navigate(-1);
@@ -67,8 +68,8 @@ const BookDetailPage = () => {
 
 					{book && !ownThisBook && (
 						<div className="w-full p-2">
-							<Rent type="rent" book={book} user={user} />
-							<Rent type="return" book={book} user={user} />
+							<Rent book={book} user={user} />
+							<Return book={book} />
 						</div>
 					)}
 				</div>
