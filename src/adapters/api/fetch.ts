@@ -1,14 +1,22 @@
 import { HttpClient } from '@/adapters/api/http-client.ts';
 
-class Fetch  {
+class Fetch {
 	readonly baseUrl: string;
 	readonly apiKey: string | undefined;
-  readonly time:number;
+	readonly time: number;
 
-	constructor({ baseUrl , apiKey , time = 3000 }:{baseUrl: string, apiKey?: string, time?:number}) {
+	constructor({
+		baseUrl,
+		apiKey,
+		time = 3000,
+	}: {
+		baseUrl: string;
+		apiKey?: string;
+		time?: number;
+	}) {
 		this.baseUrl = baseUrl;
 		this.apiKey = apiKey;
-    this.time = time;
+		this.time = time;
 	}
 
 	protected _timeout(sec: number): Promise<Response> {
@@ -21,13 +29,13 @@ class Fetch  {
 
 	protected _fetch(
 		// endpoint: RequestInfo | URL,
-    endpoint:string,
+		endpoint: string,
 		configs?: RequestInit,
 	): Promise<Response> {
 		// <fetch 횡단 관심사 설정>
-    // 네트워크 요청 제한시간 설정
+		// 네트워크 요청 제한시간 설정
 		return Promise.race([
-			window.fetch(this.baseUrl+endpoint, configs),
+			window.fetch(this.baseUrl + endpoint, configs),
 			this._timeout(this.time),
 		]);
 	}
@@ -35,21 +43,26 @@ class Fetch  {
 
 export class FetchClient extends Fetch implements HttpClient {
 	constructor(baseUrl: string, apiKey?: string) {
-    super({baseUrl, apiKey, time:5000});
+		super({ baseUrl, apiKey, time: 5000 });
 	}
 
-	async get<T=any>(endpoint: string): Promise<T> {
+	async get<T = any>(endpoint: string): Promise<T> {
 		const res = await this._fetch(endpoint, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!res.ok) throw ({ status: res.status, statusText: res.statusText, message: "FetchClient Could not get data."});
-    // throw new Error("FetchClient fetching Error");
-    // throw new Response("Could not find resouce.", {
-    // status: res.status,
-    // statusText: res.statusText,
-    // });
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		if (!res.ok)
+			throw {
+				status: res.status,
+				statusText: res.statusText,
+				message: 'FetchClient Could not get data.',
+			};
+		// throw new Error("FetchClient fetching Error");
+		// throw new Response("Could not find resouce.", {
+		// status: res.status,
+		// statusText: res.statusText,
+		// });
 
 		const data = (await res.json()) as T;
 
@@ -65,45 +78,33 @@ export class FetchClient extends Fetch implements HttpClient {
 	}
 }
 
-type NaverAPiClientOptions = {
-  id:string;
-  pw:string
-}
-
 export class NaverAPiClient extends Fetch implements HttpClient {
-  private readonly clientID :string;
-  private readonly clientPW :string;
-  private readonly resource :string;
+	private readonly resource: string;
 
-  constructor({baseUrl, resource, options}:{baseUrl:string, resource:string, options:NaverAPiClientOptions}) {
-    super({ baseUrl });
-    // 빌드시 /api => https://openapi.naver.com로 수정
-    this.resource = resource;
-    this.clientID = options.id;
-    this.clientPW = options.pw
+	constructor(baseUrl: string, resource: string) {
+		super({ baseUrl });
+		this.resource = resource;
 	}
 
-  get(endpoint: string):Promise<Response> {
-		return this._fetch(this.resource+endpoint, {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Naver-Client-Id': this.clientID,
-        'X-Naver-Client-Secret':this.clientPW,
-      },
-    });
-  }
-    // async get<T=any>(endpoint: string): Promise<T> {
+	get(endpoint: string): Promise<Response> {
+		return this._fetch(this.resource + endpoint, {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+	}
+	// async get<T=any>(endpoint: string): Promise<T> {
 	// 	const res = await this._fetch(this.resource+endpoint, {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'X-Naver-Client-Id': this.clientID,
-  //       'X-Naver-Client-Secret':this.clientPW,
-  //     },
-  //   });
-  //   if (!res.ok) throw ({ status: res.status, statusText: res.statusText, message: "NaverBookSearchAPiClient could not get data."});
+	//     headers: {
+	//       'Content-Type': 'application/json',
+	//       'X-Naver-Client-Id': this.clientID,
+	//       'X-Naver-Client-Secret':this.clientPW,
+	//     },
+	//   });
+	//   if (!res.ok) throw ({ status: res.status, statusText: res.statusText, message: "NaverBookSearchAPiClient could not get data."});
 
 	// 	const data = (await res.json()) as T;
 
 	// 	return data;
-  // }
+	// }
 }

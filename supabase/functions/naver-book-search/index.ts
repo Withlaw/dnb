@@ -7,49 +7,47 @@ const id = Deno.env.get('_API_NAVER_BOOK_SEARCH_ID') as string;
 const password = Deno.env.get('_API_NAVER_BOOK_SEARCH_PW') as string;
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://dnb-project.com',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type,X-Naver-Client-Id, X-Naver-Client-Secret',
-  'Access-Control-Max-Age': '600',
-}
+	'Access-Control-Allow-Origin': 'https://dnb-project.com',
+	'Access-Control-Allow-Headers':
+		'authorization, x-client-info, apikey, content-type',
+	'Access-Control-Max-Age': '600',
+};
 
-Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
-  }
+Deno.serve(async req => {
+	if (req.method === 'OPTIONS') {
+		return new Response('ok', { headers: corsHeaders });
+	}
 
-  const { searchParams } = new URL(req.url);
-  const query = searchParams.get('query');
-  const display =  searchParams.get('display');
-  const start = searchParams.get('start');
+	const { searchParams } = new URL(req.url);
+	const query = searchParams.get('query');
+	const display = searchParams.get('display');
+	const start = searchParams.get('start');
 
-  try {
-    const res = await fetch(`${baseUrl}/search/book.json?query=${query}&display=${display}&start=${start}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Naver-Client-Id': id,
-          'X-Naver-Client-Secret': password,
-        },
-      },
-    );
-    
-    const data = await res.json();
- 
-    return new Response(
-      JSON.stringify(data),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,  
-      },
-    )
-  } catch (error) {
-    return new Response(
-      JSON.stringify(error),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 400,  
-      },
-    )
-  }
-})
+	try {
+		const res = await fetch(
+			`${baseUrl}/search/book.json?query=${query}&display=${display}&start=${start}`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Naver-Client-Id': id,
+					'X-Naver-Client-Secret': password,
+				},
+			},
+		);
+
+		const data = await res.json();
+
+		return new Response(JSON.stringify(data), {
+			headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+			status: 200,
+		});
+	} catch (error) {
+		return new Response(JSON.stringify(error), {
+			headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+			status: 400,
+		});
+	}
+});
 
 /* To invoke locally:
 

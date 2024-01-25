@@ -1,4 +1,4 @@
-// const isDevMode = import.meta.env.DEV;
+const isDevMode = import.meta.env.DEV;
 // const isProdMode = import.meta.env.PROD;
 
 export const ROUTE_PATHS = {
@@ -13,18 +13,12 @@ export const API_SUPABASE = {
 	KEY: import.meta.env.VITE_SUPABASE_API_KEY,
 };
 
-// export const API_SUPABASE_FUNCTIONS = {
-//   NAVER_BOOK_SEARCH_URL: import.meta.env.VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL
-// }
-
-
-export const API_NAVER = {
-  // BASE_URL : isDevMode ? '/api/v1' : import.meta.env.VITE_API_NAVER_BOOK_SEARCH_BASE_URL,
-  BASE_URL : '/api/v1',
-  BOOK_SEARCH_ID : import.meta.env.VITE_API_NAVER_BOOK_SEARCH_ID,
-  BOOK_SEARCH_PW : import.meta.env.VITE_API_NAVER_BOOK_SEARCH_PW
-}
+export const API_SUPABASE_FUNCTIONS = {
+	NAVER_BOOK_SEARCH_URL: isDevMode
+		? '/api'
+		: import.meta.env.VITE_SUPABASE_BASE_URL,
+};
 
 export const RENT = {
-  DURATION : 10,
-}
+	DURATION: 10,
+};
