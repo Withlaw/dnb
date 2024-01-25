@@ -58,7 +58,7 @@ const routes: RouteObject[] = [
 
 const routes: RouteObject[] = [
 	{
-		id: 'home',
+		id: 'public',
 		path: '/',
 		element: <HomeLayout />,
 		errorElement: <ErrorPage />,
