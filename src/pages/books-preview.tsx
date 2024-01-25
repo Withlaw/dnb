@@ -5,7 +5,6 @@ import Button from '@/ui/button.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
 import GeneralNav from '@/ui/general-nav.tsx';
-import Toast from '@/ui/toast.tsx';
 
 const BooksPreviewPage = () => {
 	return (
@@ -25,10 +24,6 @@ const BooksPreviewPage = () => {
 			{/* <aside className="bg-green-800">app aside</aside> */}
 			<GeneralMain>
 				<div className="flex flex-col py-2">
-					<div>
-						<Toast message="hello world" />
-					</div>
-
 					<div className="flex-initial">
 						<Link to="create">
 							{/* 당근처럼 아이콘으로? */}

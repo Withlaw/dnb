@@ -1,25 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-type NoticeMessage = {
-	id: number;
-	message: string;
-};
+import { Notice, Notification } from '@/features/notification/types.ts';
 
-type Notification = {
-	messages: NoticeMessage[];
-};
-
-const initialState: Notification = { messages: [] };
+const initialState: Notification = { notices: [] };
 
 const notificationSlice = createSlice({
 	name: 'notificationSlice',
 	initialState,
 	reducers: {
-		add: (state, action: PayloadAction<NoticeMessage>) => {
-			state.messages.push(action.payload);
+		add: (state, action: PayloadAction<Notice>) => {
+			state.notices.push(action.payload);
 		},
-		delete: state => {
-			state.messages.shift();
+		delete: (state, action: PayloadAction<number>) => {
+			state.notices = state.notices.filter(
+				notice => notice.id !== action.payload,
+			);
 		},
 	},
 });
