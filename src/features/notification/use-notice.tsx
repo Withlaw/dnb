@@ -16,7 +16,7 @@ const useNotice = () => {
 			}),
 		);
 
-		window.setTimeout(() => {
+		setTimeout(() => {
 			dispatch(deleteNotice(id));
 		}, time);
 	};
