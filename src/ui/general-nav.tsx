@@ -15,15 +15,23 @@ type NavItem = {
 	path: string;
 	icon?: React.ReactNode;
 	end?: boolean;
+	restrict?: boolean;
 };
 
 const navItems: NavItem[] = [
-	{ id: 0, name: '지도', path: '/map', icon: <HiOutlineMap size="24" /> },
+	{
+		id: 0,
+		name: '지도',
+		path: '/map',
+		icon: <HiOutlineMap size="24" />,
+		restrict: true,
+	},
 	{
 		id: 1,
 		name: '대여 목록',
 		path: '/rental',
 		icon: <HiOutlineBookOpen size="24" />,
+		restrict: true,
 	},
 	// { id: 2, name: '홈', path: '/', icon: <HiHome size="24" />, end: true },
 	{
@@ -36,7 +44,13 @@ const navItems: NavItem[] = [
 			</svg>
 		),
 	},
-	{ id: 3, name: '채팅', path: '/chat', icon: <HiOutlineChat size="24" /> },
+	{
+		id: 3,
+		name: '채팅',
+		path: '/chat',
+		icon: <HiOutlineChat size="24" />,
+		restrict: true,
+	},
 	{
 		id: 4,
 		name: '내 정보',
@@ -45,7 +59,17 @@ const navItems: NavItem[] = [
 	},
 ];
 
-const GeneralNav = () => {
+const GeneralNav = ({ onClick }: { onClick?: () => void }) => {
+	const navLinkClickHandler = (
+		e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+		isRestricted?: boolean,
+	) => {
+		if (onClick && isRestricted) {
+			e.preventDefault();
+			onClick();
+		}
+	};
+
 	return (
 		<nav
 			className={
@@ -62,7 +86,8 @@ const GeneralNav = () => {
 										? 'flex flex-col items-center font-bold text-green-900'
 										: 'flex flex-col items-center text-gray-700 grayscale'
 								}
-								end={item.end}>
+								end={item.end}
+								onClick={e => navLinkClickHandler(e, item.restrict)}>
 								<span>{item.icon}</span>
 								<span>{item.name}</span>
 							</NavLink>

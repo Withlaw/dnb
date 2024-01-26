@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom';
 
 import BooksPreviewItems from '@/features/books/preview-items.component.tsx';
+import useNotice from '@/features/notification/use-notice.tsx';
 import Button from '@/ui/button.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
 import GeneralNav from '@/ui/general-nav.tsx';
 
 const BooksPreviewPage = () => {
+	const { notify } = useNotice();
+	const navItemBlockHandler = () => {
+		notify('아직 준비 중인 서비스 입니다.', { type: 'error' });
+	};
+
 	return (
 		<>
 			<GeneralHeader>
@@ -38,7 +44,7 @@ const BooksPreviewPage = () => {
 			</GeneralMain>
 
 			{/* <footer>app footer</footer> */}
-			<GeneralNav />
+			<GeneralNav onClick={navItemBlockHandler} />
 		</>
 	);
 };
