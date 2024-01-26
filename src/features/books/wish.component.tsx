@@ -4,9 +4,9 @@ const BookPostWish = ({ children }: { children: React.ReactNode }) => {
 	const { notify } = useNotice();
 	const wishHandler = () => {
 		// window.alert('준비중입니다.');
-		const num = (Math.random() * 100).toFixed();
-		notify({ message: '준비중입니다' + num, type: 'error' });
+		notify({ message: '준비중입니다', type: 'error', time: 1000 });
 	};
+
 	return <span onClick={wishHandler}>{children}</span>;
 };
 
