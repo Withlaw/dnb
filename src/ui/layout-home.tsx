@@ -1,4 +1,4 @@
-import { Outlet, ScrollRestoration } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import GeneralLayout from '@/ui/general-layout.tsx';
 
@@ -22,7 +22,6 @@ const HomeLayout = () => {
 			<Outlet />
 
 			{/* 페이지 전환시 스크롤 초기화 */}
-			<ScrollRestoration />
 		</GeneralLayout>
 		// </div>
 	);

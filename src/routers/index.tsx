@@ -1,8 +1,5 @@
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
 
-import AuthServiceProvider from '@/contexts/auth-service.context.tsx';
-import RentalServiceProvider from '@/contexts/rental-service.context.tsx';
-import UserServiceProvider from '@/contexts/user-service.context.tsx';
 import Authorization from '@/features/authentication/authorization.component.tsx';
 import Signin from '@/features/authentication/signin.component.tsx';
 import Signup from '@/features/authentication/signup.component.tsx';
@@ -12,50 +9,10 @@ import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
-import RootPage from '@/pages/root-page.tsx';
+import RootPage from '@/pages/root.tsx';
 import UserEditPage from '@/pages/user-edit.tsx';
 import UserPage from '@/pages/user.tsx';
-import AuthService from '@/services/auth-service.ts';
-import RentalService from '@/services/rental-service.ts';
-import UserService from '@/services/user-service.ts';
 import HomeLayout from '@/ui/layout-home.tsx';
-
-/*
-// legacy
-const routes: RouteObject[] = [
-	{
-		id: 'home',
-		path: '/',
-		element: <HomeLayout />,
-		errorElement: <ErrorPage />,
-		children: [
-			{ index: true, element: <Navigate to={'books'} replace /> },
-			RENTAL_ROUTES.BOOKS_PREVIEW_PAGE,
-			RENTAL_ROUTES.BOOK_DETAIL_PAGE,
-		],
-	},
-
-	{
-		id: 'guest-only',
-		element: <AuthenticationPage />,
-		errorElement: <ErrorPage />,
-		children: [AUTH_ROUTES.SIGN_IN_PAGE, AUTH_ROUTES.SIGN_UP_PAGE],
-	},
-
-	{
-		id: 'protected',
-		element: <HomeLayout />,
-		errorElement: <ErrorPage />,
-		children: [
-			RENTAL_ROUTES.BOOK_CREATE_PAGE,
-			RENTAL_ROUTES.BOOK_EDIT_PAGE,
-			USER_ROUTES.USER_PAGE,
-			USER_ROUTES.USER_EDIT_PAGE,
-		],
-	},
-	{ path: '/test', element: null },
-];
-*/
 
 const routes: RouteObject[] = [
 	{
@@ -123,6 +80,41 @@ const router = createBrowserRouter(routes);
 export default router;
 
 /*
+// legacy
+const routes: RouteObject[] = [
+	{
+		id: 'home',
+		path: '/',
+		element: <HomeLayout />,
+		errorElement: <ErrorPage />,
+		children: [
+			{ index: true, element: <Navigate to={'books'} replace /> },
+			RENTAL_ROUTES.BOOKS_PREVIEW_PAGE,
+			RENTAL_ROUTES.BOOK_DETAIL_PAGE,
+		],
+	},
+
+	{
+		id: 'guest-only',
+		element: <AuthenticationPage />,
+		errorElement: <ErrorPage />,
+		children: [AUTH_ROUTES.SIGN_IN_PAGE, AUTH_ROUTES.SIGN_UP_PAGE],
+	},
+
+	{
+		id: 'protected',
+		element: <HomeLayout />,
+		errorElement: <ErrorPage />,
+		children: [
+			RENTAL_ROUTES.BOOK_CREATE_PAGE,
+			RENTAL_ROUTES.BOOK_EDIT_PAGE,
+			USER_ROUTES.USER_PAGE,
+			USER_ROUTES.USER_EDIT_PAGE,
+		],
+	},
+	{ path: '/test', element: null },
+];
+
 const router = createBrowserRouter(
 	routes.map(route => {
 		route.element = (
