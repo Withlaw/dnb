@@ -3,8 +3,9 @@ import useNotice from '@/features/notification/use-notice.tsx';
 const BookPostWish = ({ children }: { children: React.ReactNode }) => {
 	const { notify } = useNotice();
 	const wishHandler = () => {
-		// window.alert('준비중입니다.');
-		notify({ message: '준비중입니다', type: 'error', time: 1000 });
+		notify('아직 준비 중인 기능입니다', {
+			type: 'error',
+		});
 	};
 
 	return <span onClick={wishHandler}>{children}</span>;

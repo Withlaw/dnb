@@ -1,21 +1,27 @@
-import { BookDataToServer, BookFileToServer } from "@/features/books/books.model.ts";
-import { booksService } from "@/services/book-service.ts";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
-const useBookEdit = (bookId?:string) => {
-  const navigate = useNavigate();
+import {
+	BookDataToServer,
+	BookFileToServer,
+} from '@/features/books/books.model.ts';
+import useNotice from '@/features/notification/use-notice.tsx';
+import { booksService } from '@/services/book-service.ts';
+
+const useBookEdit = (bookId?: string) => {
+	const navigate = useNavigate();
 	const queryClient = useQueryClient();
+	const { notify } = useNotice();
 
 	const { mutate: editBookPost, isPending: isUpdating } = useMutation({
 		mutationFn: async ({
 			editedBook,
 			imageFiles,
-      backup,
+			backup,
 		}: {
 			editedBook: BookDataToServer;
 			imageFiles?: BookFileToServer;
-      backup:BookDataToServer;
+			backup: BookDataToServer;
 		}) => {
 			return await booksService.editBook({
 				id: +bookId!,
@@ -25,18 +31,18 @@ const useBookEdit = (bookId?:string) => {
 			});
 		},
 		onSuccess: () => {
-			window.alert('New book successfully updated.');
-			queryClient.invalidateQueries({ queryKey: ['book', bookId ] });
+			notify('글이 업데이트 되었습니다.');
+			queryClient.invalidateQueries({ queryKey: ['book', bookId] });
 
 			navigate(`/books/${bookId}`, { replace: true });
 		},
 		onError: error => {
-			window.alert(error.message);
+			console.error(error.message);
 			navigate(-1);
 		},
 	});
 
-  return  { editBookPost, isUpdating };
-}
+	return { editBookPost, isUpdating };
+};
 
 export default useBookEdit;

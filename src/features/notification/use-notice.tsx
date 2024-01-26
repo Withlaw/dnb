@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { addNotice, deleteNotice } from '@/features/notification/slice.ts';
-import { Notify } from '@/features/notification/types.ts';
+import { NotifyOptions } from '@/features/notification/types.ts';
 import { useAppDispatch, useAppSelector } from '@/hooks/use-redux.tsx';
 
 const useNotice = () => {
@@ -11,7 +11,10 @@ const useNotice = () => {
 	const notices = useAppSelector(state => state.notification.notices);
 
 	const notify = useCallback(
-		({ message, type, time = 1000 }: Notify) => {
+		(
+			message: string,
+			{ type = 'success', time = 2000 }: NotifyOptions | undefined = {},
+		) => {
 			if (prevNotiId) {
 				// 이미 알림이 화면에 떠있다면 기존 알림 초기화 후 재설정
 				dispatch(deleteNotice(prevNotiId));

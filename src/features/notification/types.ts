@@ -8,6 +8,7 @@ export type Notification = {
 	notices: Notice[];
 };
 
-export type Notify = Omit<Notice, 'id'> & {
+export type NotifyOptions = {
+	type?: 'success' | 'error';
 	time?: number;
 };
