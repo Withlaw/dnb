@@ -1,5 +1,11 @@
-const RootPage = ({ children }: { children: React.ReactNode }) => {
-	return <>{children}</>;
+import { Outlet } from 'react-router-dom';
+
+const RootPage = () => {
+	return (
+		<>
+			<Outlet />
+		</>
+	);
 };
 
 export default RootPage;

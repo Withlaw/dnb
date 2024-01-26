@@ -12,6 +12,7 @@ import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
+import RootPage from '@/pages/root-page.tsx';
 import UserEditPage from '@/pages/user-edit.tsx';
 import UserPage from '@/pages/user.tsx';
 import AuthService from '@/services/auth-service.ts';
@@ -58,61 +59,70 @@ const routes: RouteObject[] = [
 
 const routes: RouteObject[] = [
 	{
-		id: 'public',
-		path: '/',
-		element: <HomeLayout />,
+		id: 'root',
+		element: <RootPage />,
 		errorElement: <ErrorPage />,
 		children: [
-			{ index: true, element: <Navigate to={'books'} replace /> },
 			{
-				path: 'books',
-				element: <BooksPreviewPage />,
+				id: 'public',
+				path: '/',
+				element: <HomeLayout />,
+				children: [
+					{ index: true, element: <Navigate to={'books'} replace /> },
+					{
+						path: 'books',
+						element: <BooksPreviewPage />,
+					},
+					{
+						path: '/books/:bookId',
+						element: <BookDetailPage />,
+					},
+				],
 			},
-			{
-				path: '/books/:bookId',
-				element: <BookDetailPage />,
-			},
-		],
-	},
 
-	{
-		id: 'guest-only',
-		element: <AuthenticationPage />,
-		errorElement: <ErrorPage />,
-		children: [
 			{
-				path: 'sign-in',
-				element: <Signin />,
+				id: 'guest-only',
+				element: <AuthenticationPage />,
+				children: [
+					{
+						path: 'sign-in',
+						element: <Signin />,
+					},
+					{ path: 'sign-up', element: <Signup /> },
+				],
 			},
-			{ path: 'sign-up', element: <Signup /> },
-		],
-	},
 
-	{
-		id: 'protected',
-		element: <HomeLayout />,
-		errorElement: <ErrorPage />,
-		children: [
-			{ path: '/user', element: <UserPage /> },
-			{ path: '/user/edit', element: <UserEditPage /> },
-			{ path: '/books/create', element: <BookCreatePage /> },
 			{
-				path: '/books/:bookId/edit',
-				element: <BookEditPage />,
+				id: 'protected',
+				element: <HomeLayout />,
+				children: [
+					{ path: '/user', element: <UserPage /> },
+					{ path: '/user/edit', element: <UserEditPage /> },
+					{ path: '/books/create', element: <BookCreatePage /> },
+					{
+						path: '/books/:bookId/edit',
+						element: <BookEditPage />,
+					},
+					{
+						path: '/dashboard',
+						element: null,
+					},
+				],
 			},
-			{
-				path: '/dashboard',
-				element: null,
-			},
+			{ path: '/test', element: null },
 		],
 	},
-	{ path: '/test', element: null },
 ];
 
-const userService = new UserService();
-const authService = new AuthService();
-const rentalService = new RentalService();
+routes[0].children?.forEach(route => {
+	route.element = <Authorization route={route}>{route.element}</Authorization>;
+});
 
+const router = createBrowserRouter(routes);
+
+export default router;
+
+/*
 const router = createBrowserRouter(
 	routes.map(route => {
 		route.element = (
@@ -127,5 +137,4 @@ const router = createBrowserRouter(
 		return route;
 	}),
 );
-
-export default router;
+*/
