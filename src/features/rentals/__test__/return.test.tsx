@@ -1,5 +1,3 @@
-import { describe, expect, test } from 'vitest';
-
 import { BookDataFromServer } from '@/features/books/books.model.ts';
 import Return from '@/features/rentals/return.component.tsx';
 

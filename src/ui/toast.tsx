@@ -16,15 +16,15 @@ const Toast = ({ message, type, onClose }: Props) => {
 	};
 
 	return (
-		<div className="animate-tok flex h-10 items-center justify-between space-x-4 rounded-lg border border-solid bg-[#fff] px-4 py-2 shadow-lg">
+		<div className="flex h-10 animate-tok items-center justify-between space-x-4 rounded-lg border border-solid bg-[#fff] px-4 py-2 shadow-lg">
 			<div className="flex items-center	space-x-2 ">
 				<span
 					className={clsx('text-lg', {
 						'text-green-600': isSuccess,
 						'text-red-600': isError,
 					})}>
-					{isSuccess && <HiCheckCircle />}
-					{isError && <HiExclamationCircle />}
+					{isSuccess && <HiCheckCircle title="success" />}
+					{isError && <HiExclamationCircle title="error" />}
 				</span>
 				<span className="max-w-52 truncate text-xs">{message}</span>
 			</div>
@@ -32,7 +32,7 @@ const Toast = ({ message, type, onClose }: Props) => {
 			{onClose && (
 				<div>
 					<span className="text-sm hover:cursor-pointer" onClick={closeHandler}>
-						<HiOutlineX />
+						<HiOutlineX title="close" />
 					</span>
 				</div>
 			)}
