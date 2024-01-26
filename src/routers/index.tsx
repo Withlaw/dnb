@@ -17,21 +17,22 @@ import HomeLayout from '@/ui/layout-home.tsx';
 const routes: RouteObject[] = [
 	{
 		id: 'root',
+		path: '/',
 		element: <RootPage />,
 		errorElement: <ErrorPage />,
 		children: [
+			{ index: true, element: <Navigate to={'books'} replace /> },
+
 			{
 				id: 'public',
-				path: '/',
 				element: <HomeLayout />,
 				children: [
-					{ index: true, element: <Navigate to={'books'} replace /> },
 					{
 						path: 'books',
 						element: <BooksPreviewPage />,
 					},
 					{
-						path: '/books/:bookId',
+						path: 'books/:bookId',
 						element: <BookDetailPage />,
 					},
 				],
@@ -53,15 +54,15 @@ const routes: RouteObject[] = [
 				id: 'protected',
 				element: <HomeLayout />,
 				children: [
-					{ path: '/user', element: <UserPage /> },
-					{ path: '/user/edit', element: <UserEditPage /> },
-					{ path: '/books/create', element: <BookCreatePage /> },
+					{ path: 'user', element: <UserPage /> },
+					{ path: 'user/edit', element: <UserEditPage /> },
+					{ path: 'books/create', element: <BookCreatePage /> },
 					{
-						path: '/books/:bookId/edit',
+						path: 'books/:bookId/edit',
 						element: <BookEditPage />,
 					},
 					{
-						path: '/dashboard',
+						path: 'dashboard',
 						element: null,
 					},
 				],
