@@ -16,8 +16,8 @@ const Toast = ({ message, type, onClose }: Props) => {
 	};
 
 	return (
-		<div className=" flex h-10 items-center justify-between space-x-4 rounded-lg border border-solid bg-[#fff] px-4 py-2 shadow-lg">
-			<div className="flex items-center space-x-2">
+		<div className="animate-tok flex h-10 items-center justify-between space-x-4 rounded-lg border border-solid bg-[#fff] px-4 py-2 shadow-lg">
+			<div className="flex items-center	space-x-2 ">
 				<span
 					className={clsx('text-lg', {
 						'text-green-600': isSuccess,
