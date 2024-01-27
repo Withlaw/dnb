@@ -1,63 +1,58 @@
-import { useEffect } from 'react';
+import { cloneElement, useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import { useModal } from '@/contexts/index.ts';
+import ModalProvider from '@/contexts/modal.context.tsx';
+
 type Props = {
-	children: React.ReactNode;
-	className?: string;
-	onClose?: () => void;
+	children: React.ReactElement;
+	name?: string;
+	htmlFor?: string;
 };
-export default function Modal({ children, onClose, className = '' }: Props) {
+
+export default function Modal({ children }: Props) {
+	const [name, setName] = useState('');
+
+	const open = useCallback(setName, []);
+	const close = useCallback(() => setName(''), []);
+
 	useEffect(() => {
 		// esc 누르면 창닫기 구현하기
 	}, []);
 
-	const overlayClickHandler = () => {
-		if (!onClose) return;
-		onClose();
-	};
-
-	return createPortal(
-		<div className="flex items-center justify-center">
-			<div className={'fixed z-[101] bg-inherit ' + className}>{children}</div>
-			<div
-				className="fixed inset-0 z-[100] h-[100%] w-[100%] backdrop-blur-sm"
-				onClick={overlayClickHandler}></div>
-		</div>,
-		document.getElementById('root')!,
+	return (
+		<ModalProvider value={{ name, open, close }}>{children}</ModalProvider>
 	);
 }
 
-const BtnSubmit = ({ children }: Props) => {
-	const btnClickHandler = (
-		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-	) => {
-		const isConfirmed = window.confirm('수정하시겠습니까?');
-		if (!isConfirmed) e.preventDefault(); // 취소 응답시 form submit event 미발생
-	};
+const Window = ({ children, name = '' }: Props) => {
+	const { name: curWindowName, close } = useModal();
 
-	return (
-		<button formMethod="dialog" onClick={btnClickHandler}>
-			{children}
-		</button>
+	if (name !== curWindowName) return null;
+
+	return createPortal(
+		<div className="fixed inset-0 z-[100]">
+			<div className="relative z-[101]">
+				{/* <div className={'fixed z-[101] h-[100%] w-[100%] bg-inherit bg-red-300'}> */}
+				{cloneElement(children, { onClose: close })}
+			</div>
+			<div className="fixed h-full w-full backdrop-blur-sm">
+				{/* <div className="fixed inset-0 z-[100] h-[100%] w-[100%] backdrop-blur-sm"> */}
+				{/* overlay */}
+			</div>
+		</div>,
+		document.body,
 	);
 };
 
-const BtnClose = ({ children, onClose }: Props) => {
-	// 컨텍스트 만들어서 dialog 노드 공유해야할듯
-	// 굳이 없어도 될 듯? close 로직을 외부에서 주입받는데, 그냥 외부에서 버튼 만들고 바로 state 렌더링 로직으로 close 구현할 수 있으니..
-	const btnClickHandler = () => {
-		if (!onClose) return;
-		onClose();
-	};
-	return (
-		<button onClick={btnClickHandler} className="bg-red-300">
-			{children}
-		</button>
-	);
+const Trigger = ({ children, htmlFor = '' }: Props) => {
+	const { open } = useModal();
+
+	return cloneElement(children, { onOpen: () => open(htmlFor) });
 };
 
-Modal.BtnSubmit = BtnSubmit;
-Modal.BtnClose = BtnClose;
+Modal.Window = Window;
+Modal.Trigger = Trigger;
 
 /*
 // 웹 표준으로 지원하는 dialog 모달을 구현하다보니 스타일 적용하는 것과 동작 제어가 예상치 못한 것이 많고 리액트와도 불협화음도 있는 것 같아 사용하지 않게 됨.

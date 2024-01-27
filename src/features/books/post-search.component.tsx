@@ -1,3 +1,5 @@
+import { HiOutlineX } from 'react-icons/hi';
+
 import { BookDataFromTitleSearch } from '@/features/books/books.model.ts';
 import BookPostSearchForm from '@/features/books/post-search-form.component.tsx';
 import Modal from '@/ui/modal.tsx';
@@ -9,12 +11,36 @@ type Props = {
 
 const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
 	return (
-		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
-			{/* 이 아래는 다시 dropdown으로 추상화 할 수 있음 */}
-			<BookPostSearchForm modalHandler={modalHandler} onSearch={onSearch} />
-		</Modal>
+		<>
+			<Modal>
+				<Modal.Window>
+					<div className="absolute top-[10vh] flex w-full items-center justify-center ">
+						<div className="relative">
+							<span
+								onClick={modalHandler}
+								className="z-2 absolute left-[8px] top-[8px] text-stone-700 hover:cursor-pointer">
+								<HiOutlineX size="24" />
+							</span>
+
+							<BookPostSearchForm
+								modalHandler={modalHandler}
+								onSearch={onSearch}
+							/>
+						</div>
+					</div>
+				</Modal.Window>
+			</Modal>
+		</>
 	);
 };
+// const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
+// 	return (
+// 		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
+// 			{/* 이 아래는 다시 dropdown으로 추상화 할 수 있음 */}
+// 			<BookPostSearchForm modalHandler={modalHandler} onSearch={onSearch} />
+// 		</Modal>
+// 	);
+// };
 
 export default BookPostSearch;
 

@@ -11,7 +11,7 @@ type Props = {
 	inputData?: FieldValues;
 	// inputData?: Partial<BookDataFromServer>;
 	onSubmit?: (data: FieldValues) => void;
-	onTitleSearch?: () => void;
+	onSearch?: () => void;
 };
 
 type UseFormInput = {
@@ -29,12 +29,7 @@ enum Style {
 	IMAGE = ' mb-1 mr-1 h-24 w-20 border',
 }
 
-const BookPostForm = ({
-	children,
-	inputData,
-	onSubmit,
-	onTitleSearch,
-}: Props) => {
+const BookPostForm = ({ children, inputData, onSubmit, onSearch }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -71,25 +66,21 @@ const BookPostForm = ({
 	return (
 		<form className="flex flex-col" onSubmit={handleSubmit(submitHandler)}>
 			<FormRow name="제목" message={errors.title?.message}>
-				<div
-					className={Style.INPUTCONTAINER + ' border-b'}
-					onClick={onTitleSearch}>
+				<div className={Style.INPUTCONTAINER + ' border-b'} onClick={onSearch}>
 					<input
 						{...register('title', {
 							required: '작성해주세요',
-							onChange: onTitleSearch,
+							onChange: onSearch,
 						})}
 						type="text"
 						placeholder="책 제목을 작성해주세요."
-						disabled={!onTitleSearch}
+						disabled={!onSearch}
 						className={Style.INPUT + ' flex-auto truncate'}
 					/>
 					<span
 						className={clsx(
 							'flex-none text-xl',
-							onTitleSearch
-								? 'hover:cursor-pointer'
-								: 'hover:cursor-not-allowed',
+							onSearch ? 'hover:cursor-pointer' : 'hover:cursor-not-allowed',
 						)}>
 						<HiOutlineSearch />
 					</span>
@@ -181,14 +172,14 @@ const BookPostForm = ({
 							className={clsx(
 								Style.IMAGE +
 									' flex items-center justify-center text-2xl text-stone-600 hover:cursor-pointer',
-								!onTitleSearch && ' hidden',
+								!onSearch && ' hidden',
 							)}>
 							<HiOutlinePlus />
 						</label>
 						<input
 							{...register('image_files', {
 								validate: value => {
-									if (!value || !value[0] || !onTitleSearch) return;
+									if (!value || !value[0] || !onSearch) return;
 									if (value[0].size > 5000000)
 										return '이미지 파일은 5MB 이하만 가능합니다.';
 									else return;

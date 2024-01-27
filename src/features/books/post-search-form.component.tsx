@@ -49,12 +49,6 @@ const BookPostSearchForm = ({ modalHandler, onSearch }: Props) => {
 		<form
 			ref={formRef}
 			className="flex w-80 flex-initial flex-col justify-between rounded-xl border border-solid bg-stone-300 p-4">
-			<div onClick={modalHandler} className="z-10 hover:cursor-pointer">
-				<span className="absolute left-[8px] top-[8px] text-stone-700">
-					<HiOutlineX size="24" />
-				</span>
-			</div>
-
 			<div>
 				<div className="mb-3 text-center ">
 					<label
@@ -87,6 +81,7 @@ const BookPostSearchForm = ({ modalHandler, onSearch }: Props) => {
         </button> */}
 				</div>
 			</div>
+
 			{isInputChange && (
 				<ul className="mt-2 max-h-72 min-h-16 flex-auto divide-y overflow-y-auto rounded-md bg-[#fff]">
 					{isTyping && (
@@ -124,13 +119,13 @@ const BookPostSearchForm = ({ modalHandler, onSearch }: Props) => {
 							<span>{error?.message}</span>
 						</li>
 					)}
+
+					{/* 무한스크롤 */}
 					{!isTyping && !isLoading && hasNextPage && (
 						<div ref={scrollEndTarget} className="h-10 text-center"></div>
 					)}
 				</ul>
 			)}
-
-			{/* 무한스크롤 */}
 		</form>
 	);
 };

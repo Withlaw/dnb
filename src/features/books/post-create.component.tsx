@@ -36,6 +36,7 @@ const BookPostCreateForm = () => {
 		// image -> 기본 이미지, 유저 업로드 이미지
 		createNewBookPost({ newBook, imageFiles });
 	};
+
 	const searchBookHandler = (book: BookDataFromTitleSearch) => {
 		setBookSearch({ ...book, author: book.abbreviatedAuthor });
 	};
@@ -44,7 +45,7 @@ const BookPostCreateForm = () => {
 		<>
 			<BookPostForm
 				onSubmit={submitHandler}
-				onTitleSearch={modalHandler}
+				onSearch={modalHandler}
 				inputData={bookSearch}>
 				<Button options={{ disabled: isCreating }}>작성 완료</Button>
 				{/* <button disabled={isCreating}>작성 완료</button> */}
