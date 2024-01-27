@@ -5,31 +5,28 @@ import BookPostSearchForm from '@/features/books/post-search-form.component.tsx'
 import Modal from '@/ui/modal.tsx';
 
 type Props = {
-	modalHandler: () => void;
 	onSearch?: (book: BookDataFromTitleSearch) => void;
+	onClose?: () => void;
 };
 
-const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
+const BookPostSearch = ({ onSearch, onClose }: Props) => {
 	return (
 		<>
-			<Modal>
-				<Modal.Window>
-					<div className="absolute top-[10vh] flex w-full items-center justify-center ">
-						<div className="relative">
-							<span
-								onClick={modalHandler}
-								className="z-2 absolute left-[8px] top-[8px] text-stone-700 hover:cursor-pointer">
-								<HiOutlineX size="24" />
-							</span>
+			{/* <Modal>
+				<Modal.Window name="search"> */}
+			<div className="absolute top-[10vh] flex w-full items-center justify-center ">
+				<div className="relative">
+					<span
+						onClick={onClose}
+						className="z-2 absolute left-[8px] top-[8px] text-stone-700 hover:cursor-pointer">
+						<HiOutlineX size="24" />
+					</span>
 
-							<BookPostSearchForm
-								modalHandler={modalHandler}
-								onSearch={onSearch}
-							/>
-						</div>
-					</div>
-				</Modal.Window>
-			</Modal>
+					<BookPostSearchForm onClose={onClose} onSearch={onSearch} />
+				</div>
+			</div>
+			{/* </Modal.Window>
+			</Modal> */}
 		</>
 	);
 };

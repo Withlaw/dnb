@@ -11,7 +11,7 @@ type Props = {
 	inputData?: FieldValues;
 	// inputData?: Partial<BookDataFromServer>;
 	onSubmit?: (data: FieldValues) => void;
-	onSearch?: () => void;
+	onOpen?: () => void;
 };
 
 type UseFormInput = {
@@ -29,7 +29,7 @@ enum Style {
 	IMAGE = ' mb-1 mr-1 h-24 w-20 border',
 }
 
-const BookPostForm = ({ children, inputData, onSubmit, onSearch }: Props) => {
+const BookPostForm = ({ children, inputData, onSubmit, onOpen }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -66,21 +66,21 @@ const BookPostForm = ({ children, inputData, onSubmit, onSearch }: Props) => {
 	return (
 		<form className="flex flex-col" onSubmit={handleSubmit(submitHandler)}>
 			<FormRow name="제목" message={errors.title?.message}>
-				<div className={Style.INPUTCONTAINER + ' border-b'} onClick={onSearch}>
+				<div className={Style.INPUTCONTAINER + ' border-b'} onClick={onOpen}>
 					<input
 						{...register('title', {
 							required: '작성해주세요',
-							onChange: onSearch,
+							onChange: onOpen,
 						})}
 						type="text"
 						placeholder="책 제목을 작성해주세요."
-						disabled={!onSearch}
+						disabled={!onOpen}
 						className={Style.INPUT + ' flex-auto truncate'}
 					/>
 					<span
 						className={clsx(
 							'flex-none text-xl',
-							onSearch ? 'hover:cursor-pointer' : 'hover:cursor-not-allowed',
+							onOpen ? 'hover:cursor-pointer' : 'hover:cursor-not-allowed',
 						)}>
 						<HiOutlineSearch />
 					</span>
@@ -166,20 +166,20 @@ const BookPostForm = ({ children, inputData, onSubmit, onSearch }: Props) => {
 							/>
 						)}
 
-						{/* 이미지 수정은 불가함 */}
+						{/* 이미지 수정은 아직 불가 */}
 						<label
 							htmlFor="image-upload"
 							className={clsx(
 								Style.IMAGE +
 									' flex items-center justify-center text-2xl text-stone-600 hover:cursor-pointer',
-								!onSearch && ' hidden',
+								!onOpen && ' hidden',
 							)}>
 							<HiOutlinePlus />
 						</label>
 						<input
 							{...register('image_files', {
 								validate: value => {
-									if (!value || !value[0] || !onSearch) return;
+									if (!value || !value[0] || !onOpen) return;
 									if (value[0].size > 5000000)
 										return '이미지 파일은 5MB 이하만 가능합니다.';
 									else return;

@@ -4,40 +4,47 @@ import { createPortal } from 'react-dom';
 import { useModal } from '@/contexts/index.ts';
 import ModalProvider from '@/contexts/modal.context.tsx';
 
-type Props = {
-	children: React.ReactElement;
-	name?: string;
-	htmlFor?: string;
-};
-
-export default function Modal({ children }: Props) {
+const Modal = ({ children }: { children: React.ReactNode }) => {
 	const [name, setName] = useState('');
 
 	const open = useCallback(setName, []);
 	const close = useCallback(() => setName(''), []);
 
-	useEffect(() => {
-		// esc 누르면 창닫기 구현하기
-	}, []);
-
 	return (
 		<ModalProvider value={{ name, open, close }}>{children}</ModalProvider>
 	);
-}
+};
 
-const Window = ({ children, name = '' }: Props) => {
+const Window = ({
+	children,
+	name,
+}: {
+	children: React.ReactElement;
+	name: string;
+}) => {
 	const { name: curWindowName, close } = useModal();
+
+	useEffect(() => {
+		// esc 모달 창 닫기 기능
+		const keystrokeEventHandler = (e: KeyboardEvent) => {
+			const { key } = e;
+			if (key !== 'Escape') return;
+
+			close();
+		};
+
+		document.addEventListener('keyup', keystrokeEventHandler);
+		return () => document.removeEventListener('keyup', keystrokeEventHandler);
+	}, []);
 
 	if (name !== curWindowName) return null;
 
 	return createPortal(
 		<div className="fixed inset-0 z-[100]">
 			<div className="relative z-[101]">
-				{/* <div className={'fixed z-[101] h-[100%] w-[100%] bg-inherit bg-red-300'}> */}
 				{cloneElement(children, { onClose: close })}
 			</div>
-			<div className="fixed h-full w-full backdrop-blur-sm">
-				{/* <div className="fixed inset-0 z-[100] h-[100%] w-[100%] backdrop-blur-sm"> */}
+			<div className="fixed h-full w-full backdrop-blur-sm" onClick={close}>
 				{/* overlay */}
 			</div>
 		</div>,
@@ -45,7 +52,13 @@ const Window = ({ children, name = '' }: Props) => {
 	);
 };
 
-const Trigger = ({ children, htmlFor = '' }: Props) => {
+const Trigger = ({
+	children,
+	htmlFor,
+}: {
+	children: React.ReactElement;
+	htmlFor: string;
+}) => {
 	const { open } = useModal();
 
 	return cloneElement(children, { onOpen: () => open(htmlFor) });
@@ -53,6 +66,8 @@ const Trigger = ({ children, htmlFor = '' }: Props) => {
 
 Modal.Window = Window;
 Modal.Trigger = Trigger;
+
+export default Modal;
 
 /*
 // 웹 표준으로 지원하는 dialog 모달을 구현하다보니 스타일 적용하는 것과 동작 제어가 예상치 못한 것이 많고 리액트와도 불협화음도 있는 것 같아 사용하지 않게 됨.

@@ -1,5 +1,3 @@
-import { HiOutlineX } from 'react-icons/hi';
-
 import icons from '@/assets/icons.svg';
 import { BookDataFromTitleSearch } from '@/features/books/books.model.ts';
 import BookPostSearchResults from '@/features/books/post-search-results.component.tsx';
@@ -13,11 +11,11 @@ enum Style {
 }
 
 type Props = {
-	modalHandler: () => void;
 	onSearch?: (book: BookDataFromTitleSearch) => void;
+	onClose?: () => void;
 };
 
-const BookPostSearchForm = ({ modalHandler, onSearch }: Props) => {
+const BookPostSearchForm = ({ onClose, onSearch }: Props) => {
 	const { formRef, inputValue, inputChangeHandler, isInputChange } =
 		useSearchForm();
 	// const { debouncedValue, searchData, isLoading, isError, error } =
@@ -37,7 +35,7 @@ const BookPostSearchForm = ({ modalHandler, onSearch }: Props) => {
 
 	const searchItemClickHandler = (data: BookDataFromTitleSearch) => {
 		if (onSearch) onSearch(data);
-		modalHandler();
+		if (onClose) onClose();
 	};
 
 	// const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
