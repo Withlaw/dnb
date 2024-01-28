@@ -62,10 +62,14 @@ const Trigger = ({
 }) => {
 	const { open, close } = useModal();
 
-	return cloneElement(children, {
-		onOpen: () => open(htmlFor),
-		onClose: close,
-	});
+	return (
+		<div>
+			{cloneElement(children, {
+				onOpen: () => open(htmlFor),
+				onClose: close,
+			})}
+		</div>
+	);
 };
 
 DropDown.Window = Window;

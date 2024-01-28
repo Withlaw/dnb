@@ -8,6 +8,7 @@ import {
 import { NavLink } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
+import useNotice from '@/features/notification/use-notice.tsx';
 
 type NavItem = {
 	id: number;
@@ -59,14 +60,16 @@ const navItems: NavItem[] = [
 	},
 ];
 
-const GeneralNav = ({ onClick }: { onClick?: () => void }) => {
+const GeneralNav = () => {
+	const { notify } = useNotice();
+
 	const navLinkClickHandler = (
 		e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
 		isRestricted?: boolean,
 	) => {
-		if (onClick && isRestricted) {
+		if (isRestricted) {
 			e.preventDefault();
-			onClick();
+			notify('아직 준비 중인 서비스 입니다.', { type: 'error' });
 		}
 	};
 
