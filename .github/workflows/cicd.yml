@@ -19,15 +19,22 @@ jobs:
     # Job steps
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run the tests
         run: npm test
+        env:
+          VITE_SUPABASE_BASE_URL: ${{ env.VITE_SUPABASE_BASE_URL }}
+          VITE_SUPABASE_API_KEY: ${{ env.VITE_SUPABASE_API_KEY }}
+          VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL: ${{ env.VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL }}
+          _API_NAVER_BOOK_SEARCH_BASE_URL: ${{ env._API_NAVER_BOOK_SEARCH_BASE_URL }}
+          _API_NAVER_BOOK_SEARCH_ID: ${{ env._API_NAVER_BOOK_SEARCH_ID }}
+          _API_NAVER_BOOK_SEARCH_PW: ${{ env._API_NAVER_BOOK_SEARCH_PW }}
