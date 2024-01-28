@@ -29,12 +29,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate Environment Variables File
+        run: |
+          echo "VITE_SUPABASE_BASE_URL=${{ env.VITE_SUPABASE_BASE_URL }}" >> .env
+          echo "VITE_SUPABASE_API_KEY=${{ env.VITE_SUPABASE_API_KEY }}" >> .env
+          echo "VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL=${{ env.VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL }}" >> .env
+          echo "_API_NAVER_BOOK_SEARCH_BASE_URL=${{ env._API_NAVER_BOOK_SEARCH_BASE_URL }}" >> .env
+          echo "_API_NAVER_BOOK_SEARCH_ID=${{ env._API_NAVER_BOOK_SEARCH_ID }}" >> .env
+          echo "_API_NAVER_BOOK_SEARCH_PW=${{ env._API_NAVER_BOOK_SEARCH_PW }}" >> .env
+
       - name: Run the tests
         run: npm test
-        env:
-          VITE_SUPABASE_BASE_URL: ${{ env.VITE_SUPABASE_BASE_URL }}
-          VITE_SUPABASE_API_KEY: ${{ env.VITE_SUPABASE_API_KEY }}
-          VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL: ${{ env.VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL }}
-          _API_NAVER_BOOK_SEARCH_BASE_URL: ${{ env._API_NAVER_BOOK_SEARCH_BASE_URL }}
-          _API_NAVER_BOOK_SEARCH_ID: ${{ env._API_NAVER_BOOK_SEARCH_ID }}
-          _API_NAVER_BOOK_SEARCH_PW: ${{ env._API_NAVER_BOOK_SEARCH_PW }}
