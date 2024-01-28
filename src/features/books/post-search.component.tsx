@@ -2,7 +2,6 @@ import { HiOutlineX } from 'react-icons/hi';
 
 import { BookDataFromTitleSearch } from '@/features/books/books.model.ts';
 import BookPostSearchForm from '@/features/books/post-search-form.component.tsx';
-import Modal from '@/ui/modal.tsx';
 
 type Props = {
 	onSearch?: (book: BookDataFromTitleSearch) => void;
@@ -12,8 +11,6 @@ type Props = {
 const BookPostSearch = ({ onSearch, onClose }: Props) => {
 	return (
 		<>
-			{/* <Modal>
-				<Modal.Window name="search"> */}
 			<div className="absolute top-[10vh] flex w-full items-center justify-center ">
 				<div className="relative">
 					<span
@@ -25,19 +22,9 @@ const BookPostSearch = ({ onSearch, onClose }: Props) => {
 					<BookPostSearchForm onClose={onClose} onSearch={onSearch} />
 				</div>
 			</div>
-			{/* </Modal.Window>
-			</Modal> */}
 		</>
 	);
 };
-// const BookPostSearch = ({ modalHandler, onSearch }: Props) => {
-// 	return (
-// 		<Modal className="top-[10vh] flex flex-col" onClose={modalHandler}>
-// 			{/* 이 아래는 다시 dropdown으로 추상화 할 수 있음 */}
-// 			<BookPostSearchForm modalHandler={modalHandler} onSearch={onSearch} />
-// 		</Modal>
-// 	);
-// };
 
 export default BookPostSearch;
 
