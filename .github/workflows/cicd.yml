@@ -1,0 +1,33 @@
+name: CICD workflow
+
+# Events
+on:
+  push:
+    branches:
+      - main
+
+# List of jobs
+jobs:
+  test:
+    # runner
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    # Job steps
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        runs: npm install
+
+      - name: Run the tests
+        run: npm test
