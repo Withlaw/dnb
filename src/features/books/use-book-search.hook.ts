@@ -1,38 +1,66 @@
-import useDebounceValue from "@/hooks/use-debounce-value.ts";
-import { booksService } from "@/services/book-service.ts";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-const useBookSearch = (inputValue : string) => {
-  const debouncedValue = useDebounceValue(inputValue, 500);
-  const { ref, inView  } = useInView({threshold:0.5})
+import useDebounceValue from '@/hooks/use-debounce-value.ts';
+import { booksService } from '@/services/book-service.ts';
 
-  const { data, fetchNextPage, hasNextPage, isFetching:isLoading, isError, error } = useInfiniteQuery({
-    queryKey:['bookSearch2', debouncedValue],
-    queryFn: ({ pageParam }) => booksService.searchBook(debouncedValue, pageParam),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      
-      const last = lastPage.total;
-      const nextStart = lastPage.start+10;
-      return last >= nextStart ? nextStart : null;
-    },
-    enabled: Boolean(debouncedValue),
-    staleTime: 60 * 1000,
-  })
+const useBookSearch = () => {
+	const [inputValue, setInputValue] = useState('');
+	const debouncedValue = useDebounceValue(inputValue, 500);
+	const { ref, inView } = useInView({ threshold: 0.5 });
 
-  useEffect(()=>{
-    if(inView && hasNextPage) fetchNextPage();
-  },[inView])
+	const {
+		data,
+		fetchNextPage,
+		hasNextPage,
+		isFetching: isLoading,
+		isError,
+		error,
+	} = useInfiniteQuery({
+		queryKey: ['bookSearch2', debouncedValue],
+		queryFn: ({ pageParam }) =>
+			booksService.searchBook(debouncedValue, pageParam),
+		initialPageParam: 1,
+		getNextPageParam: lastPage => {
+			const last = lastPage.total;
+			const nextStart = lastPage.start + 10;
+			return last >= nextStart ? nextStart : null;
+		},
+		enabled: Boolean(debouncedValue),
+		staleTime: 60 * 1000,
+	});
 
-  const searchResults = data?.pages.flatMap(page=>page.items);
+	const searchResults = useMemo(
+		() => data?.pages.flatMap(page => page.items),
+		[data],
+	);
 
-  return { scrollEndTarget:ref, debouncedValue, searchResults, hasNextPage, isLoading, isError, error };
-}
- 
+	const isTyping = inputValue !== debouncedValue;
+
+	const inputChangeHandler = useCallback((value: string) => {
+		setInputValue(value);
+	}, []);
+
+	useEffect(() => {
+		if (inView && hasNextPage) fetchNextPage();
+	}, [inView]);
+
+	return {
+		scrollEndTarget: ref,
+		debouncedValue,
+		searchResults,
+		hasNextPage,
+		isLoading,
+		isError,
+		error,
+		isTyping,
+		inputChangeHandler,
+		inputValue,
+	};
+};
+
 export default useBookSearch;
-
 
 /*
 import useDebounceValue from "@/hooks/use-debounce-value.ts";

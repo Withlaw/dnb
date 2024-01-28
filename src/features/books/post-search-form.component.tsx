@@ -1,52 +1,45 @@
-import icons from '@/assets/icons.svg';
-import { BookDataFromTitleSearch } from '@/features/books/books.model.ts';
-import BookPostSearchResults from '@/features/books/post-search-results.component.tsx';
-import useSearchForm from '@/features/books/use-book-search-form.hook.ts';
-import useBookSeach from '@/features/books/use-book-search.hook.ts';
+import { useEffect, useState } from 'react';
 
-enum Style {
-	ITME = 'px-2 py-1 my-1 text-sm',
-	ITEM_ON = Style.ITME + ' hover:bg-stone-200 hover:cursor-pointer',
-	ITEM_OFF = Style.ITME + ' hover:cursor-default text-stone-500',
-}
+import icons from '@/assets/icons.svg';
 
 type Props = {
-	onSearch?: (book: BookDataFromTitleSearch) => void;
-	onClose?: () => void;
+	onChange: (value: string) => void;
+	onOpen: () => void;
+	onClose: () => void;
+	isLoading: boolean;
 };
 
-const BookPostSearchForm = ({ onClose, onSearch }: Props) => {
-	const { formRef, inputValue, inputChangeHandler, isInputChange } =
-		useSearchForm();
-	// const { debouncedValue, searchData, isLoading, isError, error } =
-	// 	useBookSeach(inputValue);
+const BookPostSearchForm = ({
+	onOpen,
+	onClose,
+	isLoading,
+	onChange,
+}: Partial<Props>) => {
+	const [inputValue, setInputValue] = useState('');
 
-	const {
-		debouncedValue,
-		searchResults,
-		hasNextPage,
-		scrollEndTarget,
-		isLoading,
-		isError,
-		error,
-	} = useBookSeach(inputValue);
+	const isInputChanging = inputValue.trim() !== '';
 
-	const isTyping = inputValue !== debouncedValue;
+	const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.currentTarget;
+		if (value.trim() === inputValue.trim()) return; // 띄어쓰기만 할 경우 싹 무시.
 
-	const searchItemClickHandler = (data: BookDataFromTitleSearch) => {
-		if (onSearch) onSearch(data);
-		if (onClose) onClose();
+		setInputValue(value);
+		if (onChange) onChange(value);
 	};
 
-	// const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-	// 	e.preventDefault();
-	// 	console.log('form submit');
-	// };
+	useEffect(() => {
+		// 검색어 입력 시 드롭다운 창 열기
+		if (!onOpen) return;
+		if (isInputChanging) onOpen();
+
+		// 검색어 없을 시 드롭다운 창 닫기
+		if (!onClose) return;
+		if (!isInputChanging) onClose();
+	}, [isInputChanging, onOpen, onClose]);
 
 	return (
-		<form
-			ref={formRef}
-			className="flex w-80 flex-initial flex-col justify-between rounded-xl border border-solid bg-stone-300 p-4">
+		<form className="flex-initial ">
+			{/* className="flex w-80 flex-initial flex-col justify-between rounded-xl border border-solid bg-stone-300 p-4"> */}
 			<div>
 				<div className="mb-3 text-center ">
 					<label
@@ -79,51 +72,6 @@ const BookPostSearchForm = ({ onClose, onSearch }: Props) => {
         </button> */}
 				</div>
 			</div>
-
-			{isInputChange && (
-				<ul className="mt-2 max-h-72 min-h-16 flex-auto divide-y overflow-y-auto rounded-md bg-[#fff]">
-					{isTyping && (
-						<li className={Style.ITEM_OFF}>
-							{/* <span>입력 중 ...</span> */}
-							<span>{inputValue}</span>
-						</li>
-					)}
-
-					{!isTyping && isLoading && (
-						<li className={Style.ITEM_OFF}>
-							<span>검색 중 ...</span>
-						</li>
-					)}
-
-					{!isTyping && searchResults && (
-						<BookPostSearchResults
-							searchData={searchResults}
-							onClick={searchItemClickHandler}
-						/>
-					)}
-
-					{!isTyping &&
-						!isLoading &&
-						searchResults &&
-						searchResults?.length === 0 && (
-							<li className={Style.ITEM_OFF}>
-								<span>찾으시는 책이 존재하지 않습니다.</span>
-							</li>
-						)}
-
-					{!isTyping && !isLoading && isError && (
-						<li className={Style.ITEM_OFF}>
-							<span>서버에 연결할 수 없습니다.</span>
-							<span>{error?.message}</span>
-						</li>
-					)}
-
-					{/* 무한스크롤 */}
-					{!isTyping && !isLoading && hasNextPage && (
-						<div ref={scrollEndTarget} className="h-10 text-center"></div>
-					)}
-				</ul>
-			)}
 		</form>
 	);
 };

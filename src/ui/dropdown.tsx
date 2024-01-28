@@ -17,15 +17,19 @@ const DropDown = ({ children }: { children: React.ReactNode }) => {
 const Window = ({
 	children,
 	name,
+	autoClose,
 }: {
 	children: React.ReactElement;
 	name: string;
+	autoClose?: boolean;
 }) => {
 	const ref = useRef<HTMLDivElement>(null);
 
 	const { name: curWindowName, close } = useModal();
 
 	useEffect(() => {
+		if (!autoClose) return;
+
 		// 윈도우 외 영역을 클릭하면 윈도우 닫힘
 		const outsideClickHandler = (e: MouseEvent) => {
 			if (
@@ -56,9 +60,12 @@ const Trigger = ({
 	children: React.ReactElement;
 	htmlFor: string;
 }) => {
-	const { open } = useModal();
+	const { open, close } = useModal();
 
-	return cloneElement(children, { onOpen: () => open(htmlFor) });
+	return cloneElement(children, {
+		onOpen: () => open(htmlFor),
+		onClose: close,
+	});
 };
 
 DropDown.Window = Window;
