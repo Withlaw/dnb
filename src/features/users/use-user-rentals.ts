@@ -1,17 +1,29 @@
-import { useUserService } from "@/contexts/index.ts";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 
-const useUserRentals = (id?:number, enabled:boolean = true) => {
-  const userService = useUserService();
-  
-  const { data:rentals, isLoading, isError, error } = useQuery({
-    queryKey:['rentals', id],
-    queryFn: async () => await userService.getUserRentals(id),
-    enabled : Boolean(id) && enabled,
-    staleTime: 10 * 60 * 1000,
-  })
+import { useUserService } from '@/contexts/index.ts';
 
-  return { rentals, isLoading, isError, error };
-}
+const useUserRentals = (id?: number) => {
+	const [params] = useSearchParams();
+	const userService = useUserService();
+
+	const booksField = params.get('books');
+
+	const enabled = booksField === 'rent';
+
+	const {
+		data: rentals,
+		isLoading,
+		isError,
+		error,
+	} = useQuery({
+		queryKey: ['rentals', id],
+		queryFn: async () => await userService.getUserRentals(id),
+		enabled: Boolean(id) && enabled,
+		staleTime: 10 * 60 * 1000,
+	});
+
+	return { rentals, isLoading, isError, error, isUserRentalsTab: enabled };
+};
 
 export default useUserRentals;
