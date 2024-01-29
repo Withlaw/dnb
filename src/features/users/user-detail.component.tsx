@@ -66,12 +66,16 @@ const UserDetail = () => {
 								찜한 책
 							</span>
 						</div>
+
+						<div className="flex  justify-end ">
+							<span>옵션</span>
+						</div>
 					</div>
 
 					<div className="flex flex-auto flex-col space-y-2 rounded-md border border-solid border-stone-300 p-3">
-						<div className="flex w-full justify-end ">
-							{/* <span>옵션</span> */}
-						</div>
+						{/* <div className="flex w-full justify-end ">
+							<span>옵션</span>
+						</div> */}
 						<ul className="flex flex-col space-y-3">
 							{isMyBooksTab && books && <UserBooks books={books} />}
 							{isMyBooksTab && isUserBooksLoading && <UserBookSkeleton />}
