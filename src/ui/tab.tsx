@@ -17,15 +17,19 @@ type Props = {
 };
 
 const Tab = ({ field, options, render }: Props) => {
-	const [params, setParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const currentField =
-		params.get(field) ??
+		searchParams.get(field) ??
 		options.filter(el => el.defalut)[0]?.value ??
 		options[0].value;
 
 	const tabClickHandler = (value: string) => {
-		params.set(field, value);
-		setParams(params);
+		for (const key of searchParams.keys()) {
+			console.log(key);
+			searchParams.delete(key);
+		}
+		searchParams.set(field, value);
+		setSearchParams(searchParams);
 	};
 
 	return (

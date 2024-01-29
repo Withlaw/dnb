@@ -5,38 +5,13 @@ import { NavLink, useSearchParams } from 'react-router-dom';
 import useUserBooks from '@/features/users/use-user-books.hook.ts';
 import useUserRentals from '@/features/users/use-user-rentals.ts';
 import useUser from '@/features/users/use-user.hook.ts';
+import UserBooksFilter from '@/features/users/user-books-filter.component.tsx';
 import UserBooks from '@/features/users/user-books.component.tsx';
 import UserInfo from '@/features/users/user-info.componen.tsx';
 import { UserBookSkeleton, UserDetailSkeleton } from '@/ui/skeletons.tsx';
 import Tab from '@/ui/tab.tsx';
 
-type NavItem = {
-	id: number;
-	name: string;
-	param: string;
-};
-
-const navItems: NavItem[] = [
-	{
-		id: 0,
-		name: '등록한 책',
-		param: 'own',
-	},
-	{
-		id: 1,
-		name: '빌린 책',
-		param: 'rent',
-	},
-	{ id: 2, name: '찜한 책', param: 'wish' },
-];
-
 const UserDetail = () => {
-	// const [tab, setTab] = useState('등록한 책');
-	// const isMyBooksTab = booksParams.get('books') === 'own';
-	// const isMyBooksTab = tab === '등록한 책';
-	// const isMyRentalsTab = tab === '빌린 책';
-	// const isMyWishTab = tab === '찜한 책';
-
 	const { user, isLoading: isUserLoading } = useUser();
 
 	const {
@@ -50,13 +25,6 @@ const UserDetail = () => {
 		isLoading: isUserRentalsLoading,
 		isUserRentalsTab,
 	} = useUserRentals(user?.id);
-
-	// const tabHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
-	// 	const { textContent } = e.currentTarget;
-	// 	if (!textContent) return;
-
-	// 	setTab(textContent);
-	// };
 
 	if (isUserLoading) return <UserDetailSkeleton />;
 
@@ -77,43 +45,38 @@ const UserDetail = () => {
 								]}
 								render={({ option, isActive, onClick }) => (
 									<button
+										key={option.value}
 										onClick={() => onClick(option.value)}
 										className={clsx(
-											'px-2 hover:cursor-pointer hover:text-stone-600 ',
-											isActive && 'text-stone-600',
+											'px-2 text-stone-600 hover:cursor-pointer hover:text-inherit',
+											isActive && 'text-inherit',
 										)}>
 										{option.label}
 									</button>
 								)}
 							/>
-							{/* <button
-								className={clsx(
-									'px-2 hover:cursor-pointer hover:text-stone-600 ',
-									isMyBooksTab && 'text-stone-600',
-								)}
-								onClick={() => tabClickHandler('own')}>
-								등록한 책
-							</button>
-							<button
-								className={clsx(
-									'px-2 hover:cursor-pointer hover:text-stone-600 ',
-									isMyRentalsTab && 'text-stone-600',
-								)}
-								onClick={() => tabClickHandler('rent')}>
-								빌린 책
-							</button>
-							<button
-								className={clsx(
-									'px-2 hover:cursor-pointer hover:text-stone-600 ',
-									isMyWishTab && 'text-stone-600',
-								)}
-								onClick={() => tabClickHandler('wish')}>
-								찜한 책
-							</button> */}
 						</div>
 
 						<div className="flex  justify-end ">
-							<span>옵션</span>
+							{isUserBooksTab && (
+								<UserBooksFilter
+									options={[
+										{ value: 'all', label: '전체' },
+										{ value: 'access', label: '대여 가능' },
+										{ value: 'limit', label: '대여 불가' },
+									]}
+								/>
+							)}
+
+							{isUserRentalsTab && (
+								<UserBooksFilter
+									options={[
+										{ value: 'all', label: '전체' },
+										{ value: 'rent', label: '대여중' },
+										{ value: 'return', label: '반납 완료' },
+									]}
+								/>
+							)}
 						</div>
 					</div>
 

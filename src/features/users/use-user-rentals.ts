@@ -4,24 +4,31 @@ import { useSearchParams } from 'react-router-dom';
 import { useUserService } from '@/contexts/index.ts';
 
 const useUserRentals = (id?: number) => {
-	const [params] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const userService = useUserService();
 
-	const booksField = params.get('books');
+	const booksField = searchParams.get('books');
+	const filterField = searchParams.get('filter') ?? 'all';
 
 	const enabled = booksField === 'rent';
 
-	const {
-		data: rentals,
-		isLoading,
-		isError,
-		error,
-	} = useQuery({
+	let rentals;
+
+	const { data, isLoading, isError, error } = useQuery({
 		queryKey: ['rentals', id],
 		queryFn: async () => await userService.getUserRentals(id),
 		enabled: Boolean(id) && enabled,
 		staleTime: 10 * 60 * 1000,
 	});
+
+	if (filterField === 'all') rentals = data;
+	else if (data) {
+		rentals = data?.filter(book => {
+			if (filterField === 'all') return true;
+			if (filterField === 'rent') return book.rentalStatus === '대여중';
+			if (filterField === 'return') return book.rentalStatus === '반납 완료';
+		});
+	}
 
 	return { rentals, isLoading, isError, error, isUserRentalsTab: enabled };
 };

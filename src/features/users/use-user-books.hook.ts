@@ -4,24 +4,31 @@ import { useSearchParams } from 'react-router-dom';
 import { useUserService } from '@/contexts/index.ts';
 
 const useUserBooks = (id?: number) => {
-	const [param] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const userService = useUserService();
 
-	const booksField = param.get('books');
+	const booksField = searchParams.get('books') ?? 'own';
+	const filterField = searchParams.get('filter') ?? 'all';
 
-	const enabled = booksField === null || booksField === 'own';
+	const enabled = booksField === 'own';
 
-	const {
-		data: books,
-		isLoading,
-		isError,
-		error,
-	} = useQuery({
+	let books;
+
+	const { data, isLoading, isError, error } = useQuery({
 		queryKey: ['books', id],
 		queryFn: async () => await userService.getUserBooks(id),
 		enabled: Boolean(id) && enabled,
 		staleTime: 10 * 60 * 1000,
 	});
+
+	if (filterField === 'all') books = data;
+	else if (data) {
+		books = data?.filter(book => {
+			if (filterField === 'all') return true;
+			if (filterField === 'access') return book.status === '대여 가능';
+			if (filterField === 'limit') return book.status === '대여 불가';
+		});
+	}
 
 	return { books, isLoading, isError, error, isUserBooksTab: enabled };
 };
