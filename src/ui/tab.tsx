@@ -1,4 +1,10 @@
-import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import {
+	useNavigate,
+	useNavigation,
+	useParams,
+	useSearchParams,
+} from 'react-router-dom';
 
 type Option = {
 	value: string;
@@ -24,10 +30,13 @@ const Tab = ({ field, options, render }: Props) => {
 		options[0].value;
 
 	const tabClickHandler = (value: string) => {
-		for (const key of searchParams.keys()) {
-			console.log(key);
+		// 쿼리 스트링 초기화
+		const curUrl = new URL(window.location.href);
+		const curSearchParams = new URLSearchParams(curUrl.search);
+		for (const key of curSearchParams.keys()) {
 			searchParams.delete(key);
 		}
+
 		searchParams.set(field, value);
 		setSearchParams(searchParams);
 	};
