@@ -44,9 +44,7 @@ jobs:
           echo "VITE_SUPABASE_BASE_URL=${{ secrets.VITE_SUPABASE_BASE_URL }}" >> .env
           echo "VITE_SUPABASE_API_KEY=${{ secrets.VITE_SUPABASE_API_KEY }}" >> .env
           echo "VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL=${{ secrets.VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL }}" >> .env
-          echo "_API_NAVER_BOOK_SEARCH_BASE_URL=${{ secrets._API_NAVER_BOOK_SEARCH_BASE_URL }}" >> .env
-          echo "_API_NAVER_BOOK_SEARCH_ID=${{ secrets._API_NAVER_BOOK_SEARCH_ID }}" >> .env
-          echo "_API_NAVER_BOOK_SEARCH_PW=${{ secrets._API_NAVER_BOOK_SEARCH_PW }}" >> .env
+          echo "_API_NAVER_BOOK_SEARCH_BASE_URL=${{ secrets.
 
       - name: Run the tests
         run: npm run test

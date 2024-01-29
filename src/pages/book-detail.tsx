@@ -13,6 +13,7 @@ import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
 import GeneralNav from '@/ui/general-nav.tsx';
+import { BookDetailSkeleton } from '@/ui/skeletons.tsx';
 
 const BookDetailPage = () => {
 	const { bookId } = useParams();
@@ -62,7 +63,7 @@ const BookDetailPage = () => {
 
 			<GeneralMain>
 				<div className="my-3 flex flex-col ">
-					{isLoading && <h3>Loading...</h3>}
+					{isLoading && <BookDetailSkeleton />}
 					{isError && <h3>{error?.message}</h3>}
 					{book && <BookDetail book={book} />}
 

@@ -1,5 +1,6 @@
 import BooksPreviewItem from '@/features/books/preview-item.component.tsx';
 import useBooksPreview from '@/features/books/use-books-preview.hook.ts';
+import { BooksPreviewItemsSkeleton } from '@/ui/skeletons.tsx';
 
 const BooksPreviewItems = () => {
 	const { scrollEndTarget, books, hasNextPage, isLoading, isError, error } =
@@ -9,7 +10,7 @@ const BooksPreviewItems = () => {
 		<ul className="flex w-full flex-col flex-nowrap items-center ">
 			{/* <ul className="flex w-full flex-col flex-nowrap items-center sm:grid sm:grid-cols-2 sm:gap-3"> */}
 			{isError && <li>{error?.message}</li>}
-			{!books && isLoading && <li>Loading ...</li>}
+			{!books && isLoading && <BooksPreviewItemsSkeleton num={4} />}
 			{books &&
 				books?.length !== 0 &&
 				books.map(book => {
@@ -18,7 +19,7 @@ const BooksPreviewItems = () => {
 
 			{books && hasNextPage && (
 				<li ref={scrollEndTarget} className="h-10 w-full text-center">
-					<span>loading ...</span>
+					{/* <span>loading ...</span> */}
 				</li>
 			)}
 			{books && books?.length === 0 && <li>등록된 책이 없습니다.</li>}
