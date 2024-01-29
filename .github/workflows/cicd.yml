@@ -26,7 +26,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
+        if: steps.cache-deps.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Generate Environment Variables File
@@ -34,17 +44,15 @@ jobs:
           echo "VITE_SUPABASE_BASE_URL=${{ secrets.VITE_SUPABASE_BASE_URL }}" >> .env
           echo "VITE_SUPABASE_API_KEY=${{ secrets.VITE_SUPABASE_API_KEY }}" >> .env
           echo "VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL=${{ secrets.VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL }}" >> .env
-          echo "_API_NAVER_BOOK_SEARCH_BASE_URL=${{ secrets._API_NAVER_BOOK_SEARCH_BASE_URL }}" >> .env
-          echo "_API_NAVER_BOOK_SEARCH_ID=${{ secrets._API_NAVER_BOOK_SEARCH_ID }}" >> .env
-          echo "_API_NAVER_BOOK_SEARCH_PW=${{ secrets._API_NAVER_BOOK_SEARCH_PW }}" >> .env
+          echo "_API_NAVER_BOOK_SEARCH_BASE_URL=${{ secrets.
 
       - name: Run the tests
         run: npm run test
 
-      - name: Build
+      - name: Run the Build
         run: npm run build
 
-      - name: Deploy to AWS S3
+      - name: Run the Deploy to AWS S3
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --delete

@@ -6,6 +6,7 @@ import useUserRentals from '@/features/users/use-user-rentals.ts';
 import useUser from '@/features/users/use-user.hook.ts';
 import UserBooks from '@/features/users/user-books.component.tsx';
 import UserInfo from '@/features/users/user-info.componen.tsx';
+import { UserBookSkeleton, UserDetailSkeleton } from '@/ui/skeletons.tsx';
 
 const UserDetail = () => {
 	const [tab, setTab] = useState('등록한 책');
@@ -13,9 +14,15 @@ const UserDetail = () => {
 	const isMyRentalsTab = tab === '빌린 책';
 	const isMyWishTab = tab === '찜한 책';
 
-	const { user } = useUser();
-	const { books } = useUserBooks(user?.id, isMyBooksTab);
-	const { rentals } = useUserRentals(user?.id, isMyRentalsTab);
+	const { user, isLoading: isUserLoading } = useUser();
+	const { books, isLoading: isUserBooksLoading } = useUserBooks(
+		user?.id,
+		isMyBooksTab,
+	);
+	const { rentals, isLoading: isUserRentalsLoading } = useUserRentals(
+		user?.id,
+		isMyRentalsTab,
+	);
 
 	const tabHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
 		const { textContent } = e.currentTarget;
@@ -23,6 +30,8 @@ const UserDetail = () => {
 
 		setTab(textContent);
 	};
+
+	if (isUserLoading) return <UserDetailSkeleton />;
 
 	return (
 		user && (
@@ -65,6 +74,7 @@ const UserDetail = () => {
 						</div>
 						<ul className="flex flex-col space-y-3">
 							{isMyBooksTab && books && <UserBooks books={books} />}
+							{isMyBooksTab && isUserBooksLoading && <UserBookSkeleton />}
 							{isMyBooksTab && books?.length === 0 && (
 								<li>
 									<h4>등록한 책이 없습니다.</h4>
@@ -72,6 +82,7 @@ const UserDetail = () => {
 							)}
 
 							{isMyRentalsTab && rentals && <UserBooks books={rentals} />}
+							{isMyRentalsTab && isUserRentalsLoading && <UserBookSkeleton />}
 							{isMyRentalsTab && rentals?.length === 0 && (
 								<li>
 									<h4>빌린 책이 없습니다.</h4>
