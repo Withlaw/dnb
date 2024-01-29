@@ -1,10 +1,4 @@
-import { useEffect } from 'react';
-import {
-	useNavigate,
-	useNavigation,
-	useParams,
-	useSearchParams,
-} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 type Option = {
 	value: string;
@@ -20,21 +14,24 @@ type Props = {
 		onClick: (value: string) => void;
 		isActive: boolean;
 	}) => JSX.Element;
+	reset?: boolean;
 };
 
-const Tab = ({ field, options, render }: Props) => {
+const SearchParams = ({ field, options, render, reset = true }: Props) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const currentField =
 		searchParams.get(field) ??
 		options.filter(el => el.defalut)[0]?.value ??
 		options[0].value;
 
-	const tabClickHandler = (value: string) => {
-		// 쿼리 스트링 초기화
-		const curUrl = new URL(window.location.href);
-		const curSearchParams = new URLSearchParams(curUrl.search);
-		for (const key of curSearchParams.keys()) {
-			searchParams.delete(key);
+	const clickHandler = (value: string) => {
+		if (reset) {
+			// 쿼리 스트링 초기화
+			const curUrl = new URL(window.location.href);
+			const curSearchParams = new URLSearchParams(curUrl.search);
+			for (const key of curSearchParams.keys()) {
+				searchParams.delete(key);
+			}
 		}
 
 		searchParams.set(field, value);
@@ -45,10 +42,10 @@ const Tab = ({ field, options, render }: Props) => {
 		<>
 			{options.map(option => {
 				const isActive = option.value === currentField;
-				return render({ option, isActive, onClick: tabClickHandler });
+				return render({ option, isActive, onClick: clickHandler });
 			})}
 		</>
 	);
 };
 
-export default Tab;
+export default SearchParams;

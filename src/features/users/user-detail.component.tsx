@@ -1,15 +1,11 @@
-import clsx from 'clsx';
-import { useState } from 'react';
-import { NavLink, useSearchParams } from 'react-router-dom';
-
 import useUserBooks from '@/features/users/use-user-books.hook.ts';
 import useUserRentals from '@/features/users/use-user-rentals.ts';
 import useUser from '@/features/users/use-user.hook.ts';
 import UserBooksFilter from '@/features/users/user-books-filter.component.tsx';
+import UserBooksTab from '@/features/users/user-books-tab.component.tsx';
 import UserBooks from '@/features/users/user-books.component.tsx';
 import UserInfo from '@/features/users/user-info.componen.tsx';
 import { UserBookSkeleton, UserDetailSkeleton } from '@/ui/skeletons.tsx';
-import Tab from '@/ui/tab.tsx';
 
 const UserDetail = () => {
 	const { user, isLoading: isUserLoading } = useUser();
@@ -36,25 +32,7 @@ const UserDetail = () => {
 				<div className="flex flex-col space-y-2">
 					<div className="flex justify-between rounded-md border border-solid border-stone-300 p-3">
 						<div className=" flex divide-x divide-stone-400">
-							<Tab
-								field="books"
-								options={[
-									{ value: 'own', label: '등록한 책' },
-									{ value: 'rent', label: '빌린 책' },
-									// { value: 'wish', label: '찜한 책' },
-								]}
-								render={({ option, isActive, onClick }) => (
-									<button
-										key={option.value}
-										onClick={() => onClick(option.value)}
-										className={clsx(
-											'px-2 text-stone-600 hover:cursor-pointer hover:text-inherit',
-											isActive && 'text-inherit',
-										)}>
-										{option.label}
-									</button>
-								)}
-							/>
+							<UserBooksTab />
 						</div>
 
 						<div className="flex  justify-end ">
