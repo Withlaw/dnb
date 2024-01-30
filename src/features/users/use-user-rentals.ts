@@ -21,8 +21,7 @@ const useUserRentals = (id?: number) => {
 		staleTime: 10 * 60 * 1000,
 	});
 
-	if (filterField === 'all') rentals = data;
-	else if (data) {
+	if (data) {
 		rentals = data?.filter(book => {
 			if (filterField === 'all') return true;
 			if (filterField === 'rent') return book.rentalStatus === '대여중';

@@ -21,8 +21,7 @@ const useUserBooks = (id?: number) => {
 		staleTime: 10 * 60 * 1000,
 	});
 
-	if (filterField === 'all') books = data;
-	else if (data) {
+	if (data) {
 		books = data?.filter(book => {
 			if (filterField === 'all') return true;
 			if (filterField === 'access') return book.status === '대여 가능';
