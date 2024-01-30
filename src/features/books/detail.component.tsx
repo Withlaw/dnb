@@ -32,7 +32,7 @@ const BookDetail = ({ book }: Props) => {
 			</div> */}
 
 			{/* 책 이미지 슬라이더 */}
-			<div className="mb-2">
+			<div className="mb-2 flex-initial">
 				<BookImageSlider>
 					{book.getImages().map(image => {
 						if (image.trim() === '') return;
@@ -49,7 +49,7 @@ const BookDetail = ({ book }: Props) => {
 			</div>
 
 			{/* 책 정보 및 글 내용 */}
-			<div className="flex flex-col p-2">
+			<div className="flex flex-auto flex-col p-2">
 				<DetailRow>
 					<div className="flex flex-col">
 						<h1 className="text-xl font-semibold">{book.title}</h1>
@@ -89,7 +89,7 @@ const BookDetail = ({ book }: Props) => {
 					<DetailRow.Span>{`대여료: ${book.fee} 원`}</DetailRow.Span>
 				</DetailRow>
 
-				<DetailRow>
+				<DetailRow className="flex-auto ">
 					<p className={'mx-1 min-h-36 w-full break-words'}>
 						{book.description}
 					</p>
