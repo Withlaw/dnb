@@ -1,3 +1,4 @@
+import { cloneElement } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 type Option = {
@@ -15,7 +16,7 @@ type SearchParamsRenderFunction = (data: {
 }) => React.ReactNode;
 
 type Props = {
-	children: React.ReactNode | SearchParamsRenderFunction;
+	children: React.ReactElement | SearchParamsRenderFunction;
 	field: string;
 	options: Option[];
 	reset?: boolean;
@@ -46,7 +47,11 @@ const SearchParams = ({ field, options, children, reset = true }: Props) => {
 	const render =
 		typeof children === 'function'
 			? children({ options, currentField, onSearch: searchParamsHandler })
-			: children;
+			: cloneElement(children, {
+					options,
+					currentField,
+					onSearch: searchParamsHandler,
+				});
 
 	return <>{render}</>;
 
