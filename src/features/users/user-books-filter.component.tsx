@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import SearchParams from '@/ui/search-params.tsx';
 
 type Props = {
 	options: {
@@ -8,27 +8,37 @@ type Props = {
 };
 
 const UserBooksFilter = ({ options }: Props) => {
-	const [searchParams, setSearchParams] = useSearchParams();
-
-	const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const { value } = e.target;
-		searchParams.set('filter', value);
-		setSearchParams(searchParams);
-	};
-
 	return (
-		<select
-			className="bg-inherit text-xs outline-green-700 hover:cursor-pointer"
-			onChange={selectChangeHandler}>
-			{options.map(option => {
-				return (
-					<option key={option.value} value={option.value}>
-						{option.label}
-					</option>
-				);
-			})}
-		</select>
+		<SearchParams field="filter" options={options} reset={false}>
+			{({ options, onSearch }) => (
+				<select
+					className="bg-inherit text-xs outline-green-700 hover:cursor-pointer"
+					onChange={e => onSearch(e.target.value)}>
+					{options.map(option => {
+						return (
+							<option key={option.value} value={option.value}>
+								{option.label}
+							</option>
+						);
+					})}
+				</select>
+			)}
+		</SearchParams>
 	);
+
+	// return (
+	// <select
+	// 	className="bg-inherit text-xs outline-green-700 hover:cursor-pointer"
+	// 	onChange={selectChangeHandler}>
+	// 	{options.map(option => {
+	// 		return (
+	// <option key={option.value} value={option.value}>
+	// 	{option.label}
+	// </option>
+	// 		);
+	// 	})}
+	// </select>
+	// );
 };
 
 export default UserBooksFilter;

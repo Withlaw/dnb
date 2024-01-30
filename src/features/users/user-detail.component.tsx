@@ -32,7 +32,13 @@ const UserDetail = () => {
 				<div className="flex flex-col space-y-2">
 					<div className="flex justify-between rounded-md border border-solid border-stone-300 p-3">
 						<div className=" flex divide-x divide-stone-400">
-							<UserBooksTab />
+							<UserBooksTab
+								options={[
+									{ value: 'own', label: '등록한 책' },
+									{ value: 'rent', label: '빌린 책' },
+									// { value: 'wish', label: '찜한 책' },
+								]}
+							/>
 						</div>
 
 						<div className="flex  justify-end ">
