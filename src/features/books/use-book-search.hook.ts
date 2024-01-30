@@ -8,7 +8,7 @@ import { booksService } from '@/services/book-service.ts';
 const useBookSearch = () => {
 	const [inputValue, setInputValue] = useState('');
 	const debouncedValue = useDebounceValue(inputValue, 500);
-	const { ref, inView } = useInView({ threshold: 0.5 });
+	const { ref, inView } = useInView({ threshold: 0.1, rootMargin: '100px' });
 
 	const {
 		data,
