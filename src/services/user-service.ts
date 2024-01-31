@@ -138,3 +138,20 @@ export default class UserService implements UserServiceInterface {
 			.single();
 	}
 }
+
+export class UserServiceTest implements UserServiceInterface {
+	async getCurrentSession() {
+		return {} as Session;
+	}
+	async getUser() {
+		return {} as UserDataFromServer;
+	}
+	async editUser() {}
+
+	async getUserBooks() {
+		return [];
+	}
+	async getUserRentals() {
+		return [];
+	}
+}

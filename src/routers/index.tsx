@@ -1,8 +1,8 @@
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
 
-import Authorization from '@/features/authentication/authorization.component.tsx';
 import Signin from '@/features/authentication/signin.component.tsx';
 import Signup from '@/features/authentication/signup.component.tsx';
+import Authorization from '@/features/users/authorization.component.tsx';
 import AuthenticationPage from '@/pages/authentication.tsx';
 import BookCreatePage from '@/pages/book-create.tsx';
 import BookDetailPage from '@/pages/book-detail.tsx';
