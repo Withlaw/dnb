@@ -20,7 +20,9 @@
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"mylint": "eslint .",
 		"preview": "vite preview",
-		"genDBTypes": "supabase gen types typescript --linked > src/types/database.type.ts"
+		"genDBTypes": "supabase gen types typescript --linked > src/types/database.type.ts",
+		"prepare": "husky",
+		"postinstall": "husky install"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.0.1",
@@ -63,6 +65,7 @@
 		"eslint-plugin-react-refresh": "^0.4.5",
 		"eslint-plugin-testing-library": "^6.2.0",
 		"eslint-plugin-vitest": "^0.3.20",
+		"husky": "^9.0.7",
 		"jsdom": "^23.2.0",
 		"msw": "^2.1.2",
 		"postcss": "^8.4.32",

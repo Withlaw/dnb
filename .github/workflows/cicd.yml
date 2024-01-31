@@ -46,7 +46,7 @@ jobs:
           echo "VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL=${{ secrets.VITE_SUPABASE_FUNCTIONS_NAVER_BOOK_SEARCH_URL }}" >> .env
 
       - name: Run the tests
-        run: npm run test
+        run: npm run test:run
 
       - name: Run the Build
         run: npm run build
