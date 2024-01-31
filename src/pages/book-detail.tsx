@@ -62,7 +62,7 @@ const BookDetailPage = () => {
 			</GeneralHeader>
 
 			<GeneralMain>
-				<div className="my-3 flex flex-col ">
+				<div className="my-3 flex h-full flex-col">
 					{isLoading && <BookDetailSkeleton />}
 					{isError && <h3>{error?.message}</h3>}
 					{book && <BookDetail book={book} />}

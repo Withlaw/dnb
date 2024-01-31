@@ -98,7 +98,9 @@ const BookPostSearch = ({ onSearch, onClose }: Props) => {
 
 								{/* 무한스크롤 */}
 								{!isTyping && !isLoading && hasNextPage && (
-									<div ref={scrollEndTarget} className="h-10 text-center"></div>
+									<li
+										ref={scrollEndTarget}
+										className="h-10 w-full text-center"></li>
 								)}
 							</ul>
 						</DropDown.Window>

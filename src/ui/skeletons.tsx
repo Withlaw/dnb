@@ -93,7 +93,7 @@ export const UserDetailSkeleton = () => (
 
 				<div className="flex flex-auto flex-col space-y-2 rounded-md border border-solid border-stone-300 p-3">
 					<ul className="flex flex-col space-y-3">
-						{/* <UserBookSkeleton num={3} /> */}
+						<UserBookSkeleton />
 					</ul>
 				</div>
 			</div>
