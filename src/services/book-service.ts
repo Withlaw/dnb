@@ -10,29 +10,6 @@ import {
 } from '@/features/books/books.model.ts';
 import { BookTitleSearchData } from '@/features/books/types.ts';
 
-// interface BookServiceInterface {
-// 	getBooks<T = any>(): Promise<T>;
-// }
-
-// use my http client
-/*
-export class BooksServiceByHttpClient {
-	constructor(private readonly httpClient: HttpClient) {}
-
-	async getBooks(): Promise<any> {
-		try {
-			const data = await this.httpClient.get(
-				`/rest/v1/books?apikey=${this.httpClient.apiKey}`,
-			);
-			return data;
-		} catch (error) {
-			console.error(error);
-			return [];
-		}
-	}
-}
-*/
-
 export interface BookServiceInterface {
 	searchBook: (
 		query: string,
@@ -78,12 +55,6 @@ export interface BookServiceInterface {
 	deleteImage: (imageName?: string) => any;
 }
 
-const naverBookSearchClient = new NaverAPiClient(
-	API_SUPABASE_FUNCTIONS.NAVER_BOOK_SEARCH_URL,
-	'/functions/v1/naver-book-search',
-);
-// const naverBookSearchClient = new NaverAPiClient({baseUrl:API_NAVER.BASE_URL, resource:'/search/book.json', options: {id:API_NAVER.BOOK_SEARCH_ID, pw:API_NAVER.BOOK_SEARCH_PW}})
-
 class BookService {
 	readonly endpoint = 'books';
 	readonly remoteStorage = 'book-images';
@@ -93,6 +64,11 @@ class BookService {
 
 	// search api
 	async searchBook(query: string, start: number = 1, display: number = 10) {
+		const naverBookSearchClient = new NaverAPiClient(
+			API_SUPABASE_FUNCTIONS.NAVER_BOOK_SEARCH_URL,
+			'/functions/v1/naver-book-search',
+		);
+
 		const response = await naverBookSearchClient.get(
 			`?query=${query}&display=${display}&start=${start}`,
 		);
@@ -128,13 +104,6 @@ class BookService {
 		const books = data?.map(data => new BooksPreviewModel(data));
 
 		return { books, start, total: count ?? 0 };
-		// 에러를 처리한다는게, catch 해서 적절하게 뷰로 피드백 제공하는거니까
-		// 뷰 레이어에서 try catch로 처리하는게 나을려나? -> 리액트 쿼리로 한 번에 view logic을 처리하는게 나을 듯!?
-
-		// } catch (error) {
-		// 	console.error(error);
-		// 	return [];
-		// }
 	}
 
 	async getBook(bookId: number) {

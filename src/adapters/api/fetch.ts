@@ -1,4 +1,4 @@
-import { HttpClient } from '@/adapters/api/http-client.ts';
+import { HttpClient } from '@/adapters/api/http-client.interface.ts';
 
 class Fetch {
 	readonly baseUrl: string;

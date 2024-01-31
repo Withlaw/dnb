@@ -1,3 +1,4 @@
+// legacy
 import AuthServiceProvider from '@/contexts/auth-service.context.tsx';
 import UserServiceProvider from '@/contexts/user-service.context.tsx';
 import UserEditPage from '@/pages/user-edit.tsx';

@@ -1,3 +1,4 @@
+// legacy
 import AuthServiceProvider from '@/contexts/auth-service.context.tsx';
 import Signin from '@/features/authentication/signin.component.tsx';
 import Signup from '@/features/authentication/signup.component.tsx';
