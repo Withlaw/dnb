@@ -140,8 +140,16 @@ export default class UserService implements UserServiceInterface {
 }
 
 export class UserServiceTest implements UserServiceInterface {
+	constructor(
+		private readonly testOptions: {
+			isLogin: boolean;
+		},
+	) {}
+
 	async getCurrentSession() {
-		return {} as Session;
+		const { isLogin } = this.testOptions;
+		if (isLogin) return {} as Session;
+		else return null;
 	}
 	async getUser() {
 		return {} as UserDataFromServer;

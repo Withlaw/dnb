@@ -3,19 +3,21 @@ import { RenderOptions, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import UserServiceProvider from '@/contexts/user-service.context.tsx';
-import { UserServiceTest } from '@/services/user-service.ts';
 import store from '@/store.ts';
 
-const queryClient = new QueryClient();
-const userService = new UserServiceTest();
+// 리액트 쿼리 테스트 할 때 캐시 기능이 다음 테스트에 영향을 미치지 않도록 캐시 gcTime을 0으로 설정
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			gcTime: 0,
+		},
+	},
+});
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
 	<Provider store={store}>
 		<QueryClientProvider client={queryClient}>
-			<UserServiceProvider userService={userService}>
-				<BrowserRouter>{children}</BrowserRouter>
-			</UserServiceProvider>
+			<BrowserRouter>{children}</BrowserRouter>
 		</QueryClientProvider>
 	</Provider>
 );
