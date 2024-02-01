@@ -142,7 +142,9 @@ export default class UserService implements UserServiceInterface {
 export class UserServiceTest implements UserServiceInterface {
 	constructor(
 		private readonly testOptions: {
-			isLogin: boolean;
+			isLogin?: boolean;
+			rentalId?: number;
+			rentalStatus?: '대여 중' | '반납 완료';
 		},
 	) {}
 
@@ -152,14 +154,42 @@ export class UserServiceTest implements UserServiceInterface {
 		else return null;
 	}
 	async getUser() {
-		return {} as UserDataFromServer;
+		const { isLogin } = this.testOptions;
+		if (isLogin)
+			return {
+				id: 1,
+				email: 'email',
+				fullName: 'fullName',
+				address: 'address',
+				grade: 5,
+			} as UserDataFromServer;
+		else return null;
 	}
 	async editUser() {}
 
 	async getUserBooks() {
-		return [];
+		const { rentalId, rentalStatus } = this.testOptions;
+		return [
+			{
+				title: 'title',
+				author: 'author',
+				publisher: 'publisher',
+				fee: 1,
+				rentalId,
+				rentalStatus,
+			},
+		] as BookDataFromServer[];
 	}
 	async getUserRentals() {
-		return [];
+		return [
+			{
+				title: 'rental',
+				author: 'author',
+				publisher: 'publisher',
+				fee: 1,
+				rentalId: 1,
+				rentalStatus: '대여중',
+			},
+		] as BookDataFromServer[];
 	}
 }

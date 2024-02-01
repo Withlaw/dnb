@@ -28,7 +28,6 @@ const useUserRentals = (id?: number) => {
 			if (filterField === 'return') return book.rentalStatus === '반납 완료';
 		});
 	}
-
 	return { rentals, isLoading, isError, error, isUserRentalsTab: enabled };
 };
 
