@@ -8,7 +8,6 @@ import BookPostWish from '@/features/books/wish.component.tsx';
 import Rent from '@/features/rentals/rent.component.tsx';
 import Return from '@/features/rentals/return.component.tsx';
 import useUser from '@/features/users/use-user.hook.ts';
-import useShow from '@/hooks/use-show.ts';
 import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
@@ -19,7 +18,6 @@ const BookDetailPage = () => {
 	const { bookId } = useParams();
 	const navigate = useNavigate();
 
-	const { isShow, showHandler } = useShow();
 	const { book, isLoading, isError, error } = useBook(bookId);
 	const { user } = useUser();
 
@@ -40,7 +38,7 @@ const BookDetailPage = () => {
 					</div>
 				</div>
 
-				<GeneralHeaderMenu onClick={showHandler} isShowMenu={isShow}>
+				<GeneralHeaderMenu>
 					{!ownThisBook && (
 						<GeneralHeaderMenu.Item>
 							<BookPostWish>찜하기</BookPostWish>
