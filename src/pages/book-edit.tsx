@@ -1,7 +1,7 @@
-import { HiChevronLeft } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
 import BookPostEditForm from '@/features/books/post-edit.component.tsx';
+import GeneralHeaderBack from '@/ui/general-header-back.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
 
@@ -16,13 +16,7 @@ const BookEditPage = () => {
 	return (
 		<>
 			<GeneralHeader>
-				<div className="flex min-w-4" onClick={goBack}>
-					<div>
-						<span className="text-2xl hover:cursor-pointer">
-							<HiChevronLeft />
-						</span>
-					</div>
-				</div>
+				<GeneralHeaderBack onClick={goBack} />
 			</GeneralHeader>
 
 			<GeneralMain>

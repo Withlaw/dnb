@@ -1,9 +1,8 @@
-// import { HiMenu, HiOutlinePencilAlt } from 'react-icons/hi';
-import { HiChevronLeft } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 
 import SignOut from '@/features/authentication/signout.component.tsx';
 import UserDetail from '@/features/users/user-detail.component.tsx';
+import GeneralHeaderBack from '@/ui/general-header-back.tsx';
 import GeneralHeaderMenu from '@/ui/general-header-menu.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
@@ -18,13 +17,7 @@ const UserPage = () => {
 	return (
 		<>
 			<GeneralHeader>
-				<div className="flex min-w-4" onClick={goBack}>
-					<div>
-						<span className="text-2xl hover:cursor-pointer">
-							<HiChevronLeft />
-						</span>
-					</div>
-				</div>
+				<GeneralHeaderBack onClick={goBack} />
 
 				<GeneralHeaderMenu>
 					<GeneralHeaderMenu.Item>
