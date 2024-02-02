@@ -8,7 +8,7 @@ import {
 import { NavLink } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
-import useNotice from '@/features/notification/use-notice.tsx';
+import useNotice from '@/features/notification/use-notice.hook';
 
 type NavItem = {
 	id: number;

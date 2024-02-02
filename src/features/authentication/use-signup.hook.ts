@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuthService } from '@/contexts/index.ts';
-import { SignData } from '@/features/authentication/auth.model.ts';
-import useNotice from '@/features/notification/use-notice.tsx';
+import { SignData } from '@/features/authentication/model.ts';
+import useNotice from '@/features/notification/use-notice.hook.ts';
 
 const useSignup = () => {
 	const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import useUserBooks from '@/features/users/use-user-books.hook.ts';
-import useUserRentals from '@/features/users/use-user-rentals.ts';
+import useUserRentals from '@/features/users/use-user-rentals.hook.ts';
 import useUser from '@/features/users/use-user.hook.ts';
 import UserBooksFilter from '@/features/users/user-books-filter.component.tsx';
 import UserBooksTab from '@/features/users/user-books-tab.component.tsx';

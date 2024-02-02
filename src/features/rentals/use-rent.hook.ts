@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useRentalService } from '@/contexts/index.ts';
-import useNotice from '@/features/notification/use-notice.tsx';
-import { RentalInfoToServer } from '@/features/rentals/rentals.model.ts';
+import useNotice from '@/features/notification/use-notice.hook.ts';
+import { RentalInfoToServer } from '@/features/rentals/model.ts';
 
 const useRent = () => {
 	const navigate = useNavigate();

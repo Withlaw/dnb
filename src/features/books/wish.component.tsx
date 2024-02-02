@@ -1,4 +1,4 @@
-import useNotice from '@/features/notification/use-notice.tsx';
+import useNotice from '@/features/notification/use-notice.hook.ts';
 
 const BookPostWish = ({ children }: { children: React.ReactNode }) => {
 	const { notify } = useNotice();

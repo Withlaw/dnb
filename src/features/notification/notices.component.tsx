@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 
 import Noti from '@/features/notification/notice.component.tsx';
-import useNotice from '@/features/notification/use-notice.tsx';
+import useNotice from '@/features/notification/use-notice.hook';
 
 const Notices = () => {
 	const { notices } = useNotice();

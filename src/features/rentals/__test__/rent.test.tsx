@@ -1,4 +1,4 @@
-import { BookDataFromServer } from '@/features/books/books.model.ts';
+import { BookDataFromServer } from '@/features/books/model.ts';
 import Rent from '@/features/rentals/rent.component.tsx';
 
 import { render, screen } from './utils.tsx';

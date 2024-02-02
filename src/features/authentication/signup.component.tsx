@@ -1,6 +1,6 @@
 import { FieldValues } from 'react-hook-form';
 
-import { SignData } from '@/features/authentication/auth.model.ts';
+import { SignData } from '@/features/authentication/model.ts';
 import SignupForm from '@/features/authentication/signup-form.component.tsx';
 import useSignup from '@/features/authentication/use-signup.hook.ts';
 

@@ -1,6 +1,6 @@
-import { BookDataFromServer } from '@/features/books/books.model.ts';
+import { BookDataFromServer } from '@/features/books/model.ts';
 import useReturn from '@/features/rentals/use-return.hook.ts';
-import { UserDataFromServer } from '@/features/users/model';
+import { UserDataFromServer } from '@/features/users/model.ts';
 import Button from '@/ui/button.tsx';
 
 type Props = {

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
-import { BookDataFromServer } from '@/features/books/books.model.ts';
 import DetailRow from '@/features/books/detail-row.component.tsx';
 import BookImageSlider from '@/features/books/detail-slider.component.tsx';
+import { BookDataFromServer } from '@/features/books/model.ts';
 
 // enum Style {
 // 	DIV = 'border-1 flex justify-between border-b border-solid py-3',

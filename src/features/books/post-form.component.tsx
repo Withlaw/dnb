@@ -4,7 +4,7 @@ import { HiOutlineSearch, HiOutlinePlus } from 'react-icons/hi';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
 import FormRow from '@/features/books/post-form-row.component.tsx';
-import useImagePreview from '@/features/books/use-image-preview.ts';
+import useImagePreview from '@/features/books/use-image-preview.hook.ts';
 
 type Props = {
 	children?: React.ReactNode;

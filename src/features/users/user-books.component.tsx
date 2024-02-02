@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { BookDataFromServer } from '@/features/books/books.model.ts';
+import { BookDataFromServer } from '@/features/books/model';
 import BookStatusSticker from '@/ui/sticker-book-status.tsx';
 import RentalStatusSticker from '@/ui/sticker-rental-status.tsx';
 

@@ -1,10 +1,7 @@
 import { FieldValues } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-import {
-	BookDataToServer,
-	BookFileToServer,
-} from '@/features/books/books.model.ts';
+import { BookDataToServer, BookFileToServer } from '@/features/books/model.ts';
 import BookPostForm from '@/features/books/post-form.component.tsx';
 import useBookEdit from '@/features/books/use-book-edit.hook.ts';
 import useBook from '@/features/books/use-book.hook.ts';
