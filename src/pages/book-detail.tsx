@@ -62,7 +62,7 @@ const BookDetailPage = () => {
 					{book && !ownThisBook && (
 						<div className="w-full p-2">
 							<Rent book={book} user={user} />
-							<Return book={book} />
+							<Return book={book} user={user} />
 						</div>
 					)}
 				</div>
