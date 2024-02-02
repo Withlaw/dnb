@@ -1,57 +1,46 @@
-import { Link } from 'react-router-dom';
+import { UserDataFromServer } from '@/features/users/model.ts';
+import useUserBooks from '@/features/users/use-user-books.hook.ts';
+import useUserRentals from '@/features/users/use-user-rentals.hook.ts';
+import UserBooksList from '@/features/users/user-books-list.component.tsx';
+import { UserBookSkeleton } from '@/ui/skeletons.tsx';
 
-import { BookDataFromServer } from '@/features/books/model';
-import BookStatusSticker from '@/ui/sticker-book-status.tsx';
-import RentalStatusSticker from '@/ui/sticker-rental-status.tsx';
+const UserBooks = ({ user }: { user: UserDataFromServer }) => {
+	const {
+		books,
+		isLoading: isUserBooksLoading,
+		isUserBooksTab,
+	} = useUserBooks(user.id);
 
-const UserBooks = ({ books }: { books: BookDataFromServer[] }) => {
-	if (books)
-		return books.map(book => {
-			const key = book.rentalId ?? book.id;
-			return (
-				<li key={key}>
-					<Link
-						to={`/books/${book.id}`}
-						className="relative flex justify-between hover:cursor-pointer">
-						<div className="flex space-x-2">
-							<figure className="flex-none">
-								<img
-									src={book.bookImageUrl}
-									alt="book_image"
-									className="h-24 w-20 border border-stone-400"
-								/>
-							</figure>
+	const {
+		rentals,
+		isLoading: isUserRentalsLoading,
+		isUserRentalsTab,
+	} = useUserRentals(user.id);
 
-							<div className="flex flex-col justify-between p-1">
-								<div className="flex flex-col space-y-1">
-									<span className="text-sm font-semibold">{book.title}</span>
-									<span className="text-xs">
-										{book.author} | {book.publisher}
-									</span>
-								</div>
-								<div>
-									<span className="text-xs">대여료 {book.fee}원</span>
-								</div>
-							</div>
-						</div>
+	return (
+		<ul className="flex flex-col space-y-3">
+			{/* loaing spinner */}
+			{(isUserBooksLoading || isUserRentalsLoading) && <UserBookSkeleton />}
 
-						<div className="absolute bottom-0 right-0 size-12 flex-none text-sm sm:size-10 sm:text-xs">
-							{!book.rentalStatus && (
-								<BookStatusSticker
-									status={book.rentalId ? '대여 불가' : '대여 가능'}
-								/>
-							)}
-							{book.rentalStatus && (
-								// <span className="flex size-12 items-center rounded-full p-2 text-center text-sm sm:size-10 sm:text-xs">
-								// 	{book.rentalStatus}
-								// </span>
-								<RentalStatusSticker status={book.rentalStatus} />
-							)}
-						</div>
-					</Link>
+			{isUserBooksTab && books && <UserBooksList books={books} />}
+			{isUserBooksTab && books?.length === 0 && (
+				<li>
+					<h4>등록한 책이 없습니다.</h4>
 				</li>
-			);
-		});
+			)}
+
+			{isUserRentalsTab && rentals && <UserBooksList books={rentals} />}
+			{isUserRentalsTab && rentals?.length === 0 && (
+				<li>
+					<h4>빌린 책이 없습니다.</h4>
+				</li>
+			)}
+
+			{/* <li>
+				<h4>준비중입니다...</h4>
+			</li> */}
+		</ul>
+	);
 };
 
 export default UserBooks;

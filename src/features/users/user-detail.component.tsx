@@ -5,22 +5,14 @@ import UserBooksFilter from '@/features/users/user-books-filter.component.tsx';
 import UserBooksTab from '@/features/users/user-books-tab.component.tsx';
 import UserBooks from '@/features/users/user-books.component.tsx';
 import UserInfo from '@/features/users/user-info.componen.tsx';
-import { UserBookSkeleton, UserDetailSkeleton } from '@/ui/skeletons.tsx';
+import { UserDetailSkeleton } from '@/ui/skeletons.tsx';
 
 const UserDetail = () => {
 	const { user, isLoading: isUserLoading } = useUser();
 
-	const {
-		books,
-		isLoading: isUserBooksLoading,
-		isUserBooksTab,
-	} = useUserBooks(user?.id);
+	const { isUserBooksTab } = useUserBooks(user?.id);
 
-	const {
-		rentals,
-		isLoading: isUserRentalsLoading,
-		isUserRentalsTab,
-	} = useUserRentals(user?.id);
+	const { isUserRentalsTab } = useUserRentals(user?.id);
 
 	if (isUserLoading) return <UserDetailSkeleton />;
 
@@ -68,30 +60,7 @@ const UserDetail = () => {
 						{/* <div className="flex w-full justify-end ">
 							<span>옵션</span>
 						</div> */}
-						<ul className="flex flex-col space-y-3">
-							{/* loaing spinner */}
-							{(isUserBooksLoading || isUserRentalsLoading) && (
-								<UserBookSkeleton />
-							)}
-
-							{isUserBooksTab && books && <UserBooks books={books} />}
-							{isUserBooksTab && books?.length === 0 && (
-								<li>
-									<h4>등록한 책이 없습니다.</h4>
-								</li>
-							)}
-
-							{isUserRentalsTab && rentals && <UserBooks books={rentals} />}
-							{isUserRentalsTab && rentals?.length === 0 && (
-								<li>
-									<h4>빌린 책이 없습니다.</h4>
-								</li>
-							)}
-
-							{/* <li>
-									<h4>준비중입니다...</h4>
-								</li> */}
-						</ul>
+						<UserBooks user={user} />
 					</div>
 				</div>
 			</div>
