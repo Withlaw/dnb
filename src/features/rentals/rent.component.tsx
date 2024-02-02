@@ -39,9 +39,15 @@ const Rent = ({ book, user }: Props) => {
 		rent(rentalInfo);
 	};
 
-	if (book.rentalId) return null;
+	// if (book.rentalId) return null;
 
-	return <Button onClick={rentalHandler}>대여하기</Button>;
+	return (
+		<Button
+			onClick={rentalHandler}
+			options={{ disabled: Boolean(book.rentalId) }}>
+			대여하기
+		</Button>
+	);
 };
 
 export default Rent;
