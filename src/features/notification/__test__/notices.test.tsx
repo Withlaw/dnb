@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event';
 
 import { render, screen } from '@/features/notification/__test__/utils.tsx';
 import Notices from '@/features/notification/notices.component.tsx';
-import useNotice from '@/features/notification/use-notice.hook';
+import useNotice from '@/features/notification/use-notice.hook.ts';
 
 // use notice 훅을 실행 할 테스트 용 컴포넌트 생성
 const TestNotices = ({ message }: { message: string }) => {

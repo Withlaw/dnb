@@ -1,10 +1,11 @@
 import { BookDataFromServer } from '@/features/books/model.ts';
 import Return from '@/features/rentals/return.component.tsx';
+import { UserDataFromServer } from '@/features/users/model.ts';
 
 import { render, screen } from './utils.tsx';
 
 describe('Return 컴포넌트', () => {
-	test('rentalId가 존재하지 않으면 반납하기 버튼을 렌더링 하지 않는다.', () => {
+	test('일반적인 상황에서 반납하기 버튼을 렌더링 하지 않는다.', () => {
 		render(<Return book={{} as BookDataFromServer} />);
 
 		expect(
@@ -12,8 +13,13 @@ describe('Return 컴포넌트', () => {
 		).not.toBeInTheDocument();
 	});
 
-	test('rentalId가 존재하면 반납하기 버튼을 렌더링 한다.', () => {
-		render(<Return book={{ rentalId: 1 } as BookDataFromServer} />);
+	test('내가 대여한 책에서는 반납하기 버튼을 렌더링 한다.', () => {
+		render(
+			<Return
+				book={{ rentalId: 1 } as BookDataFromServer}
+				user={{ id: 1 } as UserDataFromServer}
+			/>,
+		);
 
 		expect(
 			screen.getByRole('button', { name: '반납하기' }),

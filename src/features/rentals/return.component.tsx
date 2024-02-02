@@ -11,7 +11,7 @@ type Props = {
 const Return = ({ book, user }: Props) => {
 	const { returnBook } = useReturn();
 
-	const isMyRent = Boolean(user?.id === book.customerId);
+	const isMyRent = user && user.id === book.customerId;
 
 	const returnHandler = () => {
 		const isConfirmed = window.confirm('반납하시겠습니까?');

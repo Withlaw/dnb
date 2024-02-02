@@ -15,7 +15,7 @@ const Rent = ({ book, user }: Props) => {
 	const { rent } = useRent();
 	const { notify } = useNotice();
 
-	const isMyRent = Boolean(user?.id === book.customerId);
+	const isMyRent = user && user.id === book.customerId;
 
 	const rentalHandler = () => {
 		if (!user) {
