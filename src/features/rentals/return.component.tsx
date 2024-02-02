@@ -11,7 +11,7 @@ type Props = {
 const Return = ({ book, user }: Props) => {
 	const { returnBook } = useReturn();
 
-	const isRent = Boolean(user?.id === book.customerId);
+	const isMyRent = Boolean(user?.id === book.customerId);
 
 	const returnHandler = () => {
 		const isConfirmed = window.confirm('반납하시겠습니까?');
@@ -20,7 +20,7 @@ const Return = ({ book, user }: Props) => {
 		returnBook(book.rentalId!);
 	};
 
-	if (!book.rentalId && !isRent) return null;
+	if (!user || (!book.rentalId && !isMyRent)) return null;
 
 	return <Button onClick={returnHandler}>반납하기</Button>;
 };

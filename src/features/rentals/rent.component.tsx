@@ -15,6 +15,8 @@ const Rent = ({ book, user }: Props) => {
 	const { rent } = useRent();
 	const { notify } = useNotice();
 
+	const isMyRent = Boolean(user?.id === book.customerId);
+
 	const rentalHandler = () => {
 		if (!user) {
 			notify('로그인이 필요합니다', { type: 'error' });
@@ -39,7 +41,7 @@ const Rent = ({ book, user }: Props) => {
 		rent(rentalInfo);
 	};
 
-	if (book.rentalId) return null;
+	if (isMyRent) return null;
 
 	return (
 		<Button
