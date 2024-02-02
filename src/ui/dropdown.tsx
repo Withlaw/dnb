@@ -1,11 +1,4 @@
-import {
-	cloneElement,
-	forwardRef,
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import { cloneElement, useCallback, useState } from 'react';
 
 import { useModal } from '@/contexts/index.ts';
 import ModalProvider from '@/contexts/modal.context.tsx';
@@ -24,7 +17,7 @@ const DropDown = ({ children }: { children: React.ReactNode }) => {
 const Window = ({
 	children,
 	name,
-	isClosingWhenClickOutside,
+	// isClosingWhenClickOutside,
 }: {
 	children: React.ReactElement;
 	name: string;

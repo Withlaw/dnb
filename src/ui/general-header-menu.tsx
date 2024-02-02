@@ -19,7 +19,7 @@ const GeneralHeaderMenu = ({ children }: { children: React.ReactNode }) => {
 };
 
 function GeneralHeaderMenuButton({
-	icon,
+	// icon,
 	onOpen,
 }: {
 	icon?: React.ReactElement;

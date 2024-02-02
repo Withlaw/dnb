@@ -19,11 +19,9 @@ export const server = setupServer(...handlers);
 // 테스트 실행 전 mock 서버 실행, 모든 테스트가 끝나면 mock 서버 종료
 // 각 테스트가 끝나면 핸들러 초기화 및 렌더링된 컴포넌트 언마운트
 
-// beforeAll(() => server.listen());
-// afterAll(() => server.close());
-// afterEach(() => {
-// 	server.resetHandlers();
-// 	cleanup();
-// });
-
-afterEach(() => cleanup());
+beforeAll(() => server.listen());
+afterAll(() => server.close());
+afterEach(() => {
+	server.resetHandlers();
+	cleanup();
+});

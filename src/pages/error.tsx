@@ -5,12 +5,12 @@ import useRouterError from '@/hooks/use-router-error.ts';
 const ErrorPage = () => {
 	const { pathname } = useLocation();
 
-	let { title, message, status, statusText } = useRouterError();
+	const { status, statusText } = useRouterError();
 
-	if (status === 404) {
-		title = 'Not Found!';
-		message = 'Could not find your resource or page.';
-	}
+	// if (status === 404) {
+	// 	title = 'Not Found!';
+	// 	message = 'Could not find your resource or page.';
+	// }
 
 	if (['/rental', '/map', '/chat'].includes(pathname))
 		return (
