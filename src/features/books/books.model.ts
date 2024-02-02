@@ -80,6 +80,7 @@ export class BookDataFromServer {
 	readonly rentalId: number | null;
 	readonly status: '대여 가능' | '대여 불가';
 	readonly rentalStatus?: '대여중' | '반납 완료';
+	readonly customerId: number;
 
 	constructor(data: FormFieldValues) {
 		this.id = data.id;
@@ -92,13 +93,14 @@ export class BookDataFromServer {
 		this.userImageUrl = data.user_image_url;
 		this.createdAt = data.created_at;
 		this.location = data.location;
-		this.merchantId = +data.member.id;
-		this.merchantAvatarUrl = data.member.avatar_url;
-		this.merchantFullName = data.member.full_name;
-		this.merchantGrade = data.member.grade;
+		this.merchantId = +data.merchant_info.id;
+		this.merchantAvatarUrl = data.merchant_info.avatar_url;
+		this.merchantFullName = data.merchant_info.full_name;
+		this.merchantGrade = data.merchant_info.grade;
 		this.rentalId = data.rental_id;
 		this.status = data?.rental_id ? '대여 불가' : '대여 가능';
-		this.rentalStatus = data?.rental_status;
+		this.rentalStatus = data?.rental_info.status;
+		this.customerId = data?.rental_info.customer_id;
 	}
 
 	getImages() {

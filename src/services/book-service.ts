@@ -109,7 +109,9 @@ class BookService {
 	async getBook(bookId: number) {
 		const { data, error } = await supabase
 			.from(this.endpoint)
-			.select(`*, member(full_name,avatar_url,grade,id)`)
+			.select(
+				`*, merchant_info:member(full_name,avatar_url,grade,id), rental_info:rental_id(*)`,
+			)
 			.eq('id', bookId)
 			.single();
 
