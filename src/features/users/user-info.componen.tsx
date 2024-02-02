@@ -1,5 +1,5 @@
 import icons from '@/assets/icons.svg';
-import { UserDataFromServer } from '@/features/users/users.model.ts';
+import { UserDataFromServer } from '@/features/users/model';
 import Star from '@/ui/star.tsx';
 
 enum Style {

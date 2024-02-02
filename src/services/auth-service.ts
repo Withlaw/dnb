@@ -2,7 +2,7 @@ import { Session } from '@supabase/supabase-js';
 
 import { supabase } from '@/adapters/api/supabase-client.ts';
 import { SignData } from '@/features/authentication/auth.model.ts';
-import { UserDataFromServer } from '@/features/users/users.model.ts';
+import { UserDataFromServer } from '@/features/users/model';
 
 export interface AuthServiceInterface {
 	signup: ({ full_name, email, password }: SignData) => Promise<{

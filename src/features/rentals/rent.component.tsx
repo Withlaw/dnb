@@ -3,7 +3,7 @@ import { BookDataFromServer } from '@/features/books/books.model.ts';
 import useNotice from '@/features/notification/use-notice.tsx';
 import { RentalInfoToServer } from '@/features/rentals/rentals.model.ts';
 import useRent from '@/features/rentals/use-rent.hook.ts';
-import { UserDataFromServer } from '@/features/users/users.model.ts';
+import { UserDataFromServer } from '@/features/users/model';
 import Button from '@/ui/button.tsx';
 
 type Props = {

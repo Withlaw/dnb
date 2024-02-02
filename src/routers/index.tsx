@@ -5,8 +5,8 @@ import Signup from '@/features/authentication/signup.component.tsx';
 import Authorization from '@/features/users/authorization.component.tsx';
 import AuthenticationPage from '@/pages/authentication.tsx';
 import BookCreatePage from '@/pages/book-create.tsx';
-import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
+import BookPage from '@/pages/book.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import RootPage from '@/pages/root.tsx';
@@ -33,7 +33,7 @@ const routes: RouteObject[] = [
 					},
 					{
 						path: 'books/:bookId',
-						element: <BookDetailPage />,
+						element: <BookPage />,
 					},
 				],
 			},

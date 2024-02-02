@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useUserService } from '@/contexts/index.ts';
 import useNotice from '@/features/notification/use-notice.tsx';
-import { UserDataToServer } from '@/features/users/users.model.ts';
+import { UserDataToServer } from '@/features/users/model';
 
 const useUserEdit = () => {
 	const navigate = useNavigate();

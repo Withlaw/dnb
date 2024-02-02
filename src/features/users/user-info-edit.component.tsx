@@ -1,9 +1,9 @@
 import { FieldValues } from 'react-hook-form';
 
+import { UserDataToServer } from '@/features/users/model.ts';
 import useUserEdit from '@/features/users/use-user-edit.hook.ts';
 import useUser from '@/features/users/use-user.hook.ts';
 import UserInfoEditForm from '@/features/users/user-info-edit-form.component.tsx';
-import { UserDataToServer } from '@/features/users/users.model.ts';
 
 const UserInfoEdit = () => {
 	// useUser
@@ -21,11 +21,11 @@ const UserInfoEdit = () => {
 	};
 
 	return (
-		<div className=" rounded-md p-3">
-			{user && (
+		user && (
+			<div className=" rounded-md p-3">
 				<UserInfoEditForm defaultValue={user} onSubmit={submitHandler} />
-			)}
-		</div>
+			</div>
+		)
 	);
 };
 

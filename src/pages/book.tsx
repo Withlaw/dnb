@@ -14,7 +14,7 @@ import GeneralMain from '@/ui/general-main.tsx';
 import GeneralNav from '@/ui/general-nav.tsx';
 import { BookDetailSkeleton } from '@/ui/skeletons.tsx';
 
-const BookDetailPage = () => {
+const BookPage = () => {
 	const { bookId } = useParams();
 	const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const BookDetailPage = () => {
 	);
 };
 
-export default BookDetailPage;
+export default BookPage;
 
 /*
 // edit window modal
