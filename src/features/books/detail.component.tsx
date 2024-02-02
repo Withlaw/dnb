@@ -62,7 +62,8 @@ const BookDetail = ({ book }: Props) => {
 				</DetailRow>
 
 				<DetailRow>
-					<Link to={`/user${book.merchantId}`}>
+					{/* <Link to={`/user${book.merchantId}`}> */}
+					<Link to={``}>
 						<figure className="mx-1 flex items-center">
 							{Boolean(book.merchantAvatarUrl) && (
 								<img
