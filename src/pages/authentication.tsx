@@ -1,6 +1,8 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
-import { API_SUPABASE } from '@/constants/index.ts';
+import logo from '@/assets/images/logo.png';
+
+// import { API_SUPABASE } from '@/constants/index.ts';
 
 const AuthenticationPage = () => {
 	const { pathname } = useLocation();
@@ -15,7 +17,8 @@ const AuthenticationPage = () => {
 				<div className="mb-14 flex w-full flex-col items-center justify-center text-center">
 					<Link to="/">
 						<img
-							src={`${API_SUPABASE.BASE_URL}/storage/v1/object/public/assets/logo.png`}
+							src={logo}
+							// src={`${API_SUPABASE.BASE_URL}/storage/v1/object/public/assets/logo.png`}
 							alt="logo"
 							className="size-16"
 						/>

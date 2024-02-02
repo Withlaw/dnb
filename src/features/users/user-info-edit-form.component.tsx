@@ -1,6 +1,6 @@
 import { FieldValues, useForm } from 'react-hook-form';
 
-import { UserDataFromServer } from '@/features/users/model';
+import { UserDataFromServer } from '@/features/users/model.ts';
 import FormRow from '@/features/users/user-info-edit-form-row.component.tsx';
 import Button from '@/ui/button.tsx';
 

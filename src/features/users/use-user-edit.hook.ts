@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useUserService } from '@/contexts/index.ts';
-import useNotice from '@/features/notification/use-notice.hook';
-import { UserDataToServer } from '@/features/users/model';
+import useNotice from '@/features/notification/use-notice.hook.ts';
+import { UserDataToServer } from '@/features/users/model.ts';
 
 const useUserEdit = () => {
 	const navigate = useNavigate();

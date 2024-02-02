@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
 
 import { supabase } from '@/adapters/api/supabase-client.ts';
-import { BookDataFromServer } from '@/features/books/model';
+import { BookDataFromServer } from '@/features/books/model.ts';
 import {
 	UserDataFromServer,
 	UserDataToServer,
