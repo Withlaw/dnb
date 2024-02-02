@@ -39,7 +39,7 @@ const Rent = ({ book, user }: Props) => {
 		rent(rentalInfo);
 	};
 
-	// if (book.rentalId) return null;
+	if (book.rentalId) return null;
 
 	return (
 		<Button

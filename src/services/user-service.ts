@@ -113,7 +113,7 @@ export default class UserService implements UserServiceInterface {
 
 		const { data, error } = await supabase
 			.from('rentals')
-			.select(`start_at, rental_status:status ,book:book_id(*)`)
+			.select(`id, start_at, status, book:book_id(*)`)
 			.eq('customer_id', id)
 			.order('start_at', { ascending: false });
 
@@ -123,7 +123,11 @@ export default class UserService implements UserServiceInterface {
 			item =>
 				new BookDataFromServer({
 					...item.book,
-					rental_status: item.rental_status,
+					rental_id: item.id,
+					rental_info: {
+						start_at: item.start_at,
+						status: item.status,
+					},
 				}),
 		);
 
