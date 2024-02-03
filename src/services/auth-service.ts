@@ -14,6 +14,8 @@ export interface AuthServiceInterface {
 		session: Session;
 	}>;
 	signout: () => Promise<void>;
+	signinWith: (provider: 'github') => Promise<void>;
+	postSignupWithOauth: () => Promise<void>;
 }
 
 export default class AuthService implements AuthServiceInterface {
@@ -71,6 +73,55 @@ export default class AuthService implements AuthServiceInterface {
 		});
 
 		return { user, session: signinData.session };
+	}
+
+	async signinWith(provider: 'github') {
+		const { error } = await supabase.auth.signInWithOAuth({
+			provider,
+		});
+		// provider : "github"
+		// url : "https://wtydbgnjmnqyvpgcvsju.supabase.co/auth/v1/authorize?provider=github"
+
+		if (error) throw new Error(error.message);
+
+		// const { data: sessionData } = await supabase.auth.getSession();
+		// const { data: userData } = await supabase.auth.getUser();
+
+		// console.log('signinWith github: ', userData, sessionData);
+		// window.localStorage.setItem('github: ', JSON.stringify(userData));
+		// window.localStorage.setItem(
+		// 	'github session: ',
+		// 	JSON.stringify(sessionData),
+		// );
+
+		// return userData;
+		const { error: createMemberError } = await this._createMember(
+			Date.now() + '',
+		);
+		// 계정 생성이 완료되면 멤버 테이블 생성
+
+		if (createMemberError) throw new Error(createMemberError.message);
+	}
+
+	async postSignupWithOauth() {
+		return;
+		/*
+		const { data } = await supabase.auth.getSession();
+		if (!data.session) return;
+
+		const { data: meberData } = await this._getMember(data.session.user.id);
+		if (meberData) return;
+		// member 데이터가 존재하면 return
+
+		const { error: createMemberError } = await this._createMember(
+			Date.now() + '',
+		);
+		// const { error: createMemberError } = await this._createMember(
+		// 	data.session.user.email?.split('@')[0] ?? Date.now() + '',
+		// );
+
+		if (createMemberError) throw new Error(createMemberError.message);
+    */
 	}
 
 	async signout() {
