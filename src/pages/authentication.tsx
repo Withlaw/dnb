@@ -1,5 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
+import icons from '@/assets/icons.svg';
 import logo from '@/assets/images/logo.png';
 
 // import { API_SUPABASE } from '@/constants/index.ts';
@@ -39,8 +40,11 @@ const AuthenticationPage = () => {
 
 				<div className="flex w-72 flex-col">
 					<div className="my-3 flex flex-col">
-						<button className="my-3 w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 px-2 py-2 text-center text-xs outline-none hover:bg-stone-100">
-							<span>아이콘</span>
+						<button className="my-3 flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md border border-solid border-stone-300 px-2 py-2 text-center text-xs outline-none hover:bg-stone-100">
+							<svg className="size-4 " viewBox="0 0 100 100">
+								<use href={`${icons}#github-mark`}></use>
+							</svg>
+
 							<span className="truncate ">Continue with GitHub</span>
 						</button>
 						{/* <button className="w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 px-2 py-2 text-center text-sm outline-none hover:bg-stone-100">
