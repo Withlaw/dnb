@@ -46,9 +46,11 @@ export class FetchClient extends Fetch implements HttpClient {
 		super({ baseUrl, apiKey, time: 5000 });
 	}
 
-	async get<T = any>(endpoint: string): Promise<T> {
+	async get<T = any>(endpoint: string, options?: RequestInit): Promise<T> {
 		const res = await this._fetch(endpoint, {
+			...options,
 			headers: {
+				...options?.headers,
 				'Content-Type': 'application/json',
 			},
 		});
@@ -86,9 +88,11 @@ export class NaverAPiClient extends Fetch implements HttpClient {
 		this.resource = resource;
 	}
 
-	get(endpoint: string): Promise<Response> {
+	get(endpoint: string, options?: RequestInit): Promise<Response> {
 		return this._fetch(this.resource + endpoint, {
+			...options,
 			headers: {
+				...options?.headers,
 				'Content-Type': 'application/json',
 			},
 		});

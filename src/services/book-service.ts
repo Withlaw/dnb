@@ -15,6 +15,7 @@ export interface BookServiceInterface {
 		query: string,
 		start: number,
 		display: number,
+		options?: { display?: number; signal?: AbortSignal },
 	) => Promise<{
 		items: BookDataFromTitleSearch[];
 		display: number;
@@ -63,7 +64,12 @@ class BookService {
 	// constructor(  private readonly baseURL : string, private readonly apiKey : string){}
 
 	// search api
-	async searchBook(query: string, start: number = 1, display: number = 10) {
+	async searchBook(
+		query: string,
+		start: number = 1,
+		options: { display?: number; signal?: AbortSignal },
+	) {
+		const display = options?.display || 10;
 		const naverBookSearchClient = new NaverAPiClient(
 			API_SUPABASE_FUNCTIONS.NAVER_BOOK_SEARCH_URL,
 			'/functions/v1/naver-book-search',
@@ -71,6 +77,9 @@ class BookService {
 
 		const response = await naverBookSearchClient.get(
 			`?query=${query}&display=${display}&start=${start}`,
+			{
+				signal: options?.signal,
+			},
 		);
 
 		if (!response.ok)

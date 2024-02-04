@@ -19,8 +19,10 @@ const useBookSearch = () => {
 		error,
 	} = useInfiniteQuery({
 		queryKey: ['bookSearch2', debouncedValue],
-		queryFn: ({ pageParam }) =>
-			booksService.searchBook(debouncedValue, pageParam),
+		queryFn: ({ pageParam, signal }) =>
+			booksService.searchBook(debouncedValue, pageParam, {
+				signal,
+			}),
 		initialPageParam: 1,
 		getNextPageParam: lastPage => {
 			const last = lastPage.total;
