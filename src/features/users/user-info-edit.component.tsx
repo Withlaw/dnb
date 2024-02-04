@@ -17,7 +17,7 @@ const UserInfoEdit = () => {
 
 		const newUserInfo = new UserDataToServer(data);
 
-		editUserInfo({ id: user?.id, data: newUserInfo });
+		editUserInfo({ id: user.id, data: newUserInfo });
 	};
 
 	return (

@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { BookDataToServer, BookFileToServer } from '@/features/books/model.ts';
-import { readImage } from '@/features/books/utils.ts';
 import useNotice from '@/features/notification/use-notice.hook.ts';
 import { booksService } from '@/services/book-service.ts';
 
@@ -18,18 +17,9 @@ const useBookCreate = () => {
 		}: {
 			newBook: BookDataToServer;
 			imageFiles?: BookFileToServer;
-		}) => {
-			return { newBook, imageFiles };
-		},
-		// }) => await booksService.createBook(newBook, imageFiles),
-		onMutate: async data => {
-			console.log('useBookCreate: ', data);
-			if (!data.imageFiles) return;
-			const images = await readImage(data.imageFiles.files);
-			console.log('이미지: ', images);
-		},
+		}) => await booksService.createBook(newBook, imageFiles),
+
 		onSuccess: res => {
-			return;
 			notify('글이 등록 되었습니다.');
 			queryClient.invalidateQueries({ queryKey: ['books'] });
 
