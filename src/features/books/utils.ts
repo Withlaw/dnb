@@ -1,3 +1,29 @@
+export const readImages = async (files: FileList) => {
+	const images: Array<string | ArrayBuffer | null> = [];
+	for (const image of files) {
+		const result = await readFileAsDataURL(image);
+		images.push(result);
+	}
+
+	function readFileAsDataURL(file: File): Promise<string | ArrayBuffer | null> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				// if (!e.target) return null;
+				// resolve(e.target?.result);
+				resolve(reader.result);
+			};
+			reader.onerror = () => {
+				console.error('Failed to read file');
+				reject(null);
+			};
+			reader.readAsDataURL(file);
+		});
+	}
+
+	return images;
+};
+
 /*
 // Form validation lacacy code
 
@@ -127,5 +153,3 @@ const formValidate () => {
     };
   }
 */
-
-
