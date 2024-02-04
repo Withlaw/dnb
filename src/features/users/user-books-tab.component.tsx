@@ -15,14 +15,15 @@ const UserBooksTab = ({ options }: Props) => {
 			{({ options, currentField, onSearch }) =>
 				options.map(option => {
 					const isActive = option.value === currentField;
+					console.log('option', option, currentField, isActive);
 
 					return (
 						<button
 							key={option.value}
 							onClick={() => onSearch(option.value)}
 							className={clsx(
-								'px-2 text-stone-600 hover:cursor-pointer hover:text-inherit',
-								isActive && 'text-inherit',
+								'px-2  hover:cursor-pointer hover:text-inherit',
+								isActive ? 'text-inherit' : 'text-stone-600',
 							)}>
 							{option.label}
 						</button>
