@@ -2,8 +2,8 @@ import icons from '@/assets/icons.svg';
 import useOauthWith from '@/features/authentication/use-oauth.hook.ts';
 import useNotice from '@/features/notification/use-notice.hook.ts';
 
-export const SinginWithGithub = () => {
-	const { login } = useOauthWith('github');
+const SinginWithOauth = ({ provider }: { provider: 'github' }) => {
+	const { login } = useOauthWith(provider);
 	const { notify } = useNotice();
 
 	const signinHandler = () => {
@@ -11,7 +11,7 @@ export const SinginWithGithub = () => {
 		// login();
 	};
 
-	return <Button provider="github" onClick={signinHandler} />;
+	return <Button provider={provider} onClick={signinHandler} />;
 };
 
 function Button({
@@ -35,3 +35,5 @@ function Button({
 		</button>
 	);
 }
+
+export default SinginWithOauth;

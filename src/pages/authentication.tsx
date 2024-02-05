@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
 import logo from '@/assets/images/logo.png';
-import { SinginWithGithub } from '@/features/authentication/signin-oauth.component.tsx';
+import SinginWithOauth from '@/features/authentication/signin-oauth.component.tsx';
 
 // import { API_SUPABASE } from '@/constants/index.ts';
 
@@ -40,12 +40,8 @@ const AuthenticationPage = () => {
 				</div>
 
 				<div className="flex w-72 flex-col">
-					<div className="my-3 flex flex-col">
-						<SinginWithGithub />
-						{/* <button className="w-full cursor-pointer space-x-2 rounded-md border border-solid border-stone-300 px-2 py-2 text-center text-sm outline-none hover:bg-stone-100">
-					<span>아이콘</span>
-					<span className="truncate ">Continue with GitHub</span>
-				</button> */}
+					{/* <div className="my-3 flex flex-col">
+						<SinginWithOauth provider="github" />
 					</div>
 
 					<div className="relative">
@@ -57,7 +53,7 @@ const AuthenticationPage = () => {
 								or
 							</span>
 						</div>
-					</div>
+					</div> */}
 
 					<div className="my-4">
 						<Outlet />
