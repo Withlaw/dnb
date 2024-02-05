@@ -16,7 +16,7 @@ describe('Return 컴포넌트', () => {
 	test('내가 대여한 책에서는 반납하기 버튼을 렌더링 한다.', () => {
 		render(
 			<Return
-				book={{ rentalId: 1 } as BookDataFromServer}
+				book={{ customerId: 1 } as BookDataFromServer}
 				user={{ id: 1 } as UserDataFromServer}
 			/>,
 		);

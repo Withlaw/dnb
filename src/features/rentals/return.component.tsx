@@ -25,9 +25,7 @@ const Return = ({ book, user }: Props) => {
 		// returnBook(book.rentalId!);
 	};
 
-	if (!user || (!book.rentalId && !isMyRent)) return null;
-
-	return <Button onClick={returnHandler}>반납하기</Button>;
+	if (isMyRent) return <Button onClick={returnHandler}>반납하기</Button>;
 };
 
 export default Return;
