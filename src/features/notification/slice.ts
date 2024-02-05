@@ -5,7 +5,7 @@ import { Notice, Notification } from '@/features/notification/types.ts';
 const initialState: Notification = { notices: [] };
 
 const notificationSlice = createSlice({
-	name: 'notificationSlice',
+	name: 'notification',
 	initialState,
 	reducers: {
 		add: (state, action: PayloadAction<Notice>) => {

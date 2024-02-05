@@ -6,7 +6,11 @@ type Props = {
 	className?: string;
 	onClose?: () => void;
 };
-export default function Modal({ children, onClose, className = '' }: Props) {
+export default function ModalLegacy({
+	children,
+	onClose,
+	className = '',
+}: Props) {
 	useEffect(() => {
 		// esc 누르면 창닫기 구현하기
 	}, []);
@@ -56,5 +60,5 @@ const BtnClose = ({ children, onClose }: Props) => {
 	);
 };
 
-Modal.BtnSubmit = BtnSubmit;
-Modal.BtnClose = BtnClose;
+ModalLegacy.BtnSubmit = BtnSubmit;
+ModalLegacy.BtnClose = BtnClose;

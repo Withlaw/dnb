@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import BooksPreviewItems from '@/features/books/preview-items.component.tsx';
+import useConfirm from '@/features/confirmation/use-confirm.hook.ts';
 import Button from '@/ui/button.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';

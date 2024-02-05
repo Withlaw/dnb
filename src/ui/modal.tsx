@@ -18,9 +18,11 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
 const Window = ({
 	children,
 	name,
+	blured = true,
 }: {
 	children: React.ReactElement;
 	name: string;
+	blured?: boolean;
 }) => {
 	const { name: curWindowName, close } = useModal();
 
@@ -44,7 +46,9 @@ const Window = ({
 			<div className="relative z-[101]">
 				{cloneElement(children, { onClose: close })}
 			</div>
-			<div className="fixed h-full w-full backdrop-blur-sm" onClick={close}>
+			<div
+				className={`fixed h-full w-full ${blured ?? 'backdrop-blur-sm'}`}
+				onClick={close}>
 				{/* overlay */}
 			</div>
 		</div>,

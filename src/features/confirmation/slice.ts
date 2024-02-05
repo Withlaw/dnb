@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { Confirm } from '@/features/confirmation/types.ts';
 
@@ -6,11 +6,17 @@ const initialState: Confirm = {
 	message: '',
 	isActive: false,
 	isConfirmed: false,
-	confirmCallback: '',
 };
 
+const onConfirmCallback = createAsyncThunk(
+	'confirmation/onConfirm',
+	async (callback: () => void) => {
+		callback();
+	},
+);
+
 const confirmationSlice = createSlice({
-	name: 'confirmationSlice',
+	name: 'confirmation',
 	initialState,
 	reducers: {
 		onAct: (state, action: PayloadAction<Pick<Confirm, 'message'>>) => {
@@ -20,19 +26,21 @@ const confirmationSlice = createSlice({
 		unAct: state => {
 			state.message = '';
 			state.isActive = false;
-			state.confirmCallback = '';
 		},
 		onConfirm: state => {
-			// state.confirmCallback();
+			state.isConfirmed = true;
+		},
+		// onConfirm: state => {
+		// 	state.message = '';
+		// 	state.isActive = false;
+		// },
+	},
+	extraReducers: builder =>
+		builder.addCase(onConfirmCallback.fulfilled, state => {
 			state.message = '';
 			state.isActive = false;
-		},
-	},
-	// extraReducers: builder => {
-	// 	builder.addCase(confirmationSlice.actions.onAct, (state, action) => {
-	// 		console.log('thunk ', state);
-	// 	});
-	// },
+			state.isConfirmed = false;
+		}),
 });
 
 const {
@@ -41,6 +49,12 @@ const {
 	onConfirm,
 } = confirmationSlice.actions;
 
-export { confirmationSlice, activateConfirm, disableConfirm, onConfirm };
+export {
+	confirmationSlice,
+	activateConfirm,
+	disableConfirm,
+	onConfirm,
+	onConfirmCallback,
+};
 
 export default confirmationSlice.reducer;
