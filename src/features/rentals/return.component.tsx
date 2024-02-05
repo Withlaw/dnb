@@ -1,4 +1,5 @@
 import { BookDataFromServer } from '@/features/books/model.ts';
+import useConfirm from '@/features/confirmation/use-confirm.hook.ts';
 import useReturn from '@/features/rentals/use-return.hook.ts';
 import { UserDataFromServer } from '@/features/users/model.ts';
 import Button from '@/ui/button.tsx';
@@ -9,15 +10,19 @@ type Props = {
 };
 
 const Return = ({ book, user }: Props) => {
+	const { confirm } = useConfirm();
 	const { returnBook } = useReturn();
 
 	const isMyRent = user && user.id === book.customerId;
 
 	const returnHandler = () => {
-		const isConfirmed = window.confirm('반납하시겠습니까?');
-		if (!isConfirmed) return;
+		confirm('반납하시겠습니까?', () => {
+			returnBook(book.rentalId!);
+		});
+		// const isConfirmed = window.confirm('반납하시겠습니까?');
+		// if (!isConfirmed) return;
 
-		returnBook(book.rentalId!);
+		// returnBook(book.rentalId!);
 	};
 
 	if (!user || (!book.rentalId && !isMyRent)) return null;

@@ -7,9 +7,6 @@ const Confirm = () => {
 	const dispatch = useAppDispatch();
 
 	const confirmHandler = () => {
-		// const callback = new Function(`return ${confirmCallback}`)();
-		// console.log('confirmCallback: ', confirmCallback, 'coak:', callback);
-		// callback();
 		dispatch(onConfirm());
 	};
 	const cancelHandler = () => {
@@ -22,8 +19,8 @@ const Confirm = () => {
 		<Modal>
 			<Modal.Window name="" blured={false}>
 				<div className="absolute top-10 flex w-full justify-center">
-					<div className=" flex w-72 flex-col items-center justify-center rounded-md border border-stone-600 bg-[#fff] shadow-inner drop-shadow-xl">
-						<div className="min-h-20 w-full p-4 text-sm">
+					<div className=" flex w-72 flex-col items-center justify-center rounded-md border border-stone-500 bg-[#fff] shadow-inner drop-shadow-xl">
+						<div className="min-h-20 w-full p-4 text-xs">
 							<p>{message}</p>
 						</div>
 						<div className=" flex w-full justify-center divide-x divide-stone-400 border-t border-stone-400 text-sm">

@@ -1,5 +1,6 @@
 import { RENT } from '@/constants/index.ts';
 import { BookDataFromServer } from '@/features/books/model.ts';
+import useConfirm from '@/features/confirmation/use-confirm.hook.ts';
 import useNotice from '@/features/notification/use-notice.hook.ts';
 import { RentalInfoToServer } from '@/features/rentals/model.ts';
 import useRent from '@/features/rentals/use-rent.hook.ts';
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const Rent = ({ book, user }: Props) => {
+	const { confirm } = useConfirm();
 	const { rent } = useRent();
 	const { notify } = useNotice();
 
@@ -23,22 +25,38 @@ const Rent = ({ book, user }: Props) => {
 			return;
 		}
 
-		const isConfirmed = window.confirm(
-			`"${book.title}" 책을 대여 하시겠습니까?`,
-		);
-		if (!isConfirmed) return;
+		confirm(`"${book.title}" 책을 대여 하시겠습니까?`, () => {
+			const now = new Date();
+			const rentalInfo = new RentalInfoToServer({
+				endAt: new Date(
+					now.setDate(now.getDate() + RENT.DURATION),
+				).toISOString(),
+				numDays: RENT.DURATION,
+				customerId: user.id,
+				fee: book.fee,
+				bookId: book.id,
+				merchantId: book.merchantId,
+			});
 
-		const now = new Date();
-		const rentalInfo = new RentalInfoToServer({
-			endAt: new Date(now.setDate(now.getDate() + RENT.DURATION)).toISOString(),
-			numDays: RENT.DURATION,
-			customerId: user.id,
-			fee: book.fee,
-			bookId: book.id,
-			merchantId: book.merchantId,
+			rent(rentalInfo);
 		});
 
-		rent(rentalInfo);
+		// const isConfirmed = window.confirm(
+		// 	`"${book.title}" 책을 대여 하시겠습니까?`,
+		// );
+		// if (!isConfirmed) return;
+
+		// const now = new Date();
+		// const rentalInfo = new RentalInfoToServer({
+		// 	endAt: new Date(now.setDate(now.getDate() + RENT.DURATION)).toISOString(),
+		// 	numDays: RENT.DURATION,
+		// 	customerId: user.id,
+		// 	fee: book.fee,
+		// 	bookId: book.id,
+		// 	merchantId: book.merchantId,
+		// });
+
+		// rent(rentalInfo);
 	};
 
 	if (isMyRent) return null;

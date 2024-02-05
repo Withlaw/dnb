@@ -25,7 +25,9 @@ const useConfirm = () => {
 
 	useEffect(() => {
 		if (callback && isConfirmed) {
-			dispatch(onConfirmCallback(callback));
+			dispatch(onConfirmCallback()).then(() => {
+				callback();
+			});
 		}
 	}, [isConfirmed]);
 

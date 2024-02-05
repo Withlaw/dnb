@@ -10,9 +10,7 @@ const initialState: Confirm = {
 
 const onConfirmCallback = createAsyncThunk(
 	'confirmation/onConfirm',
-	async (callback: () => void) => {
-		callback();
-	},
+	async () => {},
 );
 
 const confirmationSlice = createSlice({
