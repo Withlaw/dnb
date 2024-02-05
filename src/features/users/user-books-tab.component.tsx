@@ -15,7 +15,6 @@ const UserBooksTab = ({ options }: Props) => {
 			{({ options, currentField, onSearch }) =>
 				options.map(option => {
 					const isActive = option.value === currentField;
-					console.log('option', option, currentField, isActive);
 
 					return (
 						<button

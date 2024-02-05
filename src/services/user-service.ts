@@ -175,6 +175,7 @@ export class UserServiceTest implements UserServiceInterface {
 		const { rentalId, rentalStatus } = this.testOptions;
 		return [
 			{
+				id: 1,
 				title: 'title',
 				author: 'author',
 				publisher: 'publisher',
@@ -187,6 +188,7 @@ export class UserServiceTest implements UserServiceInterface {
 	async getUserRentals() {
 		return [
 			{
+				id: 1,
 				title: 'rental',
 				author: 'author',
 				publisher: 'publisher',
