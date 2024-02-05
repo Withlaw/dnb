@@ -10,6 +10,7 @@ import BookPage from '@/pages/book.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import ErrorPage from '@/pages/error.tsx';
 import RootPage from '@/pages/root.tsx';
+import Test from '@/pages/test.tsx';
 import UserEditPage from '@/pages/user-edit.tsx';
 import UserPage from '@/pages/user.tsx';
 import HomeLayout from '@/ui/layout-home.tsx';
@@ -67,7 +68,7 @@ const routes: RouteObject[] = [
 					},
 				],
 			},
-			{ path: '/test', element: null },
+			{ id: 'test', path: '/test', element: <Test /> },
 		],
 	},
 ];

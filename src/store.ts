@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import confirmationReducer from '@/features/confirmation/slice.ts';
 import notificationReducer from '@/features/notification/slice.ts';
 
 const store = configureStore({
 	reducer: {
 		notification: notificationReducer,
+		confirmation: confirmationReducer,
 	},
 });
 
