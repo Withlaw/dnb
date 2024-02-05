@@ -1,8 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
-import icons from '@/assets/icons.svg';
 import logo from '@/assets/images/logo.png';
-import SinginWithOauth from '@/features/authentication/signin-oauth.component.tsx';
 
 // import { API_SUPABASE } from '@/constants/index.ts';
 

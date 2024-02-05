@@ -3,9 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/use-redux.tsx';
 import Modal from '@/ui/modal.tsx';
 
 const Confirm = () => {
-	const { message, isActive, confirmCallback } = useAppSelector(
-		state => state.confirmation,
-	);
+	const { message, isActive } = useAppSelector(state => state.confirmation);
 	const dispatch = useAppDispatch();
 
 	const confirmHandler = () => {

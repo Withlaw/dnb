@@ -1,9 +1,9 @@
 import icons from '@/assets/icons.svg';
-import useOauthWith from '@/features/authentication/use-oauth.hook.ts';
+// import useOauthWith from '@/features/authentication/use-oauth.hook.ts';
 import useNotice from '@/features/notification/use-notice.hook.ts';
 
 const SinginWithOauth = ({ provider }: { provider: 'github' }) => {
-	const { login } = useOauthWith(provider);
+	// const { login } = useOauthWith(provider);
 	const { notify } = useNotice();
 
 	const signinHandler = () => {

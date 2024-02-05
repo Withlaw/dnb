@@ -1,5 +1,3 @@
-import { supabase } from '@/adapters/api/supabase-client.ts';
-
 export const AuthValidate = (value: string, message?: string) => {
 	let errorMessage = message;
 	return {
