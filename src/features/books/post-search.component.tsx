@@ -30,7 +30,6 @@ const BookPostSearch = ({ onSearch, onClose }: Props) => {
 		isError,
 		error,
 	} = useBookSearch();
-	//
 
 	const searchItemClickHandler = useCallback(
 		(data: BookDataFromTitleSearch) => {

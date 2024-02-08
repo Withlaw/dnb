@@ -1,15 +1,17 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { HttpResponse, delay, http } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { setupServer } from 'msw/node';
 import { beforeAll, afterEach, afterAll } from 'vitest';
 
 export const handlers = [
-	http.get('', async () => {
-		await delay(400);
-		return HttpResponse.json([{ name: 'test', text: 'test' }], {
+	http.get('http://localhost:3000', async () => {
+		return HttpResponse.json([{ name: 'test', value: 'test' }], {
 			status: 200,
 		});
+	}),
+	http.get('http://localhost:3000', () => {
+		return new HttpResponse(null, { status: 500 });
 	}),
 ];
 // This configures a request mocking server with the given request handlers.
