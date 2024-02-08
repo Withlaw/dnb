@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Notice } from '@/features/notification/types.ts';
+import { Notice } from '@/features/notification/_types.ts';
 import Toast from '@/ui/toast.tsx';
 
 const Noti = ({ notice }: { notice: Notice }) => {

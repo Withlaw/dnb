@@ -1,4 +1,4 @@
-import { BookTitleSearchResult } from '@/features/books/types.ts';
+import { BookTitleSearchResult } from '@/features/books/_types.ts';
 
 type FormFieldValues = {
 	[k: string]: any;

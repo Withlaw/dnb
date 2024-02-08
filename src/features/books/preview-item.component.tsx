@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import icons from '@/assets/icons.svg';
-import { BooksPreviewModel } from '@/features/books/model.ts';
+import { BooksPreviewModel } from '@/features/books/_model.ts';
 import BookStatusSticker from '@/ui/sticker-book-status.tsx';
 
 type Props = {

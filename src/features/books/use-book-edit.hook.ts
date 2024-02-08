@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { BookDataToServer, BookFileToServer } from '@/features/books/model.ts';
+import { BookDataToServer, BookFileToServer } from '@/features/books/_model.ts';
 import useNotice from '@/features/notification/use-notice.hook.ts';
 import { booksService } from '@/services/book-service.ts';
 

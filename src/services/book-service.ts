@@ -7,8 +7,8 @@ import {
 	BookDataToServer,
 	BookFileToServer,
 	BooksPreviewModel,
-} from '@/features/books/model.ts';
-import { BookTitleSearchData } from '@/features/books/types.ts';
+} from '@/features/books/_model.ts';
+import { BookTitleSearchData } from '@/features/books/_types.ts';
 
 export interface BookServiceInterface {
 	searchBook: (

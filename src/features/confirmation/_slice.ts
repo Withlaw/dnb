@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { Confirm } from '@/features/confirmation/types.ts';
+import { Confirm } from '@/features/confirmation/_types.ts';
 
 const initialState: Confirm = {
 	message: '',

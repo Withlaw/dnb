@@ -1,4 +1,4 @@
-import { disableConfirm, onConfirm } from '@/features/confirmation/slice.ts';
+import { disableConfirm, onConfirm } from '@/features/confirmation/_slice.ts';
 import { useAppDispatch, useAppSelector } from '@/hooks/use-redux.tsx';
 import Modal from '@/ui/modal.tsx';
 

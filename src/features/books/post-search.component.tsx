@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 
-import { BookDataFromTitleSearch } from '@/features/books/model.ts';
+import { BookDataFromTitleSearch } from '@/features/books/_model.ts';
 import BookPostSearchForm from '@/features/books/post-search-form.component.tsx';
 import BookPostSearchResults from '@/features/books/post-search-results.component.tsx';
 import useBookSearch from '@/features/books/use-book-search.hook.ts';

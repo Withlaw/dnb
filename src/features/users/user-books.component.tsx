@@ -1,4 +1,4 @@
-import { UserDataFromServer } from '@/features/users/model.ts';
+import { UserDataFromServer } from '@/features/users/_model.ts';
 import useUserBooks from '@/features/users/use-user-books.hook.ts';
 import useUserRentals from '@/features/users/use-user-rentals.hook.ts';
 import UserBooksList from '@/features/users/user-books-list.component.tsx';

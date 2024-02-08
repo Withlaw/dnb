@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import {
 	activateConfirm,
 	onConfirmCallback,
-} from '@/features/confirmation/slice.ts';
+} from '@/features/confirmation/_slice.ts';
 import { useAppDispatch, useAppSelector } from '@/hooks/use-redux.tsx';
 
 const useConfirm = () => {

@@ -1,6 +1,6 @@
 import { FieldValues } from 'react-hook-form';
 
-import { UserDataToServer } from '@/features/users/model.ts';
+import { UserDataToServer } from '@/features/users/_model.ts';
 import useUserEdit from '@/features/users/use-user-edit.hook.ts';
 import useUser from '@/features/users/use-user.hook.ts';
 import UserInfoEditForm from '@/features/users/user-info-edit-form.component.tsx';

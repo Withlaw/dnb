@@ -5,7 +5,7 @@ import {
 	BookDataFromTitleSearch,
 	BookDataToServer,
 	BookFileToServer,
-} from '@/features/books/model.ts';
+} from '@/features/books/_model.ts';
 import BookPostForm from '@/features/books/post-form.component.tsx';
 import BookPostSearch from '@/features/books/post-search.component.tsx';
 import useBookCreate from '@/features/books/use-book-create.hook.ts';

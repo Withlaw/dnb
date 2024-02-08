@@ -1,7 +1,7 @@
 import { FieldValues, useForm } from 'react-hook-form';
 
+import { AuthValidate } from '@/features/authentication/_utils.ts';
 import FormRow from '@/features/authentication/sign-form-row.component.tsx';
-import { AuthValidate } from '@/features/authentication/utils.ts';
 
 type Props = {
 	children?: React.ReactNode;

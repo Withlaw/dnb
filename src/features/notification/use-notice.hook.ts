@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
-import { addNotice, deleteNotice } from '@/features/notification/slice.ts';
-import { NotifyOptions } from '@/features/notification/types.ts';
+import { addNotice, deleteNotice } from '@/features/notification/_slice.ts';
+import { NotifyOptions } from '@/features/notification/_types.ts';
 import { useAppDispatch, useAppSelector } from '@/hooks/use-redux.tsx';
 
 const useNotice = () => {

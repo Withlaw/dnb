@@ -1,10 +1,10 @@
 import { RENT } from '@/constants/index.ts';
-import { BookDataFromServer } from '@/features/books/model.ts';
+import { BookDataFromServer } from '@/features/books/_model.ts';
 import useConfirm from '@/features/confirmation/use-confirm.hook.ts';
 import useNotice from '@/features/notification/use-notice.hook.ts';
-import { RentalInfoToServer } from '@/features/rentals/model.ts';
+import { RentalInfoToServer } from '@/features/rentals/_model.ts';
 import useRent from '@/features/rentals/use-rent.hook.ts';
-import { UserDataFromServer } from '@/features/users/model.ts';
+import { UserDataFromServer } from '@/features/users/_model.ts';
 import Button from '@/ui/button.tsx';
 
 type Props = {

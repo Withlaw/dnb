@@ -1,4 +1,4 @@
-import { BookDataFromTitleSearch } from '@/features/books/model.ts';
+import { BookDataFromTitleSearch } from '@/features/books/_model.ts';
 
 enum Style {
 	ITME = 'px-2 py-1 my-1 text-sm',

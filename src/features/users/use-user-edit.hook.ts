@@ -6,7 +6,7 @@ import useNotice from '@/features/notification/use-notice.hook.ts';
 import {
 	UserDataFromServer,
 	UserDataToServer,
-} from '@/features/users/model.ts';
+} from '@/features/users/_model.ts';
 
 const useUserEdit = () => {
 	const navigate = useNavigate();

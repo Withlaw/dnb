@@ -1,6 +1,6 @@
-import { BookDataFromServer } from '@/features/books/model.ts';
+import { BookDataFromServer } from '@/features/books/_model.ts';
 import Rent from '@/features/rentals/rent.component.tsx';
-import { UserDataFromServer } from '@/features/users/model.ts';
+import { UserDataFromServer } from '@/features/users/_model.ts';
 
 import { render, screen } from './utils.tsx';
 
