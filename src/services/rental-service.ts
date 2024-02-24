@@ -2,7 +2,7 @@ import { supabase } from '@/adapters/api/supabase-client.ts';
 import {
 	RentalInfoFromServer,
 	RentalInfoToServer,
-} from '@/features/rentals/_model.ts';
+} from '@/features/rentals/_lib/model.ts';
 
 export interface RentalServiceInterface {
 	getRentalInfo: (id: number) => Promise<RentalInfoFromServer>;

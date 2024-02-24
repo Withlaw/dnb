@@ -1,8 +1,8 @@
 // legacy
 import RentalServiceProvider from '@/contexts/rental-service.context.tsx';
 import BookCreatePage from '@/pages/book-create.tsx';
+import BookDetailPage from '@/pages/book-detail.tsx';
 import BookEditPage from '@/pages/book-edit.tsx';
-import BookDetailPage from '@/pages/book.tsx';
 import BooksPreviewPage from '@/pages/books-preview.tsx';
 import RentalService from '@/services/rental-service.ts';
 

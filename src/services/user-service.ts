@@ -1,11 +1,11 @@
 import { Session } from '@supabase/supabase-js';
 
 import { supabase } from '@/adapters/api/supabase-client.ts';
-import { BookDataFromServer } from '@/features/books/_model.ts';
+import { BookDataFromServer } from '@/features/books/_lib/model.ts';
 import {
 	UserDataFromServer,
 	UserDataToServer,
-} from '@/features/users/_model.ts';
+} from '@/features/users/_lib/model.ts';
 
 export interface UserServiceInterface {
 	getCurrentSession: () => Promise<Session | null>;

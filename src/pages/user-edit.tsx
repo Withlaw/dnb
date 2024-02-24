@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import useConfirm from '@/features/confirmation/use-confirm.hook.ts';
-import UserInfoEdit from '@/features/users/user-info-edit.component.tsx';
+import UserInfoEdit from '@/features/users/info/user-info-edit.component.tsx';
+import useConfirm from '@/hooks/use-confirm.ts';
 import GeneralHeaderBack from '@/ui/general-header-back.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';

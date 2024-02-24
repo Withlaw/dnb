@@ -1,7 +1,7 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
-import Confirm from '@/features/confirmation/confirm.component.tsx';
-import Notices from '@/features/notification/notices.component.tsx';
+import Confirm from '@/ui/confirm.tsx';
+import Notices from '@/ui/notices.tsx';
 
 const RootPage = () => {
 	return (

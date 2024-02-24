@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import BooksPreviewItems from '@/features/books/preview-items.component.tsx';
+import BooksPreviewItems from '@/features/books/preview/preview-items.component.tsx';
 import Button from '@/ui/button.tsx';
 import GeneralHeader from '@/ui/general-header.tsx';
 import GeneralMain from '@/ui/general-main.tsx';
