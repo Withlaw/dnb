@@ -6,7 +6,9 @@ type Props = {
 	onChange: (value: string) => void;
 	onOpen: () => void;
 	onClose: () => void;
+	onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 	isLoading: boolean;
+	focusedItemValue: string;
 };
 
 const BookPostSearchForm = ({
@@ -14,6 +16,8 @@ const BookPostSearchForm = ({
 	onClose,
 	isLoading,
 	onChange,
+	onKeyDown,
+	focusedItemValue,
 }: Partial<Props>) => {
 	const [inputValue, setInputValue] = useState('');
 
@@ -21,9 +25,10 @@ const BookPostSearchForm = ({
 
 	const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.currentTarget;
-		if (value.trim() === inputValue.trim()) return; // 띄어쓰기만 할 경우 싹 무시.
 
 		setInputValue(value);
+
+		if (value.trim() === inputValue.trim()) return; // 띄어쓰기만 할 경우 싹 무시.
 		if (onChange) onChange(value);
 	};
 
@@ -36,6 +41,10 @@ const BookPostSearchForm = ({
 		if (!onClose) return;
 		if (!isInputChanging) onClose();
 	}, [isInputChanging, onOpen, onClose]);
+
+	useEffect(() => {
+		setInputValue(focusedItemValue!);
+	}, [focusedItemValue]);
 
 	return (
 		<form
@@ -58,8 +67,11 @@ const BookPostSearchForm = ({
 						id="search"
 						name="search"
 						placeholder="검색어를 입력해주세요."
+						value={inputValue}
 						onChange={inputChangeHandler}
 						autoFocus={true}
+						autoComplete="off"
+						onKeyDown={onKeyDown}
 						className="h-10 flex-auto rounded-md px-3 text-sm outline-none autofill:bg-[#fff] focus:border focus:border-solid focus:border-stone-800"
 					/>
 

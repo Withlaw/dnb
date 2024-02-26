@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 
 import BookPostSearchForm from '@/features/books/_components/post-search-form.component.tsx';
@@ -19,6 +19,9 @@ type Props = {
 };
 
 const BookPostSearch = ({ onSearch, onClose }: Props) => {
+	const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
+	const [focusedItemValue, setFocusedItemValue] = useState('');
+
 	const {
 		inputValue,
 		isTyping,
@@ -39,6 +42,47 @@ const BookPostSearch = ({ onSearch, onClose }: Props) => {
 		[onSearch, onClose],
 	);
 
+	const searchQueryChangeHandler = useCallback((value: string) => {
+		inputChangeHandler(value);
+		setFocusedItemIndex(-1);
+	}, []);
+
+	const keyboardHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		const { key, nativeEvent } = e;
+
+		if (
+			!searchResults ||
+			searchResults.length === 0 ||
+			!['ArrowUp', 'ArrowDown', 'Enter'].includes(key)
+		)
+			return;
+
+		if (nativeEvent.isComposing) return;
+		e.preventDefault();
+
+		const lastIndex = searchResults.length - 1;
+		switch (key) {
+			case 'ArrowUp':
+				if (focusedItemIndex > 0) {
+					setFocusedItemIndex(prevIndex => prevIndex - 1);
+					setFocusedItemValue(searchResults[focusedItemIndex - 1].title);
+				}
+				break;
+			case 'ArrowDown':
+				if (focusedItemIndex < lastIndex) {
+					setFocusedItemIndex(prevIndex => prevIndex + 1);
+					setFocusedItemValue(searchResults[focusedItemIndex + 1].title);
+				}
+				break;
+
+			case 'Enter':
+				if (focusedItemIndex < 0) return;
+				if (onSearch) onSearch(searchResults[focusedItemIndex]);
+				if (onClose) onClose();
+				break;
+		}
+	};
+
 	return (
 		<div className="absolute top-[10vh] flex w-full items-center justify-center ">
 			<div className="relative">
@@ -52,8 +96,10 @@ const BookPostSearch = ({ onSearch, onClose }: Props) => {
 					<div className="flex w-80 flex-col justify-between rounded-xl border border-solid bg-stone-300 p-4">
 						<DropDown.Trigger htmlFor="search">
 							<BookPostSearchForm
-								onChange={inputChangeHandler}
+								onChange={searchQueryChangeHandler}
 								isLoading={isLoading}
+								onKeyDown={keyboardHandler}
+								focusedItemValue={focusedItemValue}
 							/>
 						</DropDown.Trigger>
 
@@ -76,6 +122,8 @@ const BookPostSearch = ({ onSearch, onClose }: Props) => {
 									<BookPostSearchResults
 										searchData={searchResults}
 										onClick={searchItemClickHandler}
+										focusedItemIndex={focusedItemIndex}
+										setFocusedItemIndex={setFocusedItemIndex}
 									/>
 								)}
 
