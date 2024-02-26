@@ -38,7 +38,11 @@ const BookPostSearchForm = ({
 	}, [isInputChanging, onOpen, onClose]);
 
 	return (
-		<form className="flex-initial ">
+		<form
+			className="flex-initial"
+			onSubmit={e => {
+				e.preventDefault();
+			}}>
 			{/* className="flex w-80 flex-initial flex-col justify-between rounded-xl border border-solid bg-stone-300 p-4"> */}
 			<div>
 				<div className="mb-3 text-center ">
