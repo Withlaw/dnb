@@ -1,4 +1,4 @@
-import { cloneElement, useCallback, useEffect, useState } from 'react';
+import { cloneElement, useCallback, useState } from 'react';
 
 import { useModal } from '@/contexts/index.ts';
 import ModalProvider from '@/contexts/modal.context.tsx';
