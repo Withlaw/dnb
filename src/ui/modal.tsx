@@ -39,6 +39,16 @@ const Window = ({
 		return () => document.removeEventListener('keyup', keystrokeEventHandler);
 	}, []);
 
+	useEffect(() => {
+		if (name !== curWindowName) return;
+
+		document.body.style.overflow = 'hidden';
+
+		return () => {
+			document.body.style.overflow = 'auto';
+		};
+	}, [curWindowName]);
+
 	if (name !== curWindowName) return null;
 
 	return createPortal(
