@@ -42,21 +42,24 @@ function GeneralHeaderMenuUl({
 	ref?: React.RefObject<HTMLDivElement>;
 }) {
 	return (
-		<div
-			ref={ref}
-			className="absolute top-[34px] flex flex-col items-center rounded-md border border-solid bg-[#fff] p-1">
-			<div className="relative h-2 w-full">
-				<span
-					className="text-md absolute right-1 hover:cursor-pointer"
-					onClick={onClose}>
-					<HiOutlineX />
-				</span>
-			</div>
+		<>
+			<div
+				ref={ref}
+				className="absolute top-[34px] z-10 flex flex-col items-center rounded-md border border-solid bg-[#fff] p-1">
+				<div className="relative h-2 w-full">
+					<span
+						className="text-md absolute right-1 hover:cursor-pointer"
+						onClick={onClose}>
+						<HiOutlineX />
+					</span>
+				</div>
 
-			<div className="flex w-24 flex-col items-center divide-y  ">
-				{children}
+				<div className="flex w-24 flex-col items-center divide-y  ">
+					{children}
+				</div>
 			</div>
-		</div>
+			<div className="fixed inset-0 h-full w-full" onClick={onClose}></div>
+		</>
 	);
 }
 
