@@ -10,7 +10,9 @@ const DropDown = ({ children }: { children: React.ReactNode }) => {
 	const close = useCallback(() => setName(''), []);
 
 	return (
-		<ModalProvider value={{ name, open, close }}>{children}</ModalProvider>
+		<ModalProvider value={{ name }} action={{ open, close }}>
+			{children}
+		</ModalProvider>
 	);
 };
 

@@ -2,7 +2,10 @@ import { useContext } from 'react';
 
 import { AuthServiceContext } from '@/contexts/auth-service.context.tsx';
 import { BookServiceContext } from '@/contexts/book-service.context.tsx';
-import { ModalContext } from '@/contexts/modal.context.tsx';
+import {
+	ModalActionContext,
+	ModalValueContext,
+} from '@/contexts/modal.context.tsx';
 import { RentalServiceContext } from '@/contexts/rental-service.context.tsx';
 import { UserServiceContext } from '@/contexts/user-service.context.tsx';
 
@@ -39,8 +42,11 @@ export const useUserService = () => {
 };
 
 export const useModal = () => {
-	const value = useContext(ModalContext);
-	if (!value) throw new Error('useModal needs ModalContextProvider.');
+	const value = useContext(ModalValueContext);
+	const action = useContext(ModalActionContext);
 
-	return value;
+	if (!value || !action)
+		throw new Error('useModal needs ModalContextProvider.');
+
+	return { ...value, ...action };
 };
