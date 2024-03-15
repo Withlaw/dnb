@@ -16,7 +16,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"test": "vitest",
-		"test:run": "vitest run && tsc",
+		"test:run": "tsc && vitest run",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"mylint": "eslint .",
 		"preview": "vite preview",
